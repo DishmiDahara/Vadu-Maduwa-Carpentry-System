@@ -1,0 +1,85 @@
+/* WoodCraftPro Custom Glassmorphism & Micro-animations */
+
+@layer utilities {
+  .brand-font-sinhala {
+    font-family: 'Noto Sans Sinhala', 'Outfit', 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-panel-dark {
+    background: rgba(28, 31, 38, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F1F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C68B59;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8B4513;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge-new { background: #E0F2FE; color: #0284C7; }
+.badge-contacted { background: #FEF3C7; color: #D97706; }
+.badge-completed { background: #D1FAE5; color: #059669; }
+.badge-unpaid { background: #FEE2E2; color: #DC2626; }
+.badge-partial { background: #FEF3C7; color: #D97706; }
+.badge-paid { background: #D1FAE5; color: #059669; }
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+/* Hide scrollbar for category tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
