@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Search, Filter } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { api } from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -37,7 +39,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
       <div className="bg-gradient-to-r from-[#1C1F26] to-[#2E241E] text-white p-8 sm:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-gray-800">
         <div>
           <span className="text-xs font-bold text-[#C68B59] uppercase tracking-widest">Handcrafted Furniture</span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-white mt-1">Furniture Product Catalog</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-white mt-1">{t('catalog')}</h1>
           <p className="text-gray-300 text-sm mt-2 max-w-xl">
             Browse our ready-made timber designs or select any item to request custom dimensions and wood species.
           </p>
