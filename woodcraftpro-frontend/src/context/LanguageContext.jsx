@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 const translations = {
   EN: {
-    brandName: 'Vadu Maduwa',
+    brandName: 'වඩු මඩුව',
     brandTag: 'Carpentry Workshop',
     home: 'Home',
     catalog: 'Furniture Catalog',
@@ -260,7 +260,6 @@ const translations = {
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  // Default to English EN for ultra-sleek professional presentation
   const [lang, setLang] = useState('EN');
 
   const t = (key) => {
