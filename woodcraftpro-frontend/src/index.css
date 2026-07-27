@@ -2,9 +2,9 @@
 
 @layer utilities {
   .brand-font-sinhala {
-    font-family: 'Noto Sans Sinhala', 'Outfit', 'Inter', sans-serif;
+    font-family: 'Abhaya Libre', 'Noto Sans Sinhala', serif;
     font-weight: 800;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
   }
 
   .glass-panel {
