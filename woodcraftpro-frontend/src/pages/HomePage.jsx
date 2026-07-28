@@ -26,11 +26,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <div className="relative max-w-7xl mx-auto px-5 sm:px-12 py-8 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-wider">
-              <Sparkles className="w-4 h-4" />
-              {t('heroBadge')}
-            </div>
-
             <h1 className="text-3xl sm:text-6xl font-extrabold font-heading leading-tight tracking-tight text-white">
               {t('heroTitle1')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C68B59] to-[#E5AA70]">
@@ -50,14 +45,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 {t('browseCatalog')}
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <button
-                onClick={onOpenInquiry}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-2xl font-medium text-sm backdrop-blur-md transition-all active:scale-95"
-              >
-                {t('requestCustomQuote')}
-              </button>
             </div>
+
 
             <div className="pt-6 grid grid-cols-3 gap-6 border-t border-gray-800/80">
               <div>
