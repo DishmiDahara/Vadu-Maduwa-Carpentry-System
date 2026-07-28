@@ -44,19 +44,8 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
             Browse our ready-made timber designs or select any item to request custom dimensions and wood species.
           </p>
         </div>
-
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <Search className="w-5 h-5 text-gray-400 absolute left-3.5 top-3.5" />
-          <input
-            type="text"
-            placeholder="Search bed, table, wardrobe..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 bg-white/10 text-white placeholder-gray-400 rounded-2xl border border-white/20 focus:border-[#C68B59] focus:outline-none text-sm backdrop-blur-md"
-          />
-        </div>
       </div>
+
 
       {/* Category Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-gray-200 no-scrollbar">
