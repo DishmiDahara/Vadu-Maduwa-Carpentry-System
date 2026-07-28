@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd woodcraftpro-frontend && npm run build",
+  "outputDirectory": "woodcraftpro-frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
