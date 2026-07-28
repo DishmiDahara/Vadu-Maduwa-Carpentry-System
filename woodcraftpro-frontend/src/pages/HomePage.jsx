@@ -4,6 +4,43 @@ import ProductCard from '../components/ProductCard';
 import { api } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 
+// Helper component to smoothly animate counting up numbers
+function AnimatedStatNumber({ text }) {
+  const [displayValue, setDisplayValue] = useState(0);
+  
+  // Extract number from string like "15+ Years", "1,200+", "100% Teak"
+  const match = text.match(/\d+(?:,\d+)?/);
+  const targetNumber = match ? parseInt(match[0].replace(/,/g, ''), 10) : 0;
+  
+  useEffect(() => {
+    if (!targetNumber) return;
+    let start = 0;
+    const duration = 1800; // 1.8 seconds smooth animation
+    const startTime = performance.now();
+
+    const updateCount = (currentTime) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+      // Ease out cubic easing formula
+      const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.floor(easeOutProgress * targetNumber);
+      
+      setDisplayValue(currentVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  }, [text, targetNumber]);
+
+  if (!match) return <span>{text}</span>;
+
+  const formattedNum = displayValue.toLocaleString();
+  return <span>{text.replace(match[0], formattedNum)}</span>;
+}
+
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
   const { t } = useLanguage();
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -50,20 +87,27 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div className="pt-6 grid grid-cols-3 gap-6 border-t border-gray-800/80">
               <div>
-                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statYears')}</span>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">
+                  <AnimatedStatNumber text={t('statYears')} />
+                </span>
                 <p className="text-[10px] sm:text-xs text-gray-400">{t('statYearsSub')}</p>
               </div>
               <div>
-                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statProjects')}</span>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">
+                  <AnimatedStatNumber text={t('statProjects')} />
+                </span>
                 <p className="text-[10px] sm:text-xs text-gray-400">{t('statProjectsSub')}</p>
               </div>
               <div>
-                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statTimber')}</span>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">
+                  <AnimatedStatNumber text={t('statTimber')} />
+                </span>
                 <p className="text-[10px] sm:text-xs text-gray-400">{t('statTimberSub')}</p>
               </div>
             </div>
 
           </div>
+
 
           {/* Right Hero Image Card (Visible on all screen sizes) */}
           <div className="lg:col-span-5 relative block mt-4 lg:mt-0">
