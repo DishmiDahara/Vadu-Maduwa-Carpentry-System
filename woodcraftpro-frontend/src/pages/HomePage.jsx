@@ -77,8 +77,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
           {/* Right Hero Image Card */}
-          <div className="lg:col-span-5 relative hidden lg:block">
+          <div className="lg:col-span-5 relative block mt-6 lg:mt-0">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-500/20 group">
+
               <img
                 src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80"
                 alt="Teak Dining Set"
