@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Hammer, PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import logoImg from '../assets/logo.png';
 
 export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUser, onLogout }) {
   const { lang, setLang, t } = useLanguage();
@@ -39,9 +40,12 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             onClick={() => handleNavClick('home')} 
             className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#C68B59] to-[#8B4513] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-              <Hammer className="w-5 h-5 sm:w-6 sm:h-6" />
-            </div>
+            <img 
+              src={logoImg} 
+              alt="Logo" 
+              className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-105 transition-transform" 
+            />
+
             <div>
               <span className="text-2xl sm:text-3xl brand-font-sinhala tracking-tight text-gray-900 group-hover:text-[#C68B59] transition-colors">
                 {t('brandName')}

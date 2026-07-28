@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hammer, Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import logoImg from '../assets/logo.png';
 
 export default function Footer({ setActiveTab, onOpenInquiry }) {
   const { t } = useLanguage();
@@ -13,11 +14,10 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#C68B59] flex items-center justify-center text-white">
-                <Hammer className="w-5 h-5" />
-              </div>
+              <img src={logoImg} alt="Logo" className="w-10 h-10 object-contain" />
               <span className="text-3xl brand-font-sinhala text-white">{t('brandName')}</span>
             </div>
+
             <p className="text-gray-400 text-sm leading-relaxed">
               {t('heroDesc')}
             </p>
