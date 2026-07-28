@@ -18,12 +18,12 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
     <div className="space-y-20 pb-16">
       
       {/* Hero Section */}
-      <section className="relative min-h-[580px] bg-gradient-to-br from-[#121417] via-[#1C1F26] to-[#2E241E] text-white overflow-hidden rounded-3xl mx-4 sm:mx-8 mt-4 shadow-2xl border border-gray-800 flex items-center">
+      <section className="relative bg-gradient-to-br from-[#121417] via-[#1C1F26] to-[#2E241E] text-white overflow-hidden rounded-3xl mx-3 sm:mx-8 mt-4 shadow-2xl border border-gray-800">
         
         {/* Background Overlay Image */}
         <div className="absolute inset-0 opacity-25 bg-[url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center mix-blend-overlay"></div>
         
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-12 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-12 py-8 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-wider">
@@ -31,14 +31,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               {t('heroBadge')}
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold font-heading leading-tight tracking-tight text-white">
+            <h1 className="text-3xl sm:text-6xl font-extrabold font-heading leading-tight tracking-tight text-white">
               {t('heroTitle1')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C68B59] to-[#E5AA70]">
                 {t('heroTitle2')}
               </span>
             </h1>
 
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl font-light">
+            <p className="text-gray-300 text-sm sm:text-lg leading-relaxed max-w-2xl font-light">
               {t('heroDesc')}
             </p>
 
@@ -61,30 +61,30 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div className="pt-6 grid grid-cols-3 gap-6 border-t border-gray-800/80">
               <div>
-                <span className="text-2xl font-bold font-heading text-white">{t('statYears')}</span>
-                <p className="text-xs text-gray-400">{t('statYearsSub')}</p>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statYears')}</span>
+                <p className="text-[10px] sm:text-xs text-gray-400">{t('statYearsSub')}</p>
               </div>
               <div>
-                <span className="text-2xl font-bold font-heading text-white">{t('statProjects')}</span>
-                <p className="text-xs text-gray-400">{t('statProjectsSub')}</p>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statProjects')}</span>
+                <p className="text-[10px] sm:text-xs text-gray-400">{t('statProjectsSub')}</p>
               </div>
               <div>
-                <span className="text-2xl font-bold font-heading text-white">{t('statTimber')}</span>
-                <p className="text-xs text-gray-400">{t('statTimberSub')}</p>
+                <span className="text-xl sm:text-2xl font-bold font-heading text-white">{t('statTimber')}</span>
+                <p className="text-[10px] sm:text-xs text-gray-400">{t('statTimberSub')}</p>
               </div>
             </div>
 
           </div>
 
-          {/* Right Hero Image Card */}
-          <div className="lg:col-span-5 relative block mt-6 lg:mt-0">
+          {/* Right Hero Image Card (Visible on all screen sizes) */}
+          <div className="lg:col-span-5 relative block mt-4 lg:mt-0">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-500/20 group">
-
               <img
                 src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80"
                 alt="Teak Dining Set"
-                className="w-full h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-[260px] sm:h-[340px] lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
               />
+
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6 text-white p-4 glass-panel-dark rounded-2xl">
                 <p className="text-xs text-amber-400 font-semibold uppercase tracking-wider">{t('featuredCraft')}</p>
