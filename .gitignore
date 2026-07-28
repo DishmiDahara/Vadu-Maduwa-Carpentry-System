@@ -4,6 +4,10 @@ dist/
 dist-ssr/
 *.local
 
+# Database folder (sensitive SQL files)
+database/
+*.sql
+
 # Java Maven / Spring Boot build outputs
 target/
 *.class
