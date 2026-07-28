@@ -38,24 +38,16 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
           {/* Brand Logo */}
           <div 
             onClick={() => handleNavClick('home')} 
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
+            className="flex items-center cursor-pointer group py-1"
           >
             <img 
               src={logoImg} 
-              alt="Logo" 
-              className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-105 transition-transform" 
+              alt="වඩු මඩුව Carpentry Workshop" 
+              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
             />
-
-            <div>
-              <span className="text-2xl sm:text-3xl brand-font-sinhala tracking-tight text-gray-900 group-hover:text-[#C68B59] transition-colors">
-                {t('brandName')}
-              </span>
-              <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-semibold -mt-1">
-                {t('brandTag')}
-              </p>
-            </div>
           </div>
         </div>
+
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-1 bg-gray-100/80 p-1.5 rounded-full border border-gray-200">
