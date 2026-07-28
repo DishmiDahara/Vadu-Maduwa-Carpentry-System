@@ -1,0 +1,8 @@
+[build]
+  command = "cd woodcraftpro-frontend && npm run build"
+  publish = "woodcraftpro-frontend/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
