@@ -63,16 +63,6 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#1C1F26] to-[#2E241E] text-white p-8 sm:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-gray-800">
-        <div>
-          <span className="text-xs font-bold text-[#C68B59] uppercase tracking-widest">Handcrafted Furniture</span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-white mt-1">{t('catalog')}</h1>
-          <p className="text-gray-300 text-sm mt-2 max-w-xl">
-            Browse our ready-made timber designs or select any item to request custom dimensions and wood species.
-          </p>
-        </div>
-      </div>
 
       {/* Category Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-gray-200 no-scrollbar">
