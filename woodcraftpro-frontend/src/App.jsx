@@ -83,11 +83,13 @@ export default function App() {
           )}
         </main>
 
-        {/* Footer */}
-        <Footer
-          setActiveTab={setActiveTab}
-          onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
-        />
+        {/* Footer (Hidden on home page so home matches mockup bottom contact bar) */}
+        {activeTab !== 'home' && (
+          <Footer
+            setActiveTab={setActiveTab}
+            onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
+          />
+        )}
 
         {/* Customer Inquiry Modal */}
         <InquiryModal

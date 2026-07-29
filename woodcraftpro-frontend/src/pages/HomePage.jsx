@@ -21,19 +21,10 @@ import {
   Users,
   Check
 } from 'lucide-react';
-import ProductCard from '../components/ProductCard';
-import { api } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
   const { t } = useLanguage();
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    api.getProducts().then(res => setFeaturedProducts(res.slice(0, 4)));
-    api.getCategories().then(res => setCategories(res));
-  }, []);
 
   // Quick Category Strip items (matching mockup)
   const quickCategories = [
@@ -83,7 +74,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
   };
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-24 text-gray-900 font-sans">
+    <div className="space-y-10 sm:space-y-14 pb-12 text-gray-900 font-sans">
       
       {/* 1. HERO SECTION (Asymmetric Dark Split Theme Matching Mockup) */}
       <section className="relative bg-[#16181D] text-white overflow-hidden rounded-3xl mx-2 sm:mx-6 lg:mx-8 mt-3 shadow-2xl border border-amber-900/30">
@@ -323,10 +314,10 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
       {/* 3. WHAT WE SPECIALIZE IN SECTION (Mockup Cards Grid / Slider) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         
         {/* Section Title with Gold Accents */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3">
             <div className="h-[1px] w-12 bg-amber-400"></div>
             <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-gray-900">
@@ -373,7 +364,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
       {/* 4. VALUE PROPOSITIONS & PERKS STRIP (Matching Mockup Bottom Icons) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="bg-amber-50/40 rounded-3xl p-6 sm:p-8 border border-amber-100/60 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-center">
           
           <div className="flex flex-col items-center space-y-2">
@@ -415,38 +406,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       </section>
 
 
-      {/* 5. FEATURED PRODUCTS CATALOG PREVIEW */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
-          <div>
-            <span className="text-xs font-bold text-[#C68B59] uppercase tracking-widest">{t('popularChoices')}</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-gray-900 mt-1">{t('featuredProducts')}</h2>
-          </div>
-          <button
-            onClick={() => setActiveTab('catalog')}
-            className="text-sm font-bold text-[#C68B59] hover:text-[#8B4513] flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            {t('browseFullCatalog')} <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((p) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              onSelectForQuote={(prod) => {
-                onSelectProductForQuote(prod);
-                onOpenInquiry();
-              }}
-            />
-          ))}
-        </div>
-      </section>
-
-
-      {/* 6. BOTTOM CONTACT STICKY BANNER (Matching Mockup Bottom Pill Bar) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      {/* 5. BOTTOM CONTACT STICKY BANNER (Matching Mockup Bottom Pill Bar) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
         <div className="bg-[#21242B] text-white rounded-3xl p-5 sm:p-7 shadow-2xl border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center divide-y md:divide-y-0 md:divide-x divide-white/10">
           
           {/* Action 1: WhatsApp */}
