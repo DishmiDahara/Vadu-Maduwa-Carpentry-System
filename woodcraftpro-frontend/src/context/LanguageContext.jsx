@@ -142,7 +142,15 @@ const translations = {
     callUsNow: 'Call Us Now',
     callNumber: '077 376 9849',
     visitShowroom: 'Visit Our Showroom',
-    showroomAddress: 'Dodangoda / Kalutara, Sri Lanka'
+    showroomAddress: 'Dodangoda / Kalutara, Sri Lanka',
+
+    // Mobile Specific UI
+    ourServices: 'Our Services',
+    featuredProjectsTitle: 'Featured Projects',
+    projectsStat: 'Projects',
+    callNow: 'Call Now',
+    locationNav: 'Location',
+    whatsappNav: 'WhatsApp'
   },
 
   SI: {
