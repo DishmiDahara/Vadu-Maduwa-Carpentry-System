@@ -167,13 +167,13 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           {/* Right Column: 6-Photo Craft Collage Grid + Overlaid Glass Checkmark Badge */}
           <div className="lg:col-span-6 relative mt-4 lg:mt-0">
             
-            {/* Collage Grid (3 columns x 2 rows) */}
+            {/* Collage Grid (3 columns x 2 rows) using banner_high_quality.png assets */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5">
               
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
-                  alt="Teak Entrance Door"
+                  src="/banner_crafts/door_main.jpg"
+                  alt="Teak Entrance Door Frame & Panel"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -181,8 +181,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
-                  alt="Staircase Railing"
+                  src="/banner_crafts/staircase_main.jpg"
+                  alt="Polished Teak Staircase & Handrail"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -190,8 +190,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10 col-span-2 sm:col-span-1">
                 <img
-                  src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80"
-                  alt="Pantry Cupboards"
+                  src="/banner_crafts/pantry_main.jpg"
+                  alt="Luxury Teak Kitchen Pantry Cupboards"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -199,8 +199,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80"
-                  alt="Teak Bedroom Suite"
+                  src="/banner_crafts/carving_main.jpg"
+                  alt="Intricate Hand-carved Wood Art Panel"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -208,8 +208,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=80"
-                  alt="Dining Set"
+                  src="/banner_crafts/door_detail.jpg"
+                  alt="Hand-carved Door Detail"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -217,8 +217,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
               <div className="relative rounded-2xl overflow-hidden shadow-md group h-36 sm:h-44 border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80"
-                  alt="Solid Teak Wardrobe"
+                  src="/banner_crafts/pantry_detail.jpg"
+                  alt="Teak Cabinetry Detail"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
