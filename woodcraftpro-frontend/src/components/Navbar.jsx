@@ -8,11 +8,11 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'home', label: t('home') },
-    { id: 'catalog', label: t('catalog') },
-    { id: 'services', label: t('services') },
-    { id: 'gallery', label: t('gallery') },
-    { id: 'contact', label: t('contact') },
+    { id: 'catalog', label: `${t('catalog')} ▾`, action: 'catalog' },
+    { id: 'gallery', label: t('projects'), action: 'gallery' },
+    { id: 'services', label: t('aboutUs'), action: 'services' },
+    { id: 'why-teak', label: t('whyTeak'), action: 'services' },
+    { id: 'contact', label: t('contact'), action: 'contact' },
   ];
 
   const handleNavClick = (id) => {
@@ -21,21 +21,21 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
   };
 
   return (
-    <header className="sticky top-0 z-50 glass-panel border-b border-gray-200/50 shadow-sm transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#16181D]/95 backdrop-blur-xl border-b border-amber-900/20 text-white shadow-xl transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between">
         
         {/* Left Section: Brand Logo & Mobile Menu Toggle */}
         <div className="flex items-center gap-3">
-          {/* Mobile Hamburger Toggle (3 lines icon) */}
+          {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-[#C68B59] hover:bg-gray-100 rounded-xl transition-colors"
+            className="md:hidden p-2 text-amber-200 hover:text-white hover:bg-amber-900/30 rounded-xl transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo */}
+          {/* Brand Logo Plaque */}
           <div 
             onClick={() => handleNavClick('home')} 
             className="flex items-center cursor-pointer group py-1"
@@ -43,23 +43,21 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             <img 
               src={logoImg} 
               alt="වඩු මඩුව Carpentry Workshop" 
-              className="h-14 sm:h-16 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform" 
+              className="h-14 sm:h-16 md:h-18 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-lg" 
             />
           </div>
         </div>
 
-
-
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-gray-100/80 p-1.5 rounded-full border border-gray-200">
+        <nav className="hidden md:flex items-center gap-2 lg:gap-4">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
-                activeTab === item.id
-                  ? 'bg-white text-[#C68B59] shadow-sm font-semibold'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+              onClick={() => handleNavClick(item.action)}
+              className={`px-3.5 py-1.5 text-sm font-medium transition-all rounded-xl ${
+                activeTab === item.action
+                  ? 'text-amber-400 font-semibold bg-white/10'
+                  : 'text-gray-200 hover:text-white hover:bg-white/5'
               }`}
             >
               {item.label}
@@ -67,20 +65,20 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
           ))}
         </nav>
 
-        {/* Right Actions & Trilingual Switcher */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
+        {/* Right Actions & Language Selector Dropdown */}
+        <div className="flex items-center gap-2 sm:gap-3">
           
-          {/* Trilingual Language Selector Dropdown */}
-          <div className="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200 text-xs font-bold">
-            <Globe className="w-3.5 h-3.5 text-[#C68B59] ml-1.5 sm:ml-2 mr-0.5 sm:mr-1" />
+          {/* Trilingual Language Selector Pill (Mockup Match) */}
+          <div className="flex items-center bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-xl border border-white/15 text-xs font-semibold text-white backdrop-blur-md transition-all">
+            <Globe className="w-3.5 h-3.5 text-amber-400 mr-1.5" />
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value)}
-              className="bg-transparent text-gray-800 font-bold outline-none cursor-pointer pr-1 sm:pr-2 py-1 text-xs"
+              className="bg-transparent text-white font-semibold outline-none cursor-pointer pr-1 py-0.5 text-xs"
             >
-              <option value="SI">සිංහල (SI)</option>
-              <option value="EN">English (EN)</option>
-              <option value="TA">தமிழ் (TA)</option>
+              <option value="EN" className="bg-[#1C1F26] text-white">English (EN)</option>
+              <option value="SI" className="bg-[#1C1F26] text-white">සිංහල (SI)</option>
+              <option value="TA" className="bg-[#1C1F26] text-white">தமிழ் (TA)</option>
             </select>
           </div>
 

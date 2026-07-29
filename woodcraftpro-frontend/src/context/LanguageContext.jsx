@@ -83,7 +83,66 @@ const translations = {
     newInquiries: 'New Inquiries',
     catalogItems: 'Catalogue Items',
     convertInvoice: 'Convert to Invoice',
-    recordPayment: 'Record Payment'
+    recordPayment: 'Record Payment',
+
+    // Hero & Features (Mockup UI)
+    yearsCraftsmanship: '15+ YEARS OF CRAFTSMANSHIP',
+    craftingTimeless: 'Crafting Timeless',
+    woodenInteriors: 'Wooden Interiors',
+    heroDescMockup: 'From premium teak doors and staircases to kitchens, bedrooms and custom furniture – crafted with precision, built to last generations.',
+    whatsAppNow: 'WhatsApp Now',
+    genuineTeakCheck: 'Genuine Sri Lankan Teak',
+    customDesignsCheck: 'Custom Designs',
+    skilledCraftsmenCheck: 'Skilled Local Craftsmen',
+    longLastingQualityCheck: 'Long Lasting Quality',
+    trustedFamilies: 'Trusted by 1200+ Sri Lankan Families',
+
+    // Nav & Menu Items
+    projects: 'Projects',
+    aboutUs: 'About Us',
+    whyTeak: 'Why Teak?',
+
+    // Category Quick Icons
+    doorsCategory: 'Doors',
+    staircasesCategory: 'Staircases',
+    pantryCategory: 'Pantry',
+    bedroomsCategory: 'Bedrooms',
+    diningCategory: 'Dining',
+    furnitureCategory: 'Furniture',
+
+    // Stats
+    happyCustomers: 'Happy Customers',
+    yearsExperience: 'Years Experience',
+    genuineTeak: 'Genuine Teak',
+    islandwideDelivery: 'Islandwide',
+    islandwideDeliverySub: 'Delivery',
+    warrantyAvailable: 'Warranty',
+    warrantyAvailableSub: 'Available',
+
+    // What We Specialize In
+    whatWeSpecializeIn: 'What We Specialize In',
+    mainDoors: 'Main Doors',
+    bedroomDoors: 'Bedroom Doors',
+    staircases: 'Staircases',
+    pantryKitchens: 'Pantry & Kitchens',
+    diningSets: 'Dining Sets',
+    beds: 'Beds',
+    cupboardsWardrobes: 'Cupboards & Wardrobes',
+
+    // Value Propositions
+    freeSiteVisit: 'Free Site Visit & Measurements',
+    customMadeForSpace: 'Custom Made For Your Space',
+    premiumQualityFinishes: 'Premium Quality Finishes',
+    expertInstallation: 'Expert Installation Service',
+    afterSalesSupport: 'After Sales Support',
+
+    // Bottom Contact Bar
+    chatOnWhatsApp: 'Chat on WhatsApp',
+    getQuickQuotes: 'Get quick quotes',
+    callUsNow: 'Call Us Now',
+    callNumber: '077 376 9849',
+    visitShowroom: 'Visit Our Showroom',
+    showroomAddress: 'Dodangoda / Kalutara, Sri Lanka'
   },
 
   SI: {
@@ -103,7 +162,7 @@ const translations = {
     heroTitle1: 'අතින් නිර්මාණය කළ',
     heroTitle2: 'උසස්ම ලී නිර්මාණ',
     heroDesc: 'තේක්ක ඇඳන්, කෑම මේස, පැන්ට්‍රි කබඩ් සහ ප්‍රධාන දොර ජනෙල් දක්වා උසස්ම ප්‍රමිතියෙන් යුතු වඩු කාර්මික සේවාවන්.',
-    browseCatalog: 'ගෘහ භාණ්ඩ නරඹන්න',
+    browseCatalog: 'Browse Catalogue',
     requestCustomQuote: 'මිල ගණන් කැඳවන්න',
     statYears: 'අවුරුදු 15+',
     statYearsSub: 'විශ්වසනීය සේවය',
