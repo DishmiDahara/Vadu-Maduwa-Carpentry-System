@@ -96,54 +96,9 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
       </div>
 
       {/* Quick Filter & Sort Options Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-wrap items-center justify-end gap-4">
         
-        {/* Timber Wood Filter Badges */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5 mr-1">
-            <Filter className="w-3.5 h-3.5 text-[#C68B59]" /> Timber Species:
-          </span>
-          <button
-            onClick={() => setWoodFilter('ALL')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              woodFilter === 'ALL'
-                ? 'bg-amber-100 text-[#8B4513] border border-amber-300 shadow-sm'
-                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            All Timber
-          </button>
-          <button
-            onClick={() => setWoodFilter('TEAK')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              woodFilter === 'TEAK'
-                ? 'bg-amber-100 text-[#8B4513] border border-amber-300 shadow-sm'
-                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            Teak Wood (තේක්ක)
-          </button>
-          <button
-            onClick={() => setWoodFilter('MAHOGANY')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              woodFilter === 'MAHOGANY'
-                ? 'bg-amber-100 text-[#8B4513] border border-amber-300 shadow-sm'
-                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            Mahogany (මහෝගනි)
-          </button>
-          <button
-            onClick={() => setWoodFilter('NADUN')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              woodFilter === 'NADUN'
-                ? 'bg-amber-100 text-[#8B4513] border border-amber-300 shadow-sm'
-                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            Nadun (නදුන්)
-          </button>
-        </div>
+
 
         {/* Sort By Selector */}
         <div className="flex items-center gap-2">
