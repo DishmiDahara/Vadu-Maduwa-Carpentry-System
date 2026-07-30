@@ -58,16 +58,16 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         {/* ========================================================
             1. HERO SLIDER BANNER (Matching Mockup Screenshot 100%)
            ======================================================== */}
-        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-white min-h-[480px] sm:min-h-[520px] flex items-center">
+        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[480px] sm:min-h-[520px] flex items-center">
           
-          {/* Generated High-Res Living Room Armchair Background */}
+          {/* Generated High-Res Living Room Armchair Background Image */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700"
+            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-transform duration-700"
             style={{ backgroundImage: `url('/hero_armchair.png')` }}
           ></div>
 
-          {/* Vignette Overlay for Crisp Sinhala Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent"></div>
+          {/* Subtle vignette gradient overlay allowing image on right to shine through */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/75 sm:via-[#FAF8F5]/60 to-transparent"></div>
 
           {/* Slider Left / Right Navigation Controls */}
           <button className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 transition-all">
