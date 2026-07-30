@@ -599,10 +599,9 @@ ${orderDescription.trim() || 'නැත'}`;
               <h3 className="text-xl font-black text-[#2B190E] font-heading">
                 ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී!<br />
                 අප ඔබව ඉක්මනින් සම්බන්ද කරගන්නෙමු !
-
               </h3>
               <p className="text-xs text-[#7A6252] leading-relaxed">
-                ස්තූතියි <strong>{userName}</strong>! ඔබගේ අභිරුචි ඇණවුම් විස්තර සහ තොරතුරු <strong>0779743901</strong> අංකයට WhatsApp මගින් යැවුණි. කෙටි වේලාවකින් අපගේ වඩු කාර්මික කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත.
+                ස්තූතියි <strong>{userName}</strong>! ඔබගේ අභිරුචි ඇණවුම් විස්තර සහ තොරතුරු අප වෙත ලැබුණී.
               </p>
             </div>
 
