@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Heart, 
-  ArrowRight, 
-  ChevronLeft, 
-  ChevronRight, 
-  ShieldCheck, 
-  Award, 
-  Hammer, 
-  Truck, 
-  Wrench, 
-  Paintbrush, 
+import {
+  Heart,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  Award,
+  Hammer,
+  Truck,
+  Wrench,
+  Paintbrush,
   Sparkles,
   Users,
   CheckCircle2,
@@ -25,27 +25,12 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
     {
       image: '/hero_armchair.png',
       badge: 'PREMIUM QUALITY WOODWORK',
-      titleLine1: 'ඔබේ නිවසට',
-      titleLine2: 'වටිනාකමක් එකතු කරන්න',
-      descLine1: 'අවුරුදු 25කට අධික පළපුරුද්ද සහිත වඩු මඩුව,',
-      descLine2: 'ඔබේ සිහින ලී නිර්මාණය වාසනාව කරගැනීමට ඔබ සමඟයි.'
+      titleLine1: 'ඔබේ අදහසට',
+      titleLine2: 'ජීවය දෙන දැව නිර්මාණ',
+      descLine1: 'උළුවහු, දොර ජනෙල්, පැන්ට්‍රි කබඩ්, පඩිපෙළ අත්වැටවල් හා සියලු කැටයම් වැඩ',
+      descLine2: 'ඔබේ අවශ්‍යතාවයට හා මිනුම්වලට අනුව උසස්ම නිමාවෙන්.'
     },
-    {
-      image: '/dining_table.png',
-      badge: 'CUSTOM DINING COLLECTION',
-      titleLine1: 'උසස් නිමාවෙන් යුත්',
-      titleLine2: 'තේක්ක කෑම මේස සෙට්',
-      descLine1: '100% ස්වාභාවික තේක්ක සහ මහෝගනි ලීයෙන් නිමවන ලද',
-      descLine2: 'කල්පවතින ශ්‍රී ලාංකීය වඩු නිර්මාණ.'
-    },
-    {
-      image: '/wooden_bed.png',
-      badge: 'LUXURY BEDROOM FURNITURE',
-      titleLine1: 'විශ්වසනීය අභිරුචි',
-      titleLine2: 'ලී ඇඳන් සහ ගෘහ භාණ්ඩ',
-      descLine1: 'ඔබේ කාමරයේ ඉඩකඩට සහ රුචිකත්වයට ගැළපෙන පරිදි',
-      descLine2: '3D මගින් සකසා සාදාගන්න.'
-    }
+
   ];
 
   // Auto-play slideshow timer (every 4.5 seconds)
@@ -105,9 +90,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             1. HERO SLIDER BANNER (Interactive Auto-Playing Carousel)
            ======================================================== */}
         <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[480px] sm:min-h-[520px] flex items-center">
-          
+
           {/* Dynamic Background Image with Smooth Fade Transition */}
-          <div 
+          <div
             key={currentSlideIndex}
             className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
             style={{ backgroundImage: `url('${currentSlide.image}')` }}
@@ -117,7 +102,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 sm:via-[#FAF8F5]/65 to-transparent"></div>
 
           {/* Slider Left Arrow Button */}
-          <button 
+          <button
             onClick={prevSlide}
             aria-label="Previous Slide"
             className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
@@ -126,7 +111,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </button>
 
           {/* Slider Right Arrow Button */}
-          <button 
+          <button
             onClick={nextSlide}
             aria-label="Next Slide"
             className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
@@ -136,7 +121,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
           {/* Hero Content Block */}
           <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5">
-            
+
             {/* Top Leaf Sub-Badge */}
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full shadow-sm">
               <span>🍃</span>
@@ -214,11 +199,10 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 key={idx}
                 onClick={() => setCurrentSlideIndex(idx)}
                 aria-label={`Go to slide ${idx + 1}`}
-                className={`transition-all duration-300 cursor-pointer ${
-                  currentSlideIndex === idx
-                    ? 'w-6 h-2 rounded-full bg-[#3D2415]'
-                    : 'w-2 h-2 rounded-full bg-[#E8DEC8] hover:bg-[#8B5E3C]'
-                }`}
+                className={`transition-all duration-300 cursor-pointer ${currentSlideIndex === idx
+                  ? 'w-6 h-2 rounded-full bg-[#3D2415]'
+                  : 'w-2 h-2 rounded-full bg-[#E8DEC8] hover:bg-[#8B5E3C]'
+                  }`}
               />
             ))}
           </div>
@@ -230,10 +214,10 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             2. CATEGORY BAR + NEED SOMETHING UNIQUE CARD
            ======================================================== */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-          
+
           {/* Category Icons Strip (8 Cols) */}
           <div className="lg:col-span-8 bg-white border border-[#E8DEC8] rounded-2xl p-3 shadow-sm flex items-center justify-around overflow-x-auto no-scrollbar gap-2">
-            <div 
+            <div
               onClick={() => setActiveTab('catalog')}
               className="flex items-center gap-3 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
             >
@@ -244,7 +228,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
             </div>
 
-            <div 
+            <div
               onClick={() => setActiveTab('catalog')}
               className="flex items-center gap-3 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
             >
@@ -255,7 +239,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
             </div>
 
-            <div 
+            <div
               onClick={() => setActiveTab('catalog')}
               className="flex items-center gap-3 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
             >
@@ -266,7 +250,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
             </div>
 
-            <div 
+            <div
               onClick={() => setActiveTab('catalog')}
               className="flex items-center gap-3 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
             >
@@ -277,7 +261,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
             </div>
 
-            <div 
+            <div
               onClick={() => setActiveTab('catalog')}
               className="flex items-center gap-3 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
             >
@@ -380,7 +364,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
+
             {/* Service 1 */}
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
