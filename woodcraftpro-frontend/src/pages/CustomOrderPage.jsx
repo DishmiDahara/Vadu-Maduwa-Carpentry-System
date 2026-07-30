@@ -278,7 +278,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between pb-3 border-b border-[#3D2415]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-[#3D2415] text-amber-300 flex items-center justify-center text-lg shrink-0">
-                🪑
+
               </div>
               <div>
                 <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">Furniture Type</span>
@@ -597,7 +597,9 @@ ${orderDescription.trim() || 'නැත'}`;
 
             <div className="space-y-2">
               <h3 className="text-xl font-black text-[#2B190E] font-heading">
-                ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී!
+                ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී!<br />
+                අප ඔබව ඉක්මනින් සම්බන්ද කරගන්නෙමු !
+
               </h3>
               <p className="text-xs text-[#7A6252] leading-relaxed">
                 ස්තූතියි <strong>{userName}</strong>! ඔබගේ අභිරුචි ඇණවුම් විස්තර සහ තොරතුරු <strong>0779743901</strong> අංකයට WhatsApp මගින් යැවුණි. කෙටි වේලාවකින් අපගේ වඩු කාර්මික කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත.
