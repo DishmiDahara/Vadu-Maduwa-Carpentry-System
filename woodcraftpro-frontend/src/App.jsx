@@ -9,6 +9,7 @@ import CatalogPage from './pages/CatalogPage';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
+import CustomOrderPage from './pages/CustomOrderPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 
@@ -58,6 +59,9 @@ export default function App() {
               onSelectProductForQuote={handleOpenInquiryWithProduct}
               onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
             />
+          )}
+          {activeTab === 'custom-order' && (
+            <CustomOrderPage setActiveTab={setActiveTab} />
           )}
           {activeTab === 'catalog' && (
             <CatalogPage

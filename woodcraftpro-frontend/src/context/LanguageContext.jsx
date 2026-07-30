@@ -150,7 +150,31 @@ const translations = {
     projectsStat: 'Projects',
     callNow: 'Call Now',
     locationNav: 'Location',
-    whatsappNav: 'WhatsApp'
+    whatsappNav: 'WhatsApp',
+
+    // Custom Idea Builder & Trust Hub
+    customIdeaNav: 'Design Your Idea',
+    customIdeaHeroTitle: 'Have Your Own Custom Design Idea?',
+    customIdeaHeroSub: 'Upload any Pinterest photo, rough sketch, or custom measurement. We estimate the cost and handcraft it to perfection.',
+    selectWoodType: 'Select Wood Species',
+    selectDimensions: 'Dimensions & Measurements',
+    uploadSketchPhoto: 'Upload Reference Photo / Sketch',
+    estimatedCostRange: 'Estimated Cost Guideline',
+    estimateDisclaimer: 'Note: This is an estimated price guideline only. The final quote can be tailored and customized after discussing your exact specifications with our master carpenter.',
+    submitCustomOrder: 'Submit Order Request',
+    sendWhatsAppQuote: 'Get Instant WhatsApp Estimate',
+    teakWood: '100% Genuine Teak (තේක්ක)',
+    mahoganyWood: 'Seasoned Mahogany (මහෝගනි)',
+    nadunWood: 'Premium Nadun (නදුන්)',
+    jackWood: 'Solid Jackwood / Kos (කොස්)',
+    kumbukWood: 'Heavy Kumbuk (කුඹුක්)',
+    yearWarranty: 'Year Warranty',
+    guaranteeTeakTitle: '100% Genuine Treated Timber',
+    guaranteeTeakSub: 'Only Grade-A kiln-dried timber used to prevent warping or termites.',
+    craftsmanshipTitle: '15+ Years Master Carpentry',
+    craftsmanshipSub: 'Traditional Sri Lankan hand-carving combined with modern precision.',
+    transparentPricingTitle: 'Negotiable Custom Estimates',
+    transparentPricingSub: 'Flexible pricing tailored to your budget and wood preference.'
   },
 
   SI: {
@@ -170,7 +194,7 @@ const translations = {
     heroTitle1: 'අතින් නිර්මාණය කළ',
     heroTitle2: 'උසස්ම ලී නිර්මාණ',
     heroDesc: 'තේක්ක ඇඳන්, කෑම මේස, පැන්ට්‍රි කබඩ් සහ ප්‍රධාන දොර ජනෙල් දක්වා උසස්ම ප්‍රමිතියෙන් යුතු වඩු කාර්මික සේවාවන්.',
-    browseCatalog: 'Browse Catalogue',
+    browseCatalog: 'භාණ්ඩ ලැයිස්තුව',
     requestCustomQuote: 'මිල ගණන් කැඳවන්න',
     statYears: 'අවුරුදු 15+',
     statYearsSub: 'විශ්වසනීය සේවය',
@@ -235,7 +259,98 @@ const translations = {
     newInquiries: 'නව විමසීම්',
     catalogItems: 'භාණ්ඩ ප්‍රමාණය',
     convertInvoice: 'ඉන්වොයිසියක් කරන්න',
-    recordPayment: 'ගෙවීම සටහන් කරන්න'
+    recordPayment: 'ගෙවීම සටහන් කරන්න',
+
+    // Hero & Features (Mockup UI)
+    yearsCraftsmanship: 'අවුරුදු 15+ ක වඩු ශිල්ප නිපුනතාවය',
+    craftingTimeless: 'ඔබගේ හිතේ තියෙන',
+    woodenInteriors: 'ඕනෑම ලී නිර්මාණයක්',
+    heroDescMockup: 'තේක්ක දොරවල්, පඩිපෙළ, පැන්ට්‍රි කබඩ්, ඇඳන් සහ ඔබගේම අදහස් වලට අනුව සාදන සුවිශේෂී ගෘහ භාණ්ඩ.',
+    whatsAppNow: 'WhatsApp කරන්න',
+    genuineTeakCheck: '100% පිරිසිදු ලංකා තේක්ක',
+    customDesignsCheck: 'ඔබගේම Design එකට සාදාගත හැක',
+    skilledCraftsmenCheck: 'පළපුරුදු වඩු ශිල්පීන්',
+    longLastingQualityCheck: 'පරම්පරා ගණනාවක් පවතින සවිමත් බව',
+    trustedFamilies: '1200+ කට වැඩි විශ්වාසනීය පාරිභෝගික පදනමක්',
+
+    // Nav & Menu Items
+    projects: 'ව්‍යාපෘති',
+    aboutUs: 'අප ගැන',
+    whyTeak: 'තේක්ක ලී විශේෂත්වය',
+
+    // Category Quick Icons
+    doorsCategory: 'දොරවල්',
+    staircasesCategory: 'පඩිපෙළ',
+    pantryCategory: 'පැන්ට්‍රි කබඩ්',
+    bedroomsCategory: 'නිදන කාමර',
+    diningCategory: 'කෑම මේස',
+    furnitureCategory: 'ගෘහ භාණ්ඩ',
+
+    // Stats
+    happyCustomers: 'සෑහීමට පත් පාරිභෝගිකයින්',
+    yearsExperience: 'අවුරුදු පළපුරුද්ද',
+    genuineTeak: '100% තේක්ක ලී',
+    islandwideDelivery: 'දිවයින් පුරා',
+    islandwideDeliverySub: 'බෙදාහැරීම',
+    warrantyAvailable: 'වගකීම් සහතිකය',
+    warrantyAvailableSub: 'සහිතයි',
+
+    // What We Specialize In
+    whatWeSpecializeIn: 'අපගේ විශේෂත්වයන්',
+    mainDoors: 'ප්‍රධාන දොරවල්',
+    bedroomDoors: 'කාමර දොරවල්',
+    staircases: 'ලී පඩිපෙළ',
+    pantryKitchens: 'පැන්ට්‍රි කබඩ්',
+    diningSets: 'කෑම මේස කට්ටල',
+    beds: 'ඇඳන්',
+    cupboardsWardrobes: 'අල්මාරි සහ කබඩ්',
+
+    // Value Propositions
+    freeSiteVisit: 'නොමිලේ පැමිණ මැනීම් ලබාදීම',
+    customMadeForSpace: 'ඔබගේ ඉඩකඩට ගැළපෙන ලෙස සෑදීම',
+    premiumQualityFinishes: 'උසස්ම Finish එක',
+    expertInstallation: 'විශේෂඥ සවිකිරීමේ සේවාව',
+    afterSalesSupport: 'පසු අලෙවි සේවාව',
+
+    // Bottom Contact Bar
+    chatOnWhatsApp: 'WhatsApp හරහා සම්බන්ධ වන්න',
+    getQuickQuotes: 'ඉක්මන් මිල ගණන් ලබාගන්න',
+    callUsNow: 'දැන්ම අමතන්න',
+    callNumber: '077 376 9849',
+    visitShowroom: 'අපගේ වඩු මඩුවට පැමිණෙන්න',
+    showroomAddress: 'දොඩංගොඩ / කළුතර, ශ්‍රී ලංකාව',
+
+    // Mobile Specific UI
+    ourServices: 'අපගේ සේවාවන්',
+    featuredProjectsTitle: 'විශේෂිත ව්‍යාපෘති',
+    projectsStat: 'ව්‍යාපෘති',
+    callNow: 'ඇමතුමක්',
+    locationNav: 'ස්ථානය',
+    whatsappNav: 'WhatsApp',
+
+    // Custom Idea Builder & Trust Hub
+    customIdeaNav: 'ඔබගේ Idea එකට Order කරන්න',
+    customIdeaHeroTitle: 'ඔබගේ හිතේ තියෙන Idea එකට Design එකක් සදාගන්න',
+    customIdeaHeroSub: 'Pinterest photo එකක්, Sketch එකක් හෝ මැනීම් ලබාදෙන්න. අපි ඔබට ගැළපෙන දළ මිල ගණන් සමග සාදා දෙන්නෙමු.',
+    selectWoodType: 'ලී වර්ගය තෝරන්න',
+    selectDimensions: 'ප්‍රමාණය සහ මැනීම්',
+    uploadSketchPhoto: 'ඡායාරූපය / Sketch එක Upload කරන්න',
+    estimatedCostRange: 'අනුමාන දළ මිල ගණන්',
+    estimateDisclaimer: 'සැලකිය යුතුයි: මෙය ආසන්න දළ තක්සේරු මිලක් පමණි! (Estimated Guideline Price Only). ඔබගේ නිවසේ මැනීම් සහ නිර්මාණ අදහස අපගේ ශිල්පීන් සමග සාකච්ඡා කිරීමෙන් පසුව අවසන් මිල වෙනස් කරගත හැක.',
+    submitCustomOrder: 'Request එක යොමු කරන්න',
+    sendWhatsAppQuote: 'WhatsApp හරහා Instant Quote එකක් ගන්න',
+    teakWood: '100% පිරිසිදු තේක්ක (Teak)',
+    mahoganyWood: 'පදම් කළ මහෝගනි (Mahogany)',
+    nadunWood: 'උසස් ප්‍රමිතියේ නදුන් (Nadun)',
+    jackWood: 'සවිමත් කොස් ලී (Jackwood)',
+    kumbukWood: 'සවිමත් කුඹුක් (Kumbuk)',
+    yearWarranty: 'වසරක වගකීම',
+    guaranteeTeakTitle: '100% පදම් කළ උසස්ම ලී',
+    guaranteeTeakSub: 'වේයන්ගෙන් සහ ඇදවීමෙන් තොර Grade-A පදම් කළ ලී පමණි.',
+    craftsmanshipTitle: '15+ වසරක වඩු ශිල්ප පළපුරුද්ද',
+    craftsmanshipSub: 'දේශීය හස්ත කර්මාන්තය සහ නවීන තාක්ෂණය.',
+    transparentPricingTitle: 'කතාබස් කර වෙනස් කරගත හැකි මිල ගණන්',
+    transparentPricingSub: 'ඔබගේ බජට් එකට සහ ලී වර්ගයට ගැළපෙන නම්‍යශීලී මිල ගණන්.'
   },
 
   TA: {
@@ -320,7 +435,31 @@ const translations = {
     newInquiries: 'புதிய விசாரணைகள்',
     catalogItems: 'பொருட்கள் எண்ணிக்கை',
     convertInvoice: 'ரசீது ஆக்கு',
-    recordPayment: 'செலுத்தலை பதிவுசெய்'
+    recordPayment: 'செலுத்தலை பதிவுசெய்',
+
+    // Custom Idea Builder & Trust Hub
+    customIdeaNav: 'உங்கள் விருப்பப்படி ஆர்டர் செய்யுங்கள்',
+    customIdeaHeroTitle: 'உங்கள் சொந்த யோசனையில் தளபாடங்கள் செய்ய வேண்டுமா?',
+    customIdeaHeroSub: 'உங்கள் புகைப்படம் அல்லது அளவுகளை அனுப்புங்கள். நாங்கள் மதிப்பீட்டு தொகையை வழங்குவோம்.',
+    selectWoodType: 'மர வகையை தேர்ந்தெடுக்கவும்',
+    selectDimensions: 'அளவுகள்',
+    uploadSketchPhoto: 'புகைப்படத்தை பதிவேற்றவும்',
+    estimatedCostRange: 'மதிப்பிடப்பட்ட விலை',
+    estimateDisclaimer: 'குறிப்பு: இது தோராயமான மதிப்பீடு மட்டுமே. எங்களை தொடர்பு கொண்டு இறுதி விலையை பேசி முடிவு செய்யலாம்.',
+    submitCustomOrder: 'அனுப்பவும்',
+    sendWhatsAppQuote: 'WhatsApp வழியாக கேட்கவும்',
+    teakWood: '100% உண்மையான தேக்கு (Teak)',
+    mahoganyWood: 'மகோகனி (Mahogany)',
+    nadunWood: 'நதுன் (Nadun)',
+    jackWood: 'பலா மரம் (Jackwood)',
+    kumbukWood: 'கும்புக்கு (Kumbuk)',
+    yearWarranty: 'ஆண்டுகள் உத்தரவாதம்',
+    guaranteeTeakTitle: '100% தரமான மரம்',
+    guaranteeTeakSub: 'உயர்தர மரங்கள் மட்டுமே பயன்படுத்தப்படுகின்றன.',
+    craftsmanshipTitle: '15+ ஆண்டுகள் அனுபவம்',
+    craftsmanshipSub: 'பாரம்பரிய தச்சு கலை.',
+    transparentPricingTitle: 'பேசி தீர்மானிக்கக்கூடிய விலை',
+    transparentPricingSub: 'உங்கள் பட்ஜெட்டுக்கு ஏற்ப அமைக்கப்படும்.'
   }
 };
 

@@ -16,6 +16,9 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
+import TrustProofSection from '../components/TrustProofSection';
+import { Sparkles, Hammer } from 'lucide-react';
+
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
   const { t } = useLanguage();
 
@@ -113,19 +116,19 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             {/* Stacked / Inline Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
-                onClick={() => setActiveTab('catalog')}
-                className="bg-[#B87A46] hover:bg-[#a06838] text-white px-7 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-xl hover:shadow-amber-950/50 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer"
+                onClick={() => setActiveTab('custom-order')}
+                className="bg-[#B87A46] hover:bg-[#a06838] text-white px-7 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-xl hover:shadow-amber-950/50 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer border border-amber-400/30"
               >
-                <span>{t('browseCatalog')}</span>
+                <Sparkles className="w-4.5 h-4.5 text-amber-300" />
+                <span>{t('customIdeaNav')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
-                onClick={handleWhatsAppClick}
+                onClick={() => setActiveTab('catalog')}
                 className="bg-[#121418]/90 hover:bg-black/80 text-white border border-white/20 px-6 py-3.5 rounded-2xl font-semibold text-sm transition-all flex items-center justify-center gap-2.5 backdrop-blur-md active:scale-95 cursor-pointer"
               >
-                <MessageCircle className="w-4.5 h-4.5 text-emerald-400 fill-emerald-400/20" />
-                <span>{t('whatsAppNow')}</span>
+                <span>{t('browseCatalog')}</span>
               </button>
             </div>
 
@@ -144,7 +147,36 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
         {/* ========================================================
-            2. 3-COLUMN STATS CARD (Dark Elevated Glass Card)
+            2. "BRING YOUR OWN IDEA" PROMINENT FEATURE BANNER
+           ======================================================== */}
+        <section className="bg-gradient-to-r from-[#181A22] via-[#241F1A] to-[#181A22] rounded-3xl p-6 sm:p-10 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-3 max-w-xl z-10">
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 px-3 py-1 rounded-full text-[11px] font-extrabold text-amber-300 uppercase tracking-widest">
+              <Hammer className="w-3.5 h-3.5 text-amber-400" />
+              <span>Custom Idea Request & Live Estimator</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-tight">
+              ඔබගේ හිතේ තියෙන ඕනෑම Idea එකක් Design කර ගෘහ භාණ්ඩ සාදාගන්න!
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              Pinterest photo එකක් හෝ Sketch එකක් අප වෙත එවන්න. ඔබගේ ඉඩකඩට සහ බජට් එකට ගැළපෙන ලී වර්ගයෙන් (Teak/Mahogany) සාදා දෙනු ලැබේ.
+            </p>
+          </div>
+
+          <div className="z-10 shrink-0">
+            <button
+              onClick={() => setActiveTab('custom-order')}
+              className="bg-gradient-to-r from-[#C68B59] to-[#B87A46] hover:from-[#b07646] hover:to-[#a06838] text-white px-8 py-4 rounded-2xl font-extrabold text-sm shadow-2xl flex items-center gap-3 transition-all hover:scale-105 active:scale-95 cursor-pointer border border-amber-300/40"
+            >
+              <span>{t('customIdeaNav')}</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </section>
+
+
+        {/* ========================================================
+            3. 3-COLUMN STATS CARD (Dark Elevated Glass Card)
            ======================================================== */}
         <section>
           <div className="bg-[#14161D]/90 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-white/10 shadow-2xl grid grid-cols-3 gap-3 text-center divide-x divide-white/10">
@@ -178,7 +210,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
         {/* ========================================================
-            3. "WHAT WE SPECIALIZE IN" (6 Dark Image Cards)
+            4. "WHAT WE SPECIALIZE IN" (6 Dark Image Cards)
            ======================================================== */}
         <section className="pt-2">
           
@@ -230,6 +262,12 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
         </section>
+
+
+        {/* ========================================================
+            5. TRUST & PROOF SECTION (Timber Certifications & Reviews)
+           ======================================================== */}
+        <TrustProofSection onOpenCustomOrder={() => setActiveTab('custom-order')} />
 
       </div>
 

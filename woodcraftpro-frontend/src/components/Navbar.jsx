@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Hammer, PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X } from 'lucide-react';
+import { Hammer, PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import logoImg from '../assets/logo.png';
 
@@ -8,10 +8,10 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
+    { id: 'custom-order', label: `✨ ${t('customIdeaNav')}`, action: 'custom-order', highlight: true },
     { id: 'catalog', label: `${t('catalog')} ▾`, action: 'catalog' },
     { id: 'gallery', label: t('projects'), action: 'gallery' },
     { id: 'services', label: t('aboutUs'), action: 'services' },
-    { id: 'why-teak', label: t('whyTeak'), action: 'services' },
     { id: 'contact', label: t('contact'), action: 'contact' },
   ];
 
