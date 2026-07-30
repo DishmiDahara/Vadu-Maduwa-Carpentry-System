@@ -646,52 +646,27 @@ export default function CustomOrderPage({ setActiveTab }) {
 
               </div>
 
-              {/* Polish & Finish Swatch Selection + AI Recommendation Side Box */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                
-                {/* Polish Styles (8 cols) */}
-                <div className="lg:col-span-8 space-y-2">
-                  <h4 className="text-xs font-bold text-gray-300">Polish & Finish Style</h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {finishStyles.map((fs) => {
-                      const isSel = selectedFinish === fs.id;
-                      return (
-                        <div
-                          key={fs.id}
-                          onClick={() => setSelectedFinish(fs.id)}
-                          className={`rounded-xl border p-2.5 text-center cursor-pointer transition-all ${
-                            isSel ? 'border-amber-500 bg-amber-950/30 ring-2 ring-amber-500/40' : 'border-white/10 bg-[#171924] hover:border-white/20'
-                          }`}
-                        >
-                          <div className={`h-10 w-full rounded-lg mb-1.5 border border-white/20 ${fs.gradient}`}></div>
-                          <h5 className="text-xs font-bold text-white leading-tight">{fs.title}</h5>
-                          <span className="text-[10px] text-gray-400">{fs.sub}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
+              {/* Polish & Finish Swatch Selection */}
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-gray-300">Polish & Finish Style</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {finishStyles.map((fs) => {
+                    const isSel = selectedFinish === fs.id;
+                    return (
+                      <div
+                        key={fs.id}
+                        onClick={() => setSelectedFinish(fs.id)}
+                        className={`rounded-xl border p-3 text-center cursor-pointer transition-all ${
+                          isSel ? 'border-amber-500 bg-amber-950/30 ring-2 ring-amber-500/40' : 'border-white/10 bg-[#171924] hover:border-white/20'
+                        }`}
+                      >
+                        <div className={`h-10 w-full rounded-lg mb-1.5 border border-white/20 ${fs.gradient}`}></div>
+                        <h5 className="text-xs font-bold text-white leading-tight">{fs.title}</h5>
+                        <span className="text-[10px] text-gray-400">{fs.sub}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-
-                {/* AI Recommendation Box (4 cols) (Exact Mockup Match) */}
-                <div className="lg:col-span-4 bg-gradient-to-b from-amber-950/50 to-black/60 border-2 border-amber-500/60 rounded-xl p-3.5 space-y-2 relative overflow-hidden">
-                  <div className="flex items-center gap-1.5 text-amber-400 text-xs font-bold">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>AI Recommendation</span>
-                  </div>
-                  <p className="text-[10px] text-gray-400">Based on your selection</p>
-
-                  <div>
-                    <h5 className="text-xs font-bold text-white">Solid Jackwood / Kos <span className="text-[10px] font-normal text-amber-300">(කොස්)</span></h5>
-                    <div className="flex text-amber-400 text-[10px] my-0.5">★★★★★</div>
-                    <p className="text-[10px] text-gray-300">Recommended for long lasting durability</p>
-                  </div>
-
-                  <div className="pt-1 border-t border-amber-500/30 flex justify-between items-center text-[10px]">
-                    <span className="text-gray-400">Estimated Savings</span>
-                    <span className="font-extrabold text-emerald-400 text-xs">LKR 15,000</span>
-                  </div>
-                </div>
-
               </div>
 
             </div>
