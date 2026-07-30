@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, ExternalLink } from 'lucide-react';
 
 export default function ContactPage({ selectedProduct, onOpenInquiry }) {
   const [formData, setFormData] = useState({
@@ -15,6 +15,10 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
     setSubmitted(true);
   };
 
+  const handleMapClick = () => {
+    window.open('https://maps.app.goo.gl/yzoz7pPtRuo15tSK6', '_blank');
+  };
+
   return (
     <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -25,7 +29,7 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
           <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">We're here to help you with your furniture needs</p>
         </div>
 
-        {/* 3-Column Layout (Matching Mockup) */}
+        {/* 3-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Column 1: Info (4 Cols) */}
@@ -37,9 +41,16 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
               </div>
               <div>
                 <h4 className="text-xs font-bold text-[#2B190E]">Address</h4>
-                <p className="text-xs text-[#7A6252] leading-relaxed mt-0.5">
-                  No. 123, Kurunegala Road,<br />Dambulla, Sri Lanka
+                <p className="text-xs text-[#7A6252] leading-relaxed mt-0.5 font-medium">
+                  Rendapala, Dodangoda,<br />Kalutara, Sri Lanka
                 </p>
+                <button
+                  onClick={handleMapClick}
+                  className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-[#8B5E3C] hover:underline"
+                >
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="w-3 h-3" />
+                </button>
               </div>
             </div>
 
@@ -48,8 +59,9 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
                 <Phone className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-[#2B190E]">Phone</h4>
-                <p className="text-xs text-[#7A6252] mt-0.5">+94 77 123 4567</p>
+                <h4 className="text-xs font-bold text-[#2B190E]">Phone / WhatsApp</h4>
+                <p className="text-xs text-[#7A6252] mt-0.5 font-semibold">077 376 9849 (Hotline / WhatsApp)</p>
+                <p className="text-xs text-[#7A6252] font-semibold">034 228 5162 (Office)</p>
               </div>
             </div>
 
@@ -76,15 +88,30 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
 
           </div>
 
-          {/* Column 2: Embedded Google Map Preview (4 Cols) */}
-          <div className="lg:col-span-4 h-full min-h-[300px] bg-white border border-[#E8DEC8] rounded-2xl overflow-hidden shadow-sm relative">
-            <iframe
-              title="Wadu Maduwa Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.5187796931754!2d78.500000!3d7.873056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTInMjMuMCIgNzjCsDMwJzAwLjAiRQ!5e0!3m2!1sen!2slk!4v1620000000000!5m2!1sen!2slk"
-              className="w-full h-full min-h-[340px] border-0"
-              allowFullScreen=""
-              loading="lazy"
-            ></iframe>
+          {/* Column 2: Interactive Google Map Button Card (4 Cols) */}
+          <div 
+            onClick={handleMapClick}
+            className="lg:col-span-4 h-full min-h-[320px] bg-gradient-to-br from-[#23160D] to-[#3D2415] text-white border border-[#3D2415] rounded-2xl overflow-hidden shadow-sm p-6 flex flex-col justify-between cursor-pointer group relative"
+          >
+            <div className="space-y-3 z-10">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-extrabold font-heading text-white">Workshop Location</h3>
+              <p className="text-xs text-amber-100/80 leading-relaxed">
+                Rendapala, Dodangoda, Kalutara
+              </p>
+            </div>
+
+            <div className="z-10 pt-4">
+              <button
+                onClick={handleMapClick}
+                className="w-full bg-[#8B5E3C] hover:bg-[#A47148] text-white py-3 rounded-xl font-bold text-xs shadow transition-all flex items-center justify-center gap-2 group-hover:scale-102"
+              >
+                <span>Open Google Directions</span>
+                <ExternalLink className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* Column 3: Send us a Message Form (4 Cols) */}

@@ -67,11 +67,13 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
             <ul className="space-y-2.5 text-xs text-amber-200/80">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>No. 123, Kurunegala Road, Dambulla, Sri Lanka</span>
+                <a href="https://maps.app.goo.gl/yzoz7pPtRuo15tSK6" target="_blank" rel="noreferrer" className="hover:text-amber-400 underline transition-colors">
+                  Rendapala, Dodangoda, Kalutara, Sri Lanka
+                </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>+94 77 123 4567</span>
+                <span>077 376 9849 / 034 228 5162</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-amber-400 shrink-0" />

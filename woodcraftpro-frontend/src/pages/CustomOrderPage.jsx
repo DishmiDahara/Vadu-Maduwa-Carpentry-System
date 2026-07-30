@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  RotateCw, 
-  Upload, 
-  Trash2, 
-  ChevronRight, 
-  HelpCircle, 
-  Maximize2, 
-  MessageSquare, 
-  Info, 
+import {
+  RotateCw,
+  Upload,
+  Trash2,
+  ChevronRight,
+  HelpCircle,
+  Maximize2,
+  MessageSquare,
+  Info,
   X,
   CheckCircle2,
   AlertCircle,
@@ -64,19 +64,19 @@ export default function CustomOrderPage({ setActiveTab }) {
 
   // Options Catalog Data
   const furnitureOptions = [
-    { id: 'dining', name: 'Dining Table', icon: '🪑', basePrice: 65000, img: '/dining_table.png' },
-    { id: 'bed', name: 'Bed Set', icon: '🛏️', basePrice: 85000, img: '/wooden_bed.png' },
-    { id: 'wardrobe', name: 'Wardrobe / Closet', icon: '🚪', basePrice: 55000, img: '/wooden_wardrobe.png' },
-    { id: 'door', name: 'Teak Wooden Door', icon: '🚪', basePrice: 30000, img: '/teak_door.png' },
-    { id: 'office', name: 'Executive Office Table', icon: '🪑', basePrice: 32000, img: '/hero_armchair.png' }
+    { id: 'dining', name: 'Dining Table', basePrice: 65000, img: '/dining_table.png' },
+    { id: 'bed', name: 'Bed Set', basePrice: 85000, img: '/wooden_bed.png' },
+    { id: 'wardrobe', name: 'Wardrobe / Closet', basePrice: 55000, img: '/wooden_wardrobe.png' },
+    { id: 'door', name: 'Teak Wooden Door', basePrice: 30000, img: '/teak_door.png' },
+    { id: 'office', name: 'Executive Office Table', basePrice: 32000, img: '/hero_armchair.png' }
   ];
 
   const woodOptions = [
     { id: 'teak', name: 'Teak Wood (තේක්ක)', multiplier: 1.4, desc: 'Water Resistant & Premium Hardwood' },
     { id: 'mahogany', name: 'Mahogany (මහෝගනි)', multiplier: 1.15, desc: 'Rich Red Finish & Termite Proof' },
     { id: 'jackwood', name: 'Jackwood (කොස්)', multiplier: 1.1, desc: 'Traditional Yellow Wood' },
-    { id: 'satinwood', name: 'Satinwood (බුරුත)', multiplier: 1.35, desc: 'Ultra Dense Heavy Hardwood' },
-    { id: 'rubberwood', name: 'Rubberwood (රබර්)', multiplier: 0.9, desc: 'Budget Friendly Light Wood' }
+    { id: 'satinwood', name: 'Satinwood (බුරුත)', multiplier: 1.35, desc: 'Ultra Dense Heavy Hardwood' }
+
   ];
 
   const finishOptions = [
@@ -137,24 +137,24 @@ export default function CustomOrderPage({ setActiveTab }) {
     // 2. Format WhatsApp Order Message
     const message = `*වඩු මඩුව (Wadu Maduwa) - නව අභිරුචි ඇණවුම*
 
-👤 *පාරිභෝගික තොරතුරු:*
+*පාරිභෝගික තොරතුරු:*
 • *නම:* ${userName.trim()}
 • *ලිපිනය:* ${userAddress.trim()}
 • *දිස්ත්‍රික්කය:* ${userDistrict}
 • *දුරකථන අංකය:* ${userPhone.trim()}
 
-🪑 *ඇණවුම් කළ ගෘහ භාණ්ඩය:* ${currentFurniture.name}
-🪵 *ලී වර්ගය:* ${currentWood.name}
-🫙 *නිමාව (Finish):* ${currentFinish.name}
-📐 *මානයන්:* ${length} (L) x ${width} (W) x ${height} (H) cm
-💰 *ඇස්තමේන්තුගත මිල:* LKR ${estimatedPrice.toLocaleString()}
+*ඇණවුම් කළ ගෘහ භාණ්ඩය:* ${currentFurniture.name}
+*ලී වර්ගය:* ${currentWood.name}
+*නිමාව (Finish):* ${currentFinish.name}
+*ප්‍රමාණයන්:* ${length} (L) x ${width} (W) x ${height} (H) cm
+*ඇස්තමේන්තුගත මිල:* LKR ${estimatedPrice.toLocaleString()}
 
-📝 *විශේෂ සටහන / Description:*
+*විශේෂ සටහන / Description:*
 ${orderDescription.trim() || 'නැත'}`;
 
     // 3. Automatically trigger WhatsApp send to 0779743901
     const whatsappUrl = `https://wa.me/94779743901?text=${encodeURIComponent(message)}`;
-    
+
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
     }, 1200);
@@ -170,7 +170,7 @@ ${orderDescription.trim() || 'නැත'}`;
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black font-heading text-[#2B190E]">Custom Furniture Order</h1>
-            <p className="text-xs text-[#7A6252] mt-0.5 font-medium">Design your dream furniture in 3D <br className="sm:hidden"/>& get instant price estimate</p>
+            <p className="text-xs text-[#7A6252] mt-0.5 font-medium">Design your dream furniture in 3D <br className="sm:hidden" />& get instant price estimate</p>
           </div>
 
           <button
@@ -186,7 +186,7 @@ ${orderDescription.trim() || 'නැත'}`;
             2. STEPPER PROGRESS BAR (1. Customize -> 2. Preview -> 3. Review)
            ======================================================== */}
         <div className="flex items-center justify-center gap-4 sm:gap-12 py-2 border-y border-[#E8DEC8]/60 text-xs font-bold">
-          
+
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-full bg-[#23160D] text-white flex items-center justify-center text-xs font-black shadow">
               1
@@ -218,7 +218,7 @@ ${orderDescription.trim() || 'නැත'}`;
             3. 3D INTERACTIVE HERO VIEWER CARD (Mobile Screen Spec)
            ======================================================== */}
         <div className="relative rounded-3xl overflow-hidden shadow-lg border border-[#3D2415] bg-[#1A1009] min-h-[300px] sm:min-h-[380px] flex flex-col justify-between p-4 group">
-          
+
           {/* Main 3D Model Image */}
           <div className="absolute inset-0 bg-cover bg-center transition-all duration-700" style={{ backgroundImage: `url('${previewImages[activeThumb]}')` }}></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
@@ -230,7 +230,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <span>360°</span>
             </div>
 
-            <button 
+            <button
               onClick={() => alert('Full screen 3D viewer opened')}
               className="bg-black/60 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-black transition-colors"
             >
@@ -240,7 +240,7 @@ ${orderDescription.trim() || 'නැත'}`;
 
           {/* Center Drag Pill */}
           <div className="relative z-10 self-center bg-black/60 backdrop-blur-md text-white border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow pointer-events-none">
-            <span>👆</span>
+            <span></span>
             <span>Drag to rotate</span>
           </div>
 
@@ -251,16 +251,15 @@ ${orderDescription.trim() || 'නැත'}`;
                 <div
                   key={idx}
                   onClick={() => setActiveThumb(idx)}
-                  className={`w-16 h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
-                    activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70'
-                  }`}
+                  className={`w-16 h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70'
+                    }`}
                 >
                   <img src={img} alt="Thumbnail preview" className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
 
-            <button 
+            <button
               onClick={() => setActiveThumb((prev) => (prev + 1) % previewImages.length)}
               className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center justify-center shrink-0"
             >
@@ -274,7 +273,7 @@ ${orderDescription.trim() || 'නැත'}`;
             4. DARK CUSTOMIZATION SUMMARY CARD (Exact Mockup Match)
            ======================================================== */}
         <div className="bg-[#23160D] text-amber-100/90 border border-[#3D2415] rounded-3xl p-5 shadow-md space-y-4">
-          
+
           {/* Item 1: Furniture Type */}
           <div className="flex items-center justify-between pb-3 border-b border-[#3D2415]">
             <div className="flex items-center gap-3">
@@ -300,7 +299,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between pb-3 border-b border-[#3D2415]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-[#3D2415] text-amber-300 flex items-center justify-center text-lg shrink-0">
-                🪵
+
               </div>
               <div>
                 <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">Wood Type</span>
@@ -321,7 +320,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between pb-3 border-b border-[#3D2415]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-[#3D2415] text-amber-300 flex items-center justify-center text-lg shrink-0">
-                🫙
+
               </div>
               <div>
                 <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">Finish</span>
@@ -342,7 +341,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-[#3D2415] text-amber-300 flex items-center justify-center text-lg shrink-0">
-                📐
+
               </div>
               <div>
                 <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">Dimensions (cm)</span>
@@ -365,7 +364,7 @@ ${orderDescription.trim() || 'නැත'}`;
             5. MANDATORY USER DETAILS FORM SECTION (Mandatory Fields)
            ======================================================== */}
         <div id="user-details-section" className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
-          
+
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
             <div>
               <h3 className="font-bold text-sm text-[#2B190E]">User Details <span className="text-xs text-red-500 font-extrabold">(අනිවාර්ය තොරතුරු)</span></h3>
@@ -385,7 +384,7 @@ ${orderDescription.trim() || 'නැත'}`;
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
+
             {/* 1. Name (Required) */}
             <div>
               <label className="block text-xs font-bold text-[#2B190E] mb-1">
@@ -398,9 +397,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   placeholder="e.g. Sunil Perera"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
-                    validationError && !userName.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
-                  }`}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${validationError && !userName.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                    }`}
                 />
                 <User className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
               </div>
@@ -418,9 +416,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   placeholder="e.g. 077 123 4567"
                   value={userPhone}
                   onChange={(e) => setUserPhone(e.target.value)}
-                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
-                    validationError && !userPhone.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
-                  }`}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${validationError && !userPhone.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                    }`}
                 />
                 <Phone className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
               </div>
@@ -438,9 +435,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   placeholder="e.g. No. 45, Station Road, Nawala"
                   value={userAddress}
                   onChange={(e) => setUserAddress(e.target.value)}
-                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
-                    validationError && !userAddress.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
-                  }`}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${validationError && !userAddress.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                    }`}
                 />
                 <MapPin className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
               </div>
@@ -456,9 +452,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   required
                   value={userDistrict}
                   onChange={(e) => setUserDistrict(e.target.value)}
-                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-bold transition-colors cursor-pointer ${
-                    validationError && !userDistrict.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
-                  }`}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-bold transition-colors cursor-pointer ${validationError && !userDistrict.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                    }`}
                 >
                   <option value="">-- Select District --</option>
                   {sriLankaDistricts.map((d) => (
@@ -494,7 +489,7 @@ ${orderDescription.trim() || 'නැත'}`;
             6. ESTIMATED PRICE CARD (With "Submit Order" Button)
            ======================================================== */}
         <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="font-bold text-xs text-[#7A6252] uppercase tracking-wider">Estimated Price</span>
@@ -513,7 +508,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <div className="text-3xl font-black text-[#2B190E] font-heading">
                 Rs. {estimatedPrice.toLocaleString()}
               </div>
-              <button 
+              <button
                 onClick={() => setActiveModal('breakdown')}
                 className="text-xs font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 mt-1"
               >
@@ -538,14 +533,14 @@ ${orderDescription.trim() || 'නැත'}`;
             7. UPLOAD REFERENCE (OPTIONAL) SECTION
            ======================================================== */}
         <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
-          
+
           <div>
             <h3 className="font-bold text-sm text-[#2B190E]">Upload Reference <span className="text-xs font-normal text-[#7A6252]">(Optional)</span></h3>
             <p className="text-xs text-[#7A6252] mt-0.5">Share your drawing or idea photo</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-            
+
             {/* Thumbnail Preview Stack (7 Cols) */}
             <div className="sm:col-span-7 flex items-center gap-2 overflow-x-auto">
               {uploads.slice(0, 2).map((u) => (
@@ -588,7 +583,7 @@ ${orderDescription.trim() || 'නැත'}`;
       {showSuccessModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <div className="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border border-[#E8DEC8] relative">
-            
+
             <button
               onClick={() => setShowSuccessModal(false)}
               className="absolute top-3 right-3 text-gray-400 hover:text-black p-1"
@@ -602,7 +597,7 @@ ${orderDescription.trim() || 'නැත'}`;
 
             <div className="space-y-2">
               <h3 className="text-xl font-black text-[#2B190E] font-heading">
-                ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී! 🎉
+                ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී!
               </h3>
               <p className="text-xs text-[#7A6252] leading-relaxed">
                 ස්තූතියි <strong>{userName}</strong>! ඔබගේ අභිරුචි ඇණවුම් විස්තර සහ තොරතුරු <strong>0779743901</strong> අංකයට WhatsApp මගින් යැවුණි. කෙටි වේලාවකින් අපගේ වඩු කාර්මික කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත.
@@ -634,7 +629,7 @@ ${orderDescription.trim() || 'නැත'}`;
       {activeModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm animate-fade-in" onClick={() => setActiveModal(null)}>
           <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-[#E8DEC8]" onClick={e => e.stopPropagation()}>
-            
+
             <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
               <h3 className="font-bold text-base text-[#2B190E] capitalize">
                 {activeModal === 'furniture' && 'Select Furniture Type'}
@@ -656,9 +651,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   <div
                     key={f.id}
                     onClick={() => { setSelectedFurniture(f.id); setActiveModal(null); }}
-                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                      selectedFurniture === f.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
-                    }`}
+                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${selectedFurniture === f.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
+                      }`}
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{f.icon}</span>
@@ -677,9 +671,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   <div
                     key={w.id}
                     onClick={() => { setWoodType(w.id); setActiveModal(null); }}
-                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                      woodType === w.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
-                    }`}
+                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${woodType === w.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
+                      }`}
                   >
                     <div>
                       <h4 className="text-xs text-[#2B190E]">{w.name}</h4>
@@ -698,9 +691,8 @@ ${orderDescription.trim() || 'නැත'}`;
                   <div
                     key={fo.id}
                     onClick={() => { setFinish(fo.id); setActiveModal(null); }}
-                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                      finish === fo.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
-                    }`}
+                    className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${finish === fo.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
+                      }`}
                   >
                     <div>
                       <h4 className="text-xs text-[#2B190E]">{fo.name}</h4>
