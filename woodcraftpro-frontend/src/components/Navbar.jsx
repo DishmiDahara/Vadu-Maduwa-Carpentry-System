@@ -37,23 +37,15 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
 
           <div
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-3 cursor-pointer group py-1"
+            className="flex items-center cursor-pointer group py-1"
           >
-            {logoImg ? (
+            {logoImg && (
               <img
                 src={logoImg}
                 alt="වඩු මඩුව Wadu Maduwa"
-                className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+                className="h-10 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform"
               />
-            ) : null}
-            <div className="flex flex-col">
-              <span className="font-heading font-black text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
-                <span className="text-amber-400">වඩු මඩුව</span>
-              </span>
-              <span className="text-[10px] tracking-widest text-amber-200/80 font-bold uppercase -mt-1">
-                WADU MADUWA
-              </span>
-            </div>
+            )}
           </div>
         </div>
 
