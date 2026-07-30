@@ -146,7 +146,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 onClick={() => setActiveTab('catalog')}
                 className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-md flex items-center gap-2 active:scale-95 cursor-pointer"
               >
-                <span>Get Started</span>
+                <span>අපගේ නිර්මාණ</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
@@ -154,7 +154,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 className="bg-white hover:bg-[#FAF4EB] text-[#2B190E] border border-[#3D2415] px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
               >
                 <Package className="w-4 h-4 text-[#8B5E3C]" />
-                <span>Custom Order</span>
+                <span>ඔබේ නිර්මාණය ආරම්භ කරන්න</span>
               </button>
             </div>
 
