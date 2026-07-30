@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Heart, 
   ArrowRight, 
@@ -10,7 +10,6 @@ import {
   Truck, 
   Wrench, 
   Paintbrush, 
-  Building2, 
   Sparkles,
   Users,
   CheckCircle2,
@@ -19,10 +18,57 @@ import {
 
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
   const [wishlist, setWishlist] = useState({});
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  // Hero Slides Data
+  const heroSlides = [
+    {
+      image: '/hero_armchair.png',
+      badge: 'PREMIUM QUALITY WOODWORK',
+      titleLine1: 'ඔබේ නිවසට',
+      titleLine2: 'වටිනාකමක් එකතු කරන්න',
+      descLine1: 'අවුරුදු 25කට අධික පළපුරුද්ද සහිත වඩු මඩුව,',
+      descLine2: 'ඔබේ සිහින ලී නිර්මාණය වාසනාව කරගැනීමට ඔබ සමඟයි.'
+    },
+    {
+      image: '/dining_table.png',
+      badge: 'CUSTOM DINING COLLECTION',
+      titleLine1: 'උසස් නිමාවෙන් යුත්',
+      titleLine2: 'තේක්ක කෑම මේස සෙට්',
+      descLine1: '100% ස්වාභාවික තේක්ක සහ මහෝගනි ලීයෙන් නිමවන ලද',
+      descLine2: 'කල්පවතින ශ්‍රී ලාංකීය වඩු නිර්මාණ.'
+    },
+    {
+      image: '/wooden_bed.png',
+      badge: 'LUXURY BEDROOM FURNITURE',
+      titleLine1: 'විශ්වසනීය අභිරුචි',
+      titleLine2: 'ලී ඇඳන් සහ ගෘහ භාණ්ඩ',
+      descLine1: 'ඔබේ කාමරයේ ඉඩකඩට සහ රුචිකත්වයට ගැළපෙන පරිදි',
+      descLine2: '3D මගින් සකසා සාදාගන්න.'
+    }
+  ];
+
+  // Auto-play slideshow timer (every 4.5 seconds)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlideIndex(prev => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlideIndex(prev => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlideIndex(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
 
   const toggleWishlist = (id) => {
     setWishlist(prev => ({ ...prev, [id]: !prev[id] }));
   };
+
+  const currentSlide = heroSlides[currentSlideIndex];
 
   const featuredProducts = [
     {
@@ -56,24 +102,35 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
 
         {/* ========================================================
-            1. HERO SLIDER BANNER (Matching Mockup Screenshot 100%)
+            1. HERO SLIDER BANNER (Interactive Auto-Playing Carousel)
            ======================================================== */}
         <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[480px] sm:min-h-[520px] flex items-center">
           
-          {/* Generated High-Res Living Room Armchair Background Image */}
+          {/* Dynamic Background Image with Smooth Fade Transition */}
           <div 
-            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-transform duration-700"
-            style={{ backgroundImage: `url('/hero_armchair.png')` }}
+            key={currentSlideIndex}
+            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
+            style={{ backgroundImage: `url('${currentSlide.image}')` }}
           ></div>
 
-          {/* Subtle vignette gradient overlay allowing image on right to shine through */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/75 sm:via-[#FAF8F5]/60 to-transparent"></div>
+          {/* Gradient Overlay for Text Visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 sm:via-[#FAF8F5]/65 to-transparent"></div>
 
-          {/* Slider Left / Right Navigation Controls */}
-          <button className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 transition-all">
+          {/* Slider Left Arrow Button */}
+          <button 
+            onClick={prevSlide}
+            aria-label="Previous Slide"
+            className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <button className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 transition-all">
+
+          {/* Slider Right Arrow Button */}
+          <button 
+            onClick={nextSlide}
+            aria-label="Next Slide"
+            className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
             <ChevronRight className="w-5 h-5" />
           </button>
 
@@ -81,35 +138,35 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5">
             
             {/* Top Leaf Sub-Badge */}
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full">
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full shadow-sm">
               <span>🍃</span>
-              <span>PREMIUM QUALITY WOODWORK</span>
+              <span>{currentSlide.badge}</span>
             </div>
 
             {/* Main Sinhala Headline */}
             <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-[#2B190E] leading-tight">
-              ඔබේ නිවසට <br />
-              <span className="text-[#3D2415]">වටිනාකමක් එකතු කරන්න</span>
+              {currentSlide.titleLine1} <br />
+              <span className="text-[#3D2415]">{currentSlide.titleLine2}</span>
             </h1>
 
             {/* Sinhala Subtitle */}
             <p className="text-xs sm:text-sm text-[#5C4535] leading-relaxed font-medium">
-              අවුරුදු 25කට අධික පළපුරුද්ද සහිත වඩු මඩුව,<br />
-              ඔබේ සිහින ලී නිර්මාණය වාසනාව කරගැනීමට ඔබ සමඟයි.
+              {currentSlide.descLine1}<br />
+              {currentSlide.descLine2}
             </p>
 
             {/* Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => setActiveTab('catalog')}
-                className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-md flex items-center gap-2"
+                className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-md flex items-center gap-2 active:scale-95 cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="bg-white hover:bg-[#FAF4EB] text-[#2B190E] border border-[#3D2415] px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
+                className="bg-white hover:bg-[#FAF4EB] text-[#2B190E] border border-[#3D2415] px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
               >
                 <Package className="w-4 h-4 text-[#8B5E3C]" />
                 <span>Custom Order</span>
@@ -150,18 +207,27 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
           </div>
 
-          {/* Slider Dots Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
-            <span className="w-3 h-1.5 rounded-full bg-[#3D2415]"></span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E8DEC8]"></span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E8DEC8]"></span>
+          {/* Interactive Slide Dots Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            {heroSlides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlideIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  currentSlideIndex === idx
+                    ? 'w-6 h-2 rounded-full bg-[#3D2415]'
+                    : 'w-2 h-2 rounded-full bg-[#E8DEC8] hover:bg-[#8B5E3C]'
+                }`}
+              />
+            ))}
           </div>
 
         </section>
 
 
         {/* ========================================================
-            2. CATEGORY BAR + NEED SOMETHING UNIQUE CARD (Mockup Match)
+            2. CATEGORY BAR + NEED SOMETHING UNIQUE CARD
            ======================================================== */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
           
@@ -230,7 +296,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               <p className="text-[10px] text-amber-200/70">Design your own furniture in 3D</p>
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="mt-1 bg-[#8B5E3C] hover:bg-[#734A2E] text-white px-3.5 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5"
+                className="mt-1 bg-[#8B5E3C] hover:bg-[#734A2E] text-white px-3.5 py-1.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
               >
                 <span>Start Custom Order</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -246,7 +312,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
         {/* ========================================================
-            3. FEATURED PRODUCTS GRID (Matching Mockup 100%)
+            3. FEATURED PRODUCTS GRID
            ======================================================== */}
         <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
@@ -256,7 +322,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </div>
             <button
               onClick={() => setActiveTab('catalog')}
-              className="text-xs font-bold text-[#8B5E3C] hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>View All Products</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -277,7 +343,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                   />
                   <button
                     onClick={() => toggleWishlist(product.id)}
-                    className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm"
+                    className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm cursor-pointer"
                   >
                     <Heart className={`w-3.5 h-3.5 ${wishlist[product.id] ? 'fill-red-500 text-red-500' : ''}`} />
                   </button>
@@ -296,7 +362,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
         {/* ========================================================
-            4. OUR SERVICES (Light Cream Cards matching Mockup)
+            4. OUR SERVICES
            ======================================================== */}
         <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
@@ -306,7 +372,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </div>
             <button
               onClick={() => setActiveTab('services')}
-              className="text-xs font-bold text-[#8B5E3C] hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>View All Services</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -326,7 +392,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
               <button
                 onClick={() => setActiveTab('services')}
-                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2"
+                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2 cursor-pointer"
               >
                 <span>Learn More</span>
                 <ArrowRight className="w-3 h-3" />
@@ -344,7 +410,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
               <button
                 onClick={() => setActiveTab('services')}
-                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2"
+                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2 cursor-pointer"
               >
                 <span>Learn More</span>
                 <ArrowRight className="w-3 h-3" />
@@ -362,7 +428,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
               <button
                 onClick={() => setActiveTab('services')}
-                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2"
+                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2 cursor-pointer"
               >
                 <span>Learn More</span>
                 <ArrowRight className="w-3 h-3" />
@@ -380,7 +446,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </div>
               <button
                 onClick={() => setActiveTab('services')}
-                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2"
+                className="text-[11px] font-bold text-[#8B5E3C] hover:underline flex items-center gap-1 pt-2 cursor-pointer"
               >
                 <span>Learn More</span>
                 <ArrowRight className="w-3 h-3" />
@@ -392,7 +458,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
 
         {/* ========================================================
-            5. WHAT OUR CUSTOMERS SAY (Dark Wood Bottom Banner matching Mockup)
+            5. WHAT OUR CUSTOMERS SAY (Dark Wood Bottom Banner)
            ======================================================== */}
         <section className="bg-[#1D1109] text-white rounded-3xl p-6 sm:p-8 border border-[#3D2415] shadow-2xl space-y-6">
           
@@ -403,7 +469,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </div>
             <button
               onClick={() => setActiveTab('contact')}
-              className="text-xs font-bold text-amber-400 hover:underline"
+              className="text-xs font-bold text-amber-400 hover:underline cursor-pointer"
             >
               View All Reviews
             </button>
