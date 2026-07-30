@@ -288,35 +288,36 @@ export default function CustomOrderPage({ setActiveTab }) {
     <div className="bg-[#090A0F] text-gray-100 font-sans min-h-screen pb-24 selection:bg-amber-500 selection:text-black">
       
       {/* ========================================================
-          1. TOP STEPPER PROCESS BAR (Exact Mockup Match)
+          1. TOP STEPPER PROCESS BAR (Exact Mockup Match & Mobile Responsive)
          ======================================================== */}
-      <div className="bg-[#12141D] border-b border-white/10 sticky top-20 z-40 shadow-xl backdrop-blur-xl bg-opacity-95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="bg-[#12141D] border-b border-white/10 sticky top-16 sm:top-20 z-40 shadow-xl backdrop-blur-xl bg-opacity-95">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
           
-          {/* 5 Numbered Step Nodes */}
-          <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto w-full md:w-auto no-scrollbar py-1">
+          {/* 5 Numbered Step Nodes (Touch Scrollable on Mobile) */}
+          <div className="flex items-center gap-1.5 sm:gap-4 overflow-x-auto w-full md:w-auto no-scrollbar py-0.5">
             {[
-              { num: 1, label: 'Choose Furniture', icon: '🪑' },
-              { num: 2, label: 'Wood Type', icon: '🌲' },
-              { num: 3, label: 'Upload Photo', icon: '☁️' },
-              { num: 4, label: 'Measurements', icon: '📏' },
-              { num: 5, label: 'Contact Details', icon: '👤' }
+              { num: 1, label: 'Choose Furniture', shortLabel: '1. Furniture', icon: '🪑' },
+              { num: 2, label: 'Wood Type', shortLabel: '2. Wood', icon: '🌲' },
+              { num: 3, label: 'Upload Photo', shortLabel: '3. Upload', icon: '☁️' },
+              { num: 4, label: 'Measurements', shortLabel: '4. Measure', icon: '📏' },
+              { num: 5, label: 'Contact Details', shortLabel: '5. Contact', icon: '👤' }
             ].map((st) => (
               <button
                 key={st.num}
                 onClick={() => setActiveStep(st.num)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all shrink-0 cursor-pointer ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold transition-all shrink-0 cursor-pointer whitespace-nowrap ${
                   activeStep === st.num
                     ? 'bg-amber-500/20 text-amber-300 border border-amber-500/60 shadow-lg shadow-amber-950/40 font-bold'
                     : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                 }`}
               >
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold ${
                   activeStep === st.num ? 'bg-amber-500 text-black' : 'bg-white/10 text-gray-300'
                 }`}>
                   {st.num}
                 </div>
-                <span>{st.label}</span>
+                <span className="hidden sm:inline">{st.label}</span>
+                <span className="sm:hidden">{st.shortLabel}</span>
               </button>
             ))}
           </div>
@@ -915,9 +916,29 @@ export default function CustomOrderPage({ setActiveTab }) {
 
 
       {/* ========================================================
-          3. FLOATING WHATSAPP SUPPORT WIDGET (BOTTOM-RIGHT)
+          3. STICKY MOBILE BOTTOM ESTIMATE BAR (Mobile Screens Only)
          ======================================================== */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 animate-bounce-slow">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#12141D]/95 backdrop-blur-xl border-t border-white/20 p-3 px-4 flex items-center justify-between shadow-2xl">
+        <div>
+          <span className="text-[10px] text-gray-400 block font-semibold uppercase">Estimated Total</span>
+          <span className="text-base font-extrabold text-amber-400 font-heading">LKR {estimatedTotal.toLocaleString()}</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={sendWhatsAppEstimate}
+          className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
+        >
+          <MessageCircle className="w-4 h-4" />
+          <span>WhatsApp Quote</span>
+        </button>
+      </div>
+
+
+      {/* ========================================================
+          4. FLOATING WHATSAPP SUPPORT WIDGET (BOTTOM-RIGHT)
+         ======================================================== */}
+      <div className="fixed bottom-16 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-3 animate-bounce-slow">
         
         {/* Support Speech Bubble */}
         <div className="bg-[#12141C] border border-amber-500/40 px-3.5 py-2 rounded-2xl shadow-2xl text-xs text-white hidden sm:flex items-center gap-2.5 border-l-4 border-l-amber-500">
@@ -935,10 +956,10 @@ export default function CustomOrderPage({ setActiveTab }) {
         {/* Green WhatsApp FAB Button */}
         <button
           onClick={sendWhatsAppEstimate}
-          className="w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-emerald-500/30"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-emerald-500/30"
           title="Chat on WhatsApp"
         >
-          <MessageCircle className="w-7 h-7 fill-white" />
+          <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-white" />
         </button>
 
       </div>
