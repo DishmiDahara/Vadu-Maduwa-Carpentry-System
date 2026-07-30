@@ -50,7 +50,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
   return (
     <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
 
         {/* ========================================================
             1. HERO STATIC BANNER (Dark Warm Woodcraft Theme - Image 1)

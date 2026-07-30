@@ -22,7 +22,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
 
   return (
     <header className="sticky top-0 z-50 glass-panel border-b border-gray-200/50 shadow-sm transition-all bg-white/90 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
         
         {/* Left Section: Brand Logo & Mobile Menu Toggle */}
         <div className="flex items-center gap-3">

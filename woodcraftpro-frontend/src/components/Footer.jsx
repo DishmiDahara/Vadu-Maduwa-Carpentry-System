@@ -5,7 +5,7 @@ import logoImg from '../assets/logo.png';
 export default function Footer({ setActiveTab, onOpenInquiry }) {
   return (
     <footer className="bg-[#1D1109] text-amber-100/80 pt-12 pb-8 border-t border-[#3D2415]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Footer Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
