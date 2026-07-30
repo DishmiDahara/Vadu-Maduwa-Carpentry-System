@@ -9,8 +9,13 @@ import {
   MessageSquare, 
   Info, 
   X,
-  Sparkles,
-  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  MapPin,
+  Phone,
+  User,
+  Building,
+  FileText,
   TrendingUp
 } from 'lucide-react';
 
@@ -27,6 +32,17 @@ export default function CustomOrderPage({ setActiveTab }) {
   const [height, setHeight] = useState(75);
   const [activeThumb, setActiveThumb] = useState(0);
 
+  // MANDATORY USER DETAILS STATE (As requested by user)
+  const [userName, setUserName] = useState('');
+  const [userAddress, setUserAddress] = useState('');
+  const [userDistrict, setUserDistrict] = useState('');
+  const [userPhone, setUserPhone] = useState('');
+  const [orderDescription, setOrderDescription] = useState('');
+
+  // Validation & Success Modal State
+  const [validationError, setValidationError] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   // Modals / Selection Drawers
   const [activeModal, setActiveModal] = useState(null); // 'furniture', 'wood', 'finish', 'dimensions', 'breakdown', 'howItWorks'
 
@@ -36,6 +52,15 @@ export default function CustomOrderPage({ setActiveTab }) {
     { id: 2, name: 'room_idea.jpg', url: '/banner_crafts/card_furniture.jpg' },
     { id: 3, name: '3d_render.png', url: '/banner_crafts/card_bedroom.jpg' }
   ]);
+
+  // Sri Lankan Districts List for Dropdown
+  const sriLankaDistricts = [
+    'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
+    'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara',
+    'Kandy', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar',
+    'Matale (Dambulla)', 'Matara', 'Moneragala', 'Mullaitivu', 'Nuwara Eliya',
+    'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'
+  ];
 
   // Options Catalog Data
   const furnitureOptions = [
@@ -92,8 +117,47 @@ export default function CustomOrderPage({ setActiveTab }) {
     setUploads(prev => prev.filter(u => u.id !== id));
   };
 
-  const handleSubmitOrder = () => {
-    setActiveTab('contact');
+  // ORDER SUBMISSION & AUTOMATED WHATSAPP LOGIC (Target Number: 0779743901)
+  const handleSubmitOrder = (e) => {
+    e?.preventDefault();
+    setValidationError('');
+
+    // STRICT VALIDATION check for mandatory fields: Name, Address, District, Phone
+    if (!userName.trim() || !userAddress.trim() || !userDistrict.trim() || !userPhone.trim()) {
+      setValidationError('කරුණාකර සියලුම අනිවාර්ය ක්ෂේත්‍ර (නම, ලිපිනය, දිස්ත්‍රික්කය, දුරකථන අංකය) සම්පූර්ණ කරන්න!');
+      // Scroll to user details section smoothly
+      const el = document.getElementById('user-details-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // 1. Show Sinhala Pop-up Success Modal
+    setShowSuccessModal(true);
+
+    // 2. Format WhatsApp Order Message
+    const message = `*වඩු මඩුව (Wadu Maduwa) - නව අභිරුචි ඇණවුම*
+
+👤 *පාරිභෝගික තොරතුරු:*
+• *නම:* ${userName.trim()}
+• *ලිපිනය:* ${userAddress.trim()}
+• *දිස්ත්‍රික්කය:* ${userDistrict}
+• *දුරකථන අංකය:* ${userPhone.trim()}
+
+🪑 *ඇණවුම් කළ ගෘහ භාණ්ඩය:* ${currentFurniture.name}
+🪵 *ලී වර්ගය:* ${currentWood.name}
+🫙 *නිමාව (Finish):* ${currentFinish.name}
+📐 *මානයන්:* ${length} (L) x ${width} (W) x ${height} (H) cm
+💰 *ඇස්තමේන්තුගත මිල:* LKR ${estimatedPrice.toLocaleString()}
+
+📝 *විශේෂ සටහන / Description:*
+${orderDescription.trim() || 'නැත'}`;
+
+    // 3. Automatically trigger WhatsApp send to 0779743901
+    const whatsappUrl = `https://wa.me/94779743901?text=${encodeURIComponent(message)}`;
+    
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 1200);
   };
 
   return (
@@ -298,7 +362,136 @@ export default function CustomOrderPage({ setActiveTab }) {
         </div>
 
         {/* ========================================================
-            5. ESTIMATED PRICE CARD (With "Submit Order" Button)
+            5. MANDATORY USER DETAILS FORM SECTION (Mandatory Fields)
+           ======================================================== */}
+        <div id="user-details-section" className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
+          
+          <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
+            <div>
+              <h3 className="font-bold text-sm text-[#2B190E]">User Details <span className="text-xs text-red-500 font-extrabold">(අනිවාර්ය තොරතුරු)</span></h3>
+              <p className="text-xs text-[#7A6252] mt-0.5">Please fill in your details to submit your custom order</p>
+            </div>
+            <span className="text-xs bg-amber-100 text-[#8B5E3C] font-bold px-2.5 py-1 rounded-full border border-amber-200">
+              * Required
+            </span>
+          </div>
+
+          {/* Validation Warning Alert */}
+          {validationError && (
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-3.5 flex items-center gap-3 text-red-700 text-xs font-bold animate-pulse">
+              <AlertCircle className="w-5 h-5 shrink-0 text-red-500" />
+              <span>{validationError}</span>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            {/* 1. Name (Required) */}
+            <div>
+              <label className="block text-xs font-bold text-[#2B190E] mb-1">
+                Name (නම) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Sunil Perera"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
+                    validationError && !userName.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                  }`}
+                />
+                <User className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
+              </div>
+            </div>
+
+            {/* 2. Phone Number (Required) */}
+            <div>
+              <label className="block text-xs font-bold text-[#2B190E] mb-1">
+                Phone Number (දුරකථන අංකය) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="tel"
+                  required
+                  placeholder="e.g. 077 123 4567"
+                  value={userPhone}
+                  onChange={(e) => setUserPhone(e.target.value)}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
+                    validationError && !userPhone.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                  }`}
+                />
+                <Phone className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
+              </div>
+            </div>
+
+            {/* 3. Address (Required) */}
+            <div>
+              <label className="block text-xs font-bold text-[#2B190E] mb-1">
+                Address (ලිපිනය) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. No. 45, Station Road, Nawala"
+                  value={userAddress}
+                  onChange={(e) => setUserAddress(e.target.value)}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-medium transition-colors ${
+                    validationError && !userAddress.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                  }`}
+                />
+                <MapPin className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
+              </div>
+            </div>
+
+            {/* 4. District Dropdown (Required) */}
+            <div>
+              <label className="block text-xs font-bold text-[#2B190E] mb-1">
+                District (දිස්ත්‍රික්කය) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <select
+                  required
+                  value={userDistrict}
+                  onChange={(e) => setUserDistrict(e.target.value)}
+                  className={`w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border rounded-xl text-xs text-[#2B190E] outline-none font-bold transition-colors cursor-pointer ${
+                    validationError && !userDistrict.trim() ? 'border-red-400 bg-red-50/30' : 'border-[#E8DEC8] focus:border-[#8B5E3C]'
+                  }`}
+                >
+                  <option value="">-- Select District --</option>
+                  {sriLankaDistricts.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+                <Building className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
+              </div>
+            </div>
+
+          </div>
+
+          {/* 5. Order Description / Notes (Optional) */}
+          <div>
+            <label className="block text-xs font-bold text-[#2B190E] mb-1">
+              Order Description / Special Notes (ඇණවුම් විස්තරය / සටහන්)
+            </label>
+            <div className="relative">
+              <textarea
+                rows="3"
+                placeholder="Any special carving details, custom handles, color preference or timeline targets..."
+                value={orderDescription}
+                onChange={(e) => setOrderDescription(e.target.value)}
+                className="w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border border-[#E8DEC8] rounded-xl text-xs text-[#2B190E] outline-none font-medium focus:border-[#8B5E3C]"
+              ></textarea>
+              <FileText className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
+            </div>
+          </div>
+
+        </div>
+
+        {/* ========================================================
+            6. ESTIMATED PRICE CARD (With "Submit Order" Button)
            ======================================================== */}
         <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
           
@@ -329,7 +522,7 @@ export default function CustomOrderPage({ setActiveTab }) {
               </button>
             </div>
 
-            {/* Main Action Button (Text changed to "Submit Order" as requested!) */}
+            {/* Main Action Button (Triggers Submit Order + WhatsApp auto-send) */}
             <button
               onClick={handleSubmitOrder}
               className="w-full sm:w-auto bg-[#23160D] hover:bg-[#3D2415] text-white px-8 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer"
@@ -342,7 +535,7 @@ export default function CustomOrderPage({ setActiveTab }) {
         </div>
 
         {/* ========================================================
-            6. UPLOAD REFERENCE (OPTIONAL) SECTION
+            7. UPLOAD REFERENCE (OPTIONAL) SECTION
            ======================================================== */}
         <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
           
@@ -390,7 +583,53 @@ export default function CustomOrderPage({ setActiveTab }) {
       </div>
 
       {/* ========================================================
-          7. MODAL DRAWERS FOR "CHANGE >" BUTTONS
+          8. SINHALA SUCCESS POPUP MODAL (As explicitly requested)
+         ======================================================== */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border border-[#E8DEC8] relative">
+            
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-black p-1"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl shadow-inner">
+              <CheckCircle2 className="w-10 h-10" />
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-xl font-black text-[#2B190E] font-heading">
+                ඔබගේ ඇණවුම සාර්ථකව යොමු කරන ලදී! 🎉
+              </h3>
+              <p className="text-xs text-[#7A6252] leading-relaxed">
+                ස්තූතියි <strong>{userName}</strong>! ඔබගේ අභිරුචි ඇණවුම් විස්තර සහ තොරතුරු <strong>0779743901</strong> අංකයට WhatsApp මගින් යැවුණි. කෙටි වේලාවකින් අපගේ වඩු කාර්මික කණ්ඩායම ඔබ හා සම්බන්ධ වනු ඇත.
+              </p>
+            </div>
+
+            <div className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl p-3.5 text-left text-xs space-y-1 text-[#2B190E]">
+              <p><strong>නම:</strong> {userName}</p>
+              <p><strong>දුරකථන:</strong> {userPhone}</p>
+              <p><strong>දිස්ත්‍රික්කය:</strong> {userDistrict}</p>
+              <p><strong>භාණ්ඩය:</strong> {currentFurniture.name} ({length}x{width}x{height} cm)</p>
+              <p><strong>ඇස්තමේන්තුගත මිල:</strong> Rs. {estimatedPrice.toLocaleString()}</p>
+            </div>
+
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="w-full bg-[#23160D] hover:bg-[#3D2415] text-white py-3 rounded-2xl font-bold text-xs shadow transition-all"
+            >
+              හරි, ස්තූතියි!
+            </button>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          9. MODAL DRAWERS FOR "CHANGE >" BUTTONS
          ======================================================== */}
       {activeModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm animate-fade-in" onClick={() => setActiveModal(null)}>
@@ -554,7 +793,7 @@ export default function CustomOrderPage({ setActiveTab }) {
               <div className="space-y-3 text-xs text-[#5C4535] leading-relaxed">
                 <p><strong>1. Customize:</strong> Select your furniture item, hardwood species, polish finish and exact dimensions.</p>
                 <p><strong>2. Preview:</strong> Inspect the 3D model, rotate 360°, and view thumbnail variations.</p>
-                <p><strong>3. Review & Submit:</strong> Get an instant estimated quote and submit your order directly to our master carpenters.</p>
+                <p><strong>3. Review & Submit:</strong> Enter your mandatory contact details and submit your order directly via WhatsApp.</p>
               </div>
             )}
 
