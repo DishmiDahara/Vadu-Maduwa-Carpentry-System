@@ -93,7 +93,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 onClick={() => setActiveTab('catalog')}
                 className="bg-[#A46E43] hover:bg-[#8F5D34] text-white px-7 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg flex items-center gap-2 active:scale-95 cursor-pointer"
               >
-                <span>එකතුව බලන්න</span>
+                <span>අපගේ නිර්මාණ</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
