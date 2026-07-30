@@ -1,87 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { PenTool, ChefHat, Sparkles, Home, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { api } from '../services/api';
-
-const iconMap = {
-  PenTool: PenTool,
-  ChefHat: ChefHat,
-  Sparkles: Sparkles,
-  Home: Home
-};
+import React from 'react';
+import { Hammer, Wrench, Building2, Paintbrush, Truck } from 'lucide-react';
 
 export default function ServicesPage({ onOpenInquiry }) {
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    api.getServices().then(res => setServices(res));
-  }, []);
+  const serviceItems = [
+    {
+      id: 1,
+      title: 'Custom Furniture Design & Build',
+      desc: 'Unique & personalized furniture made for you.',
+      icon: Hammer
+    },
+    {
+      id: 2,
+      title: 'Restoration & Repair',
+      desc: 'We restore old furniture with care and expertise.',
+      icon: Wrench
+    },
+    {
+      id: 3,
+      title: 'Architectural Woodwork',
+      desc: 'Doors, windows, ceilings & interior woodwork.',
+      icon: Building2
+    },
+    {
+      id: 4,
+      title: 'Polishing & Finishing',
+      desc: 'High quality polish & paint finishes.',
+      icon: Paintbrush
+    },
+    {
+      id: 5,
+      title: 'On-site Installation',
+      desc: 'Professional installation at your location.',
+      icon: Truck
+    }
+  ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-      
-      {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-bold text-[#C68B59] uppercase tracking-widest">Our Expertise</span>
-        <h1 className="text-4xl font-extrabold font-heading text-gray-900">Custom Carpentry & Woodworking Services</h1>
-        <p className="text-gray-600 text-base leading-relaxed">
-          From architectural woodworking for residential luxury homes to custom furniture design and hotel fit-outs. We handle timber selection, precision milling, joint crafting, and hand polishing.
-        </p>
-      </div>
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        {/* Header */}
+        <div className="border-b border-[#E8DEC8] pb-4">
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">Services</h1>
+          <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">What we do best at Wadu Maduwa</p>
+        </div>
 
-      {/* Services List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {services.map((svc) => {
-          const IconComp = iconMap[svc.iconName] || Hammer;
-          return (
-            <div
-              key={svc.id}
-              className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row group"
-            >
-              <div className="sm:w-2/5 h-56 sm:h-auto overflow-hidden relative">
-                <img
-                  src={svc.imageUrl}
-                  alt={svc.serviceName}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              <div className="sm:w-3/5 p-6 sm:p-8 flex flex-col justify-between space-y-4">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#C68B59] flex items-center justify-center mb-3">
-                    <IconComp className="w-5 h-5" />
+        {/* 5 Service Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {serviceItems.map((svc) => {
+            const IconComponent = svc.icon;
+            return (
+              <div
+                key={svc.id}
+                className="bg-white border border-[#E8DEC8] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 group"
+              >
+                <div className="space-y-3">
+                  <div className="w-12 h-12 rounded-xl bg-[#FAF4EB] border border-[#E8DEC8] text-[#8B5E3C] flex items-center justify-center group-hover:bg-[#8B5E3C] group-hover:text-white transition-colors">
+                    <IconComponent className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold font-heading text-gray-900 group-hover:text-[#C68B59] transition-colors">
-                    {svc.serviceName}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                    {svc.description}
-                  </p>
+                  <h3 className="text-base font-bold text-[#2B190E]">{svc.title}</h3>
+                  <p className="text-xs text-[#7A6252] leading-relaxed">{svc.desc}</p>
                 </div>
-
-                <ul className="space-y-1.5 text-xs font-medium text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    <span>Free site measurement & consultaion</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    <span>Seasoned Teak / Mahogany guarantee</span>
-                  </li>
-                </ul>
 
                 <button
                   onClick={onOpenInquiry}
-                  className="w-full sm:w-auto self-start bg-gray-900 hover:bg-[#C68B59] text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#3D2415] hover:bg-[#8B5E3C] text-white py-2.5 rounded-xl font-bold text-xs transition-all border border-[#3D2415]"
                 >
-                  Book Service Consultation
-                  <ArrowRight className="w-4 h-4" />
+                  Inquire Now
                 </button>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
+      </div>
     </div>
   );
 }

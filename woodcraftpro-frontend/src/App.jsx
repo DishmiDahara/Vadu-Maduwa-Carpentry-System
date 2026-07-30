@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import InquiryModal from './components/InquiryModal';
 
 import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
@@ -15,7 +14,6 @@ import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
-  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [selectedProductForQuote, setSelectedProductForQuote] = useState(null);
   const [adminUser, setAdminUser] = useState(() => {
     const saved = localStorage.getItem('woodcraft_admin');
@@ -33,14 +31,15 @@ export default function App() {
     setActiveTab('home');
   };
 
+  // Direct quote / inquiry action to Contact page as per user requirement (Inquiry Modal removed)
   const handleOpenInquiryWithProduct = (product = null) => {
     setSelectedProductForQuote(product);
-    setIsInquiryOpen(true);
+    setActiveTab('contact');
   };
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen flex flex-col bg-[#F8F9FA] text-gray-900">
+      <div className="min-h-screen flex flex-col bg-[#FBF8F3] text-[#2B190E]">
         
         {/* Header Navigation */}
         <Navbar
@@ -74,7 +73,10 @@ export default function App() {
           )}
           {activeTab === 'gallery' && <GalleryPage />}
           {activeTab === 'contact' && (
-            <ContactPage onOpenInquiry={() => handleOpenInquiryWithProduct(null)} />
+            <ContactPage 
+              selectedProduct={selectedProductForQuote}
+              onOpenInquiry={() => handleOpenInquiryWithProduct(null)} 
+            />
           )}
           {activeTab === 'admin-login' && (
             <AdminLoginPage
@@ -87,25 +89,14 @@ export default function App() {
           )}
         </main>
 
-        {/* Footer (Hidden on home page so home matches mockup bottom contact bar) */}
-        {activeTab !== 'home' && (
-          <Footer
-            setActiveTab={setActiveTab}
-            onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
-          />
-        )}
-
-        {/* Customer Inquiry Modal */}
-        <InquiryModal
-          isOpen={isInquiryOpen}
-          onClose={() => {
-            setIsInquiryOpen(false);
-            setSelectedProductForQuote(null);
-          }}
-          selectedProduct={selectedProductForQuote}
+        {/* Footer */}
+        <Footer
+          setActiveTab={setActiveTab}
+          onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
         />
 
       </div>
     </LanguageProvider>
   );
 }
+

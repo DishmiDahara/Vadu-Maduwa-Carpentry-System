@@ -1,319 +1,354 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
-  ShieldCheck, 
-  ArrowRight, 
-  MessageCircle, 
-  PhoneCall, 
-  MapPin, 
-  DoorClosed, 
-  Kanban, 
-  ChefHat, 
-  BedDouble, 
-  UtensilsCrossed, 
-  Armchair, 
+  Heart, 
+  Star, 
   Award, 
-  Users 
+  Sparkles, 
+  Hammer, 
+  ShieldCheck, 
+  Wrench, 
+  Paintbrush, 
+  Building2, 
+  Truck 
 } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
-
-import TrustProofSection from '../components/TrustProofSection';
-import { Sparkles, Hammer } from 'lucide-react';
 
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
-  const { t } = useLanguage();
+  const [wishlist, setWishlist] = useState({});
 
-  // 6 Specialization dark photo cards matching user mockup exactly
-  const specializationCards = [
+  const toggleWishlist = (id) => {
+    setWishlist(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const featuredProducts = [
     {
-      title: t('mainDoors'),
-      icon: DoorClosed,
-      image: '/banner_crafts/door_main.jpg',
-      action: 'catalog'
-    },
-    {
-      title: t('staircases'),
-      icon: Kanban,
-      image: '/banner_crafts/staircase_main.jpg',
-      action: 'catalog'
-    },
-    {
-      title: t('pantryKitchens'),
-      icon: ChefHat,
-      image: '/banner_crafts/pantry_main.jpg',
-      action: 'catalog'
-    },
-    {
-      title: t('bedroomsCategory'),
-      icon: BedDouble,
-      image: '/banner_crafts/card_bedroom.jpg',
-      action: 'catalog'
-    },
-    {
-      title: t('diningSets'),
-      icon: UtensilsCrossed,
+      id: 'p1',
+      title: 'Teak Wood Dining Table',
+      price: 'Rs. 85,000',
+      rating: 4.8,
+      reviews: 32,
       image: '/banner_crafts/card_dining.jpg',
-      action: 'catalog'
+      wood: 'Teak Wood'
     },
     {
-      title: t('furnitureCategory'),
-      icon: Armchair,
-      image: '/banner_crafts/card_furniture.jpg',
-      action: 'catalog'
+      id: 'p2',
+      title: 'Modern Wooden Door',
+      price: 'Rs. 45,000',
+      rating: 4.6,
+      reviews: 18,
+      image: '/banner_crafts/door_main.jpg',
+      wood: 'Mahogany'
     },
+    {
+      id: 'p3',
+      title: 'King Size Wooden Bed',
+      price: 'Rs. 120,000',
+      rating: 4.9,
+      reviews: 27,
+      image: '/banner_crafts/card_bedroom.jpg',
+      wood: 'Teak Wood'
+    },
+    {
+      id: 'p4',
+      title: 'Wooden Wardrobe',
+      price: 'Rs. 78,000',
+      rating: 4.7,
+      reviews: 21,
+      image: '/banner_crafts/card_furniture.jpg',
+      wood: 'Teak Wood'
+    }
   ];
 
-  const handleWhatsAppClick = () => {
-    const text = encodeURIComponent('Hi වඩු මඩුව (Vadu Maduwa), I would like to inquire about your custom teak & wooden furniture.');
-    window.open(`https://wa.me/94773769849?text=${text}`, '_blank');
-  };
-
-  const handleLocationClick = () => {
-    // Open Google Maps directions for Dodangoda / Kalutara Showroom
-    window.open('https://maps.google.com/?q=Dodangoda+Kalutara+Sri+Lanka', '_blank');
-  };
-
   return (
-    <div className="bg-[#0B0C0E] text-white font-sans min-h-screen pb-28">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-10 pt-3">
-        
+    <div className="bg-[#FBF8F3] text-[#2B190E] font-sans pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pt-6">
+
         {/* ========================================================
-            1. HERO SECTION (Full-Photo Background Lit Staircase Hero)
+            1. HERO BANNER (Dark Wood Background matching Mockup)
            ======================================================== */}
-        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 min-h-[520px] sm:min-h-[580px] flex items-center">
-          
-          {/* High-Resolution Illuminated Staircase Background Photo */}
+        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#4A2E1B] bg-[#2B190E] min-h-[460px] sm:min-h-[520px] flex items-center">
+          {/* Hero Background Image */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
+            className="absolute inset-0 bg-cover bg-right bg-no-repeat opacity-40 mix-blend-luminosity"
             style={{ backgroundImage: `url('/hero_staircase_bg.png')` }}
           ></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1D1109] via-[#2B190E]/90 to-transparent"></div>
 
-          {/* Dark luxury radial & linear vignette gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/85 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-black/40"></div>
-
-          {/* Hero Content Panel */}
-          <div className="relative z-10 max-w-2xl px-5 sm:px-10 py-10 sm:py-14 space-y-6">
-            
-            {/* 15+ Years Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#1A1815]/80 backdrop-blur-md border border-amber-500/40 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 tracking-wide uppercase shadow-lg">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
-              <span>{t('yearsCraftsmanship')}</span>
-            </div>
-
-            {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-heading leading-[1.15] text-white tracking-tight">
-              {t('craftingTimeless')} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D99B6A] via-[#E6B78E] to-[#C68B59]">
-                {t('woodenInteriors')}
-              </span>
+          <div className="relative z-10 max-w-2xl px-6 sm:px-12 py-10 space-y-6">
+            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-white leading-tight">
+              ලියෙන් නිර්මාණය වන <br />
+              <span className="text-amber-400">ඔබේ සිහින...</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-gray-300 text-xs sm:text-base leading-relaxed font-normal max-w-xl">
-              {t('heroDescMockup')}
+            <p className="text-amber-100/90 text-sm sm:text-base leading-relaxed max-w-xl font-light">
+              අභිරුචි ශ්‍රී ලාංකීය නිර්මාණය, විශ්වසනීයත්වය, උසස් නිමාව සහ සවිකිරීම් සඳහා වඩු මඩුව ඔබ සතූයි.
             </p>
 
-            {/* Stacked / Inline Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="bg-[#B87A46] hover:bg-[#a06838] text-white px-7 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-xl hover:shadow-amber-950/50 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer border border-amber-400/30"
+                className="bg-[#8B5E3C] hover:bg-[#734A2E] text-white px-7 py-3 rounded-xl font-bold text-sm transition-all shadow-lg active:scale-95 border border-amber-500/30 flex items-center gap-2"
               >
-                <Sparkles className="w-4.5 h-4.5 text-amber-300" />
-                <span>{t('customIdeaNav')}</span>
-                <ArrowRight className="w-4 h-4" />
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Get Started</span>
               </button>
-
               <button
-                onClick={() => setActiveTab('catalog')}
-                className="bg-[#121418]/90 hover:bg-black/80 text-white border border-white/20 px-6 py-3.5 rounded-2xl font-semibold text-sm transition-all flex items-center justify-center gap-2.5 backdrop-blur-md active:scale-95 cursor-pointer"
+                onClick={() => setActiveTab('custom-order')}
+                className="bg-transparent hover:bg-white/10 text-white border border-amber-200/40 px-7 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95"
               >
-                <span>{t('browseCatalog')}</span>
+                Custom Order
               </button>
             </div>
-
-            {/* Social Proof & Rating Row */}
-            <div className="pt-1 flex items-center gap-2.5 text-xs text-gray-300">
-              <div className="flex text-amber-400 font-bold">
-                <span>⭐⭐⭐⭐⭐</span>
-              </div>
-              <span className="text-white font-extrabold text-sm">4.9/5</span>
-              <span className="text-gray-400 font-medium">• {t('trustedFamilies')}</span>
-            </div>
-
           </div>
 
+          {/* Circular 25+ Years Experience Badge (Mockup Match) */}
+          <div className="hidden lg:flex absolute right-12 bottom-12 w-32 h-32 rounded-full border-2 border-dashed border-amber-400/60 p-2 items-center justify-center text-center bg-[#1D1109]/80 backdrop-blur-md shadow-2xl">
+            <div>
+              <span className="block text-2xl font-black text-amber-400 font-heading leading-none">25+</span>
+              <span className="block text-[9px] uppercase tracking-widest text-amber-200 font-bold mt-1">YEARS OF<br/>EXPERIENCE</span>
+            </div>
+          </div>
         </section>
 
-
         {/* ========================================================
-            2. "BRING YOUR OWN IDEA" PROMINENT FEATURE BANNER
+            2. FEATURE HIGHLIGHTS BAR (Light Cream Box matching Mockup)
            ======================================================== */}
-        <section className="bg-gradient-to-r from-[#181A22] via-[#241F1A] to-[#181A22] rounded-3xl p-6 sm:p-10 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-3 max-w-xl z-10">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 px-3 py-1 rounded-full text-[11px] font-extrabold text-amber-300 uppercase tracking-widest">
-              <Hammer className="w-3.5 h-3.5 text-amber-400" />
-              <span>Custom Idea Request & Live Estimator</span>
+        <section className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl p-4 sm:p-6 shadow-sm grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-3 p-2">
+            <div className="w-10 h-10 rounded-xl bg-[#8B5E3C]/10 text-[#8B5E3C] flex items-center justify-center shrink-0">
+              <Award className="w-5 h-5" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-tight">
-              ඔබගේ හිතේ තියෙන ඕනෑම Idea එකක් Design කර ගෘහ භාණ්ඩ සාදාගන්න!
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-              Pinterest photo එකක් හෝ Sketch එකක් අප වෙත එවන්න. ඔබගේ ඉඩකඩට සහ බජට් එකට ගැළපෙන ලී වර්ගයෙන් (Teak/Mahogany) සාදා දෙනු ලැබේ.
-            </p>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-[#2B190E]">Premium Quality Wood</h4>
+              <p className="text-[11px] text-[#7A6252]">Handpicked & Seasoned</p>
+            </div>
           </div>
 
-          <div className="z-10 shrink-0">
+          <div className="flex items-center gap-3 p-2">
+            <div className="w-10 h-10 rounded-xl bg-[#8B5E3C]/10 text-[#8B5E3C] flex items-center justify-center shrink-0">
+              <Hammer className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-[#2B190E]">Custom Made</h4>
+              <p className="text-[11px] text-[#7A6252]">Tailored to Your Needs</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-2">
+            <div className="w-10 h-10 rounded-xl bg-[#8B5E3C]/10 text-[#8B5E3C] flex items-center justify-center shrink-0">
+              <Wrench className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-[#2B190E]">Expert Craftsmanship</h4>
+              <p className="text-[11px] text-[#7A6252]">Skilled & Experienced Team</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-2">
+            <div className="w-10 h-10 rounded-xl bg-[#8B5E3C]/10 text-[#8B5E3C] flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-[#2B190E]">Trusted Service</h4>
+              <p className="text-[11px] text-[#7A6252]">On-time Delivery & Support</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            3. FEATURED PRODUCTS GRID (Matching Mockup)
+           ======================================================== */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#2B190E]">Featured Products</h2>
             <button
-              onClick={() => setActiveTab('custom-order')}
-              className="bg-gradient-to-r from-[#C68B59] to-[#B87A46] hover:from-[#b07646] hover:to-[#a06838] text-white px-8 py-4 rounded-2xl font-extrabold text-sm shadow-2xl flex items-center gap-3 transition-all hover:scale-105 active:scale-95 cursor-pointer border border-amber-300/40"
+              onClick={() => setActiveTab('catalog')}
+              className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-4 py-1.5 rounded-lg text-xs font-semibold transition-all"
             >
-              <span>{t('customIdeaNav')}</span>
-              <ArrowRight className="w-5 h-5" />
+              View All
             </button>
           </div>
-        </section>
 
-
-        {/* ========================================================
-            3. 3-COLUMN STATS CARD (Dark Elevated Glass Card)
-           ======================================================== */}
-        <section>
-          <div className="bg-[#14161D]/90 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-white/10 shadow-2xl grid grid-cols-3 gap-3 text-center divide-x divide-white/10">
-            
-            <div className="px-2">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-2">
-                <Users className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl sm:text-3xl font-extrabold font-heading text-white">1200+</h3>
-              <p className="text-xs text-gray-400 font-medium">{t('projectsStat')}</p>
-            </div>
-
-            <div className="px-2">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-2">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl sm:text-3xl font-extrabold font-heading text-white">15+</h3>
-              <p className="text-xs text-gray-400 font-medium">{t('yearsExperience')}</p>
-            </div>
-
-            <div className="px-2">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-2">
-                <Award className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl sm:text-3xl font-extrabold font-heading text-white">100%</h3>
-              <p className="text-xs text-gray-400 font-medium">{t('genuineTeak')}</p>
-            </div>
-
-          </div>
-        </section>
-
-
-        {/* ========================================================
-            4. "WHAT WE SPECIALIZE IN" (6 Dark Image Cards)
-           ======================================================== */}
-        <section className="pt-2">
-          
-          {/* Section Header with Golden Accent Lines */}
-          <div className="text-center mb-6">
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-amber-500/60"></div>
-              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-white tracking-wide">
-                — {t('whatWeSpecializeIn')} —
-              </h2>
-              <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-amber-500/60"></div>
-            </div>
-          </div>
-
-          {/* 6 Dark Image Cards Grid (2 cols mobile, 3 cols desktop) */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-5">
-            {specializationCards.map((card, idx) => {
-              const IconComp = card.icon;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setActiveTab(card.action)}
-                  className="group relative rounded-2xl overflow-hidden h-44 sm:h-52 cursor-pointer shadow-xl border border-white/10 flex flex-col justify-between p-4 transition-all duration-500 hover:border-amber-500/50 hover:shadow-amber-950/30"
-                >
-                  {/* Background Photo */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white border border-[#E8DEC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
+              >
+                <div className="relative h-48 overflow-hidden bg-[#FAF4EB]">
                   <img
-                    src={card.image}
-                    alt={card.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {/* Dark Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30 group-hover:from-black/95 transition-colors"></div>
+                  <button
+                    onClick={() => toggleWishlist(product.id)}
+                    className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow"
+                  >
+                    <Heart className={`w-4 h-4 ${wishlist[product.id] ? 'fill-red-500 text-red-500' : ''}`} />
+                  </button>
+                </div>
 
-                  {/* Card Content Overlay */}
-                  <div className="relative z-10 space-y-2">
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/30 backdrop-blur-md text-amber-400 flex items-center justify-center">
-                      <IconComp className="w-5 h-5" />
+                <div className="p-4 space-y-2">
+                  <h3 className="font-bold text-sm text-[#2B190E] group-hover:text-[#8B5E3C] transition-colors">{product.title}</h3>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-extrabold text-[#8B5E3C] text-base">{product.price}</span>
+                    <div className="flex items-center gap-1 text-amber-500 text-[11px] font-bold">
+                      <Star className="w-3.5 h-3.5 fill-amber-400" />
+                      <span>{product.rating} ({product.reviews})</span>
                     </div>
                   </div>
-
-                  <div className="relative z-10">
-                    <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors drop-shadow-md">
-                      {card.title}
-                    </h3>
-                  </div>
+                  <button
+                    onClick={() => onSelectProductForQuote(product)}
+                    className="w-full mt-2 bg-[#F3EDE2] hover:bg-[#8B5E3C] text-[#2B190E] hover:text-white font-bold py-2 rounded-xl text-xs transition-all border border-[#E8DEC8]"
+                  >
+                    Get Quote
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-
         </section>
 
+        {/* ========================================================
+            4. OUR SERVICES (Dark Wood Section matching Mockup)
+           ======================================================== */}
+        <section className="bg-[#2B190E] text-white rounded-3xl p-6 sm:p-10 border border-[#4A2E1B] shadow-2xl space-y-6">
+          <div className="flex items-center justify-between border-b border-[#4A2E1B] pb-4">
+            <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">Our Services</h2>
+            <button
+              onClick={() => setActiveTab('services')}
+              className="bg-[#8B5E3C] hover:bg-[#734A2E] text-white px-4 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            >
+              View All Services
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+            <div 
+              onClick={() => setActiveTab('services')}
+              className="bg-[#1D1109] border border-[#4A2E1B] hover:border-amber-500/50 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                <Hammer className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-xs text-white">Custom Furniture</h3>
+              <p className="text-[10px] text-amber-200/60 mt-1">Design & Build</p>
+            </div>
+
+            <div 
+              onClick={() => setActiveTab('services')}
+              className="bg-[#1D1109] border border-[#4A2E1B] hover:border-amber-500/50 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                <Wrench className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-xs text-white">Restoration</h3>
+              <p className="text-[10px] text-amber-200/60 mt-1">Repair & Polish</p>
+            </div>
+
+            <div 
+              onClick={() => setActiveTab('services')}
+              className="bg-[#1D1109] border border-[#4A2E1B] hover:border-amber-500/50 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                <Building2 className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-xs text-white">Architectural</h3>
+              <p className="text-[10px] text-amber-200/60 mt-1">Woodwork</p>
+            </div>
+
+            <div 
+              onClick={() => setActiveTab('services')}
+              className="bg-[#1D1109] border border-[#4A2E1B] hover:border-amber-500/50 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                <Paintbrush className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-xs text-white">Polishing &</h3>
+              <p className="text-[10px] text-amber-200/60 mt-1">Finishing</p>
+            </div>
+
+            <div 
+              onClick={() => setActiveTab('services')}
+              className="bg-[#1D1109] border border-[#4A2E1B] hover:border-amber-500/50 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-1 col-span-2 md:col-span-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                <Truck className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-xs text-white">On-site</h3>
+              <p className="text-[10px] text-amber-200/60 mt-1">Installation</p>
+            </div>
+          </div>
+        </section>
 
         {/* ========================================================
-            5. TRUST & PROOF SECTION (Timber Certifications & Reviews)
+            5. WHAT OUR CUSTOMERS SAY (Testimonials matching Mockup)
            ======================================================== */}
-        <TrustProofSection onOpenCustomOrder={() => setActiveTab('custom-order')} />
+        <section className="space-y-6">
+          <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#2B190E]">What Our Customers Say</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            {/* Left Rating Box */}
+            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-6 flex flex-col justify-between space-y-4">
+              <div>
+                <div className="flex text-amber-500 text-lg mb-2">★★★★★</div>
+                <h3 className="text-3xl font-extrabold text-[#2B190E] font-heading">4.8/5</h3>
+                <p className="text-xs text-[#7A6252] mt-1">Based on 120+ reviews</p>
+              </div>
+              <button
+                onClick={() => setActiveTab('contact')}
+                className="w-full bg-[#3D2415] hover:bg-[#2B190E] text-white py-2 rounded-xl text-xs font-semibold transition-all"
+              >
+                View All Reviews
+              </button>
+            </div>
+
+            {/* Testimonial Card 1 */}
+            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 flex flex-col justify-between space-y-3">
+              <p className="text-xs text-[#4A3B32] italic leading-relaxed">
+                "Excellent craftsmanship and high quality work. Very happy with my custom wardrobe."
+              </p>
+              <div className="flex items-center gap-3 pt-2 border-t border-[#F3EDE2]">
+                <div className="w-8 h-8 rounded-full bg-[#8B5E3C] text-white font-bold flex items-center justify-center text-xs">DP</div>
+                <div>
+                  <h4 className="text-xs font-bold text-[#2B190E]">Dinesh Perera</h4>
+                  <p className="text-[10px] text-[#7A6252]">Colombo</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial Card 2 */}
+            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 flex flex-col justify-between space-y-3">
+              <p className="text-xs text-[#4A3B32] italic leading-relaxed">
+                "ඉතාම උසස් මට්ටමේ මේසෙ. මිල ගණන් ද ඉතා සාධාරණයි. මෙලෙසම ඉදිරියටත් සාර්ථක වෙන්න!"
+              </p>
+              <div className="flex items-center gap-3 pt-2 border-t border-[#F3EDE2]">
+                <div className="w-8 h-8 rounded-full bg-[#8B5E3C] text-white font-bold flex items-center justify-center text-xs">NF</div>
+                <div>
+                  <h4 className="text-xs font-bold text-[#2B190E]">Nimal Fernando</h4>
+                  <p className="text-[10px] text-[#7A6252]">Kandy</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial Card 3 */}
+            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 flex flex-col justify-between space-y-3">
+              <p className="text-xs text-[#4A3B32] italic leading-relaxed">
+                "மிகவும் சிறந்த சேவை! மற்றும் தரமான பொருட்கள்."
+              </p>
+              <div className="flex items-center gap-3 pt-2 border-t border-[#F3EDE2]">
+                <div className="w-8 h-8 rounded-full bg-[#8B5E3C] text-white font-bold flex items-center justify-center text-xs">SA</div>
+                <div>
+                  <h4 className="text-xs font-bold text-[#2B190E]">S. Aravinth</h4>
+                  <p className="text-[10px] text-[#7A6252]">Jaffna</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
 
       </div>
-
-      {/* ========================================================
-          4. FIXED BOTTOM STICKY NAVIGATION BAR (Matching Mockup)
-         ======================================================== */}
-      <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-8 sm:max-w-md sm:w-full z-50 bg-[#16181E]/95 backdrop-blur-xl border border-white/20 py-3 px-6 rounded-full shadow-2xl flex items-center justify-around text-white">
-        
-        <button
-          onClick={handleWhatsAppClick}
-          className="flex flex-col items-center justify-center gap-1 active:scale-95 transition-transform cursor-pointer group"
-        >
-          <div className="w-8 h-8 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500/30 flex items-center justify-center text-emerald-400 transition-colors">
-            <MessageCircle className="w-4.5 h-4.5 fill-emerald-400/20" />
-          </div>
-          <span className="text-[11px] font-semibold text-gray-200 group-hover:text-white transition-colors">
-            {t('whatsappNav')}
-          </span>
-        </button>
-
-        <button
-          onClick={() => window.open('tel:0773769849')}
-          className="flex flex-col items-center justify-center gap-1 active:scale-95 transition-transform cursor-pointer group"
-        >
-          <div className="w-8 h-8 rounded-full bg-amber-500/20 group-hover:bg-amber-500/30 flex items-center justify-center text-amber-400 transition-colors">
-            <PhoneCall className="w-4.5 h-4.5" />
-          </div>
-          <span className="text-[11px] font-semibold text-gray-200 group-hover:text-white transition-colors">
-            {t('callNow')}
-          </span>
-        </button>
-
-        <button
-          onClick={handleLocationClick}
-          className="flex flex-col items-center justify-center gap-1 active:scale-95 transition-transform cursor-pointer group"
-        >
-          <div className="w-8 h-8 rounded-full bg-blue-500/20 group-hover:bg-blue-500/30 flex items-center justify-center text-blue-400 transition-colors">
-            <MapPin className="w-4.5 h-4.5" />
-          </div>
-          <span className="text-[11px] font-semibold text-gray-200 group-hover:text-white transition-colors">
-            {t('locationNav')}
-          </span>
-        </button>
-
-      </div>
-
     </div>
   );
 }

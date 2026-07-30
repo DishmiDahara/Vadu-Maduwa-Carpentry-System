@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Hammer, PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X, Sparkles } from 'lucide-react';
+import { ShieldCheck, UserCheck, LogOut, Menu, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import logoImg from '../assets/logo.png';
 
@@ -8,103 +8,121 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'custom-order', label: ` ${t('customIdeaNav')}`, action: 'custom-order', highlight: true },
-    { id: 'catalog', label: `${t('catalog')} ▾`, action: 'catalog' },
-    { id: 'gallery', label: t('projects'), action: 'gallery' },
-    { id: 'services', label: t('aboutUs'), action: 'services' },
-    { id: 'contact', label: t('contact'), action: 'contact' },
+    { id: 'home', label: 'Home', action: 'home' },
+    { id: 'catalog', label: 'Catalog', action: 'catalog' },
+    { id: 'services', label: 'Services', action: 'services' },
+    { id: 'gallery', label: 'Gallery', action: 'gallery' },
+    { id: 'about', label: 'About Us', action: 'services' },
+    { id: 'contact', label: 'Contact', action: 'contact' },
   ];
 
-  const handleNavClick = (id) => {
-    setActiveTab(id);
+  const handleNavClick = (action) => {
+    setActiveTab(action);
     setIsMobileMenuOpen(false);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#16181D]/95 backdrop-blur-xl border-b border-amber-900/20 text-white shadow-xl transition-all">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#2B190E] border-b border-[#4A2E1B] text-white shadow-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
 
-        {/* Left Section: Brand Logo & Mobile Menu Toggle */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Mobile Hamburger Toggle */}
+        {/* Left Section: Brand Logo */}
+        <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-1.5 text-amber-200 hover:text-white hover:bg-amber-900/30 rounded-xl transition-colors"
             aria-label="Toggle Navigation Menu"
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo Plaque */}
           <div
             onClick={() => handleNavClick('home')}
-            className="flex items-center cursor-pointer group py-1"
+            className="flex items-center gap-3 cursor-pointer group py-1"
           >
-            <img
-              src={logoImg}
-              alt="වඩු මඩුව Carpentry Workshop"
-              className="h-10 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-lg"
-            />
+            {logoImg ? (
+              <img
+                src={logoImg}
+                alt="වඩු මඩුව Wadu Maduwa"
+                className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
+            ) : null}
+            <div className="flex flex-col">
+              <span className="font-heading font-black text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
+                <span className="text-amber-400">වඩු මඩුව</span>
+              </span>
+              <span className="text-[10px] tracking-widest text-amber-200/80 font-bold uppercase -mt-1">
+                WADU MADUWA
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-2 lg:gap-4">
+        {/* Center Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-1 lg:gap-3">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.action)}
-              className={`px-3.5 py-1.5 text-sm font-medium transition-all rounded-xl ${activeTab === item.action
-                  ? 'text-amber-400 font-semibold bg-white/10'
-                  : 'text-gray-200 hover:text-white hover:bg-white/5'
-                }`}
+              className={`px-3.5 py-1.5 text-sm font-medium transition-all rounded-lg ${
+                activeTab === item.action
+                  ? 'text-white bg-[#4A2E1B] font-semibold border border-amber-500/30'
+                  : 'text-amber-100/90 hover:text-white hover:bg-white/5'
+              }`}
             >
               {item.label}
             </button>
           ))}
         </nav>
 
-        {/* Right Actions & Language Selector Dropdown */}
-        <div className="flex items-center gap-1.5 sm:gap-3">
-
-          {/* Trilingual Language Selector Pill (Mockup Match) */}
-          <div className="flex items-center bg-white/10 hover:bg-white/15 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl border border-white/15 text-[11px] sm:text-xs font-semibold text-white backdrop-blur-md transition-all">
-            <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400 mr-1 sm:mr-1.5" />
-            <select
-              value={lang}
-              onChange={(e) => setLang(e.target.value)}
-              className="bg-transparent text-white font-semibold outline-none cursor-pointer pr-0.5 py-0.5 text-[11px] sm:text-xs"
+        {/* Right Section: Language Pills & Admin */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          
+          {/* Language Selector Toggle Pills (Mockup Match: සිංහල | English | தமிழ்) */}
+          <div className="bg-[#1D1109] border border-[#4A2E1B] p-1 rounded-lg flex items-center gap-1 text-xs">
+            <button
+              onClick={() => setLang('SI')}
+              className={`px-2.5 py-1 rounded font-medium transition-all ${
+                lang === 'SI' ? 'bg-[#8B5E3C] text-white font-bold shadow' : 'text-amber-200/70 hover:text-white'
+              }`}
             >
-              <option value="EN" className="bg-[#1C1F26] text-white">English</option>
-              <option value="SI" className="bg-[#1C1F26] text-white">සිංහල</option>
-              <option value="TA" className="bg-[#1C1F26] text-white">தமிழ்</option>
-            </select>
+              සිංහල
+            </button>
+            <button
+              onClick={() => setLang('EN')}
+              className={`px-2.5 py-1 rounded font-medium transition-all ${
+                lang === 'EN' ? 'bg-[#8B5E3C] text-white font-bold shadow' : 'text-amber-200/70 hover:text-white'
+              }`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => setLang('TA')}
+              className={`px-2.5 py-1 rounded font-medium transition-all ${
+                lang === 'TA' ? 'bg-[#8B5E3C] text-white font-bold shadow' : 'text-amber-200/70 hover:text-white'
+              }`}
+            >
+              தமிழ்
+            </button>
           </div>
 
-          <button
-            onClick={onOpenInquiry}
-            className="hidden sm:flex items-center gap-2 bg-[#C68B59] hover:bg-[#b07646] text-white px-4 py-2 rounded-full font-medium text-xs sm:text-sm transition-all shadow-sm active:scale-95"
-          >
-            <PhoneCall className="w-4 h-4" />
-            {t('requestQuote')}
-          </button>
-
+          {/* Admin Dashboard / Login */}
           {adminUser ? (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => handleNavClick('admin-dashboard')}
-                className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full text-xs font-semibold transition-all border ${activeTab === 'admin-dashboard'
-                    ? 'bg-[#1C1F26] text-white border-[#1C1F26]'
-                    : 'bg-amber-50 text-[#8B4513] border-amber-200 hover:bg-amber-100'
-                  }`}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                  activeTab === 'admin-dashboard'
+                    ? 'bg-amber-400 text-[#2B190E] border-amber-300'
+                    : 'bg-[#4A2E1B] text-amber-100 border-amber-700/50 hover:bg-[#5C3922]'
+                }`}
               >
                 <UserCheck className="w-4 h-4" />
-                <span className="hidden sm:inline">{t('adminDesk')}</span>
+                <span className="hidden sm:inline">Admin</span>
               </button>
               <button
                 onClick={onLogout}
                 title="Logout Admin"
-                className="p-1.5 sm:p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-red-50 transition-colors"
+                className="p-1.5 text-amber-200/70 hover:text-red-400 rounded-lg hover:bg-red-950/40 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -112,57 +130,43 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
           ) : (
             <button
               onClick={() => handleNavClick('admin-login')}
-              className="hidden lg:flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#C68B59] px-2.5 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium"
+              className="hidden lg:flex items-center gap-1.5 text-xs text-amber-200/80 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-white/5 transition-colors font-medium border border-transparent hover:border-amber-800/40"
             >
-              <ShieldCheck className="w-4 h-4 text-[#C68B59]" />
-              {t('adminPortal')}
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              Admin
             </button>
           )}
+
         </div>
 
       </div>
 
-      {/* Responsive Mobile Drawer Navigation Menu */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-gray-200 px-4 pt-3 pb-6 space-y-3 animate-fade-in shadow-xl">
-          <div className="grid grid-cols-1 gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`w-full text-left px-4 py-3 rounded-xl text-base font-semibold transition-all flex items-center justify-between ${activeTab === item.id
-                    ? 'bg-amber-50 text-[#C68B59] border border-amber-200/60'
-                    : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-              >
-                <span>{item.label}</span>
-                <span className="text-xs text-gray-400">➔</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="pt-2 border-t border-gray-100 flex flex-col gap-2">
+        <div className="md:hidden bg-[#2B190E] border-b border-[#4A2E1B] px-4 pt-3 pb-6 space-y-2 animate-fade-in shadow-2xl">
+          {navItems.map((item) => (
             <button
-              onClick={() => {
-                onOpenInquiry();
-                setIsMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center justify-center gap-2 bg-[#C68B59] hover:bg-[#b07646] text-white py-3 rounded-xl font-semibold text-sm shadow-md transition-all active:scale-95"
+              key={item.id}
+              onClick={() => handleNavClick(item.action)}
+              className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center justify-between ${
+                activeTab === item.action
+                  ? 'bg-[#8B5E3C] text-white'
+                  : 'text-amber-100/90 hover:bg-white/5'
+              }`}
             >
-              <PhoneCall className="w-4 h-4" />
-              {t('requestQuote')}
+              <span>{item.label}</span>
+              <span className="text-xs text-amber-300/50">➔</span>
             </button>
-
-            {!adminUser && (
-              <button
-                onClick={() => handleNavClick('admin-login')}
-                className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-700 hover:bg-gray-200 py-2.5 rounded-xl font-medium text-xs transition-colors"
-              >
-                <ShieldCheck className="w-4 h-4 text-[#C68B59]" />
-                {t('adminPortal')}
-              </button>
-            )}
-          </div>
+          ))}
+          {!adminUser && (
+            <button
+              onClick={() => handleNavClick('admin-login')}
+              className="w-full mt-2 flex items-center justify-center gap-2 bg-[#1D1109] text-amber-200 py-2 rounded-lg font-medium text-xs border border-[#4A2E1B]"
+            >
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              Admin Portal
+            </button>
+          )}
         </div>
       )}
     </header>

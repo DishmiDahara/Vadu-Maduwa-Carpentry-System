@@ -1,150 +1,145 @@
-import React, { useEffect, useState } from 'react';
-import { Search, Filter } from 'lucide-react';
-import ProductCard from '../components/ProductCard';
-import { api } from '../services/api';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from 'react';
+import { Search } from 'lucide-react';
 
 export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) {
-  const { t } = useLanguage();
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState('price-low');
 
-  const [sortBy, setSortBy] = useState('default');
-  const [woodFilter, setWoodFilter] = useState('ALL');
+  const categories = [
+    'All Products',
+    'Living Room',
+    'Bedroom',
+    'Dining Room',
+    'Office',
+    'Doors & Windows'
+  ];
 
-  useEffect(() => {
-    fetchCatalogData();
-  }, [selectedCategory, searchQuery]);
+  const defaultProducts = [
+    { id: '1', title: 'Sofa Set', price: 61000, category: 'Living Room', image: '/banner_crafts/card_furniture.jpg' },
+    { id: '2', title: 'Dining Table Set', price: 65000, category: 'Dining Room', image: '/banner_crafts/card_dining.jpg' },
+    { id: '3', title: 'Office Table', price: 44000, category: 'Office', image: '/banner_crafts/staircase_main.jpg' },
+    { id: '4', title: 'Bed Set', price: 120000, category: 'Bedroom', image: '/banner_crafts/card_bedroom.jpg' },
+    { id: '5', title: 'Wardrobe', price: 78000, category: 'Bedroom', image: '/banner_crafts/card_furniture.jpg' },
+    { id: '6', title: 'Teak Door', price: 31000, category: 'Doors & Windows', image: '/banner_crafts/door_main.jpg' }
+  ];
 
-  const fetchCatalogData = async () => {
-    setLoading(true);
-    try {
-      const [catsRes, prodsRes] = await Promise.all([
-        api.getCategories(),
-        api.getProducts({ categoryId: selectedCategory, search: searchQuery })
-      ]);
-      setCategories(catsRes);
-      setProducts(prodsRes);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Filter & Sort Logic
-  const getFilteredProducts = () => {
-    let filtered = [...products];
-
-    if (woodFilter === 'TEAK') {
-      filtered = filtered.filter(p => p.productName.toLowerCase().includes('teak') || p.description.toLowerCase().includes('teak'));
-    } else if (woodFilter === 'MAHOGANY') {
-      filtered = filtered.filter(p => p.productName.toLowerCase().includes('mahogany') || p.description.toLowerCase().includes('mahogany'));
-    } else if (woodFilter === 'NADUN') {
-      filtered = filtered.filter(p => p.productName.toLowerCase().includes('nadun') || p.description.toLowerCase().includes('nadun'));
-    }
-
-    if (sortBy === 'price-low') {
-      filtered.sort((a, b) => a.basePrice - b.basePrice);
-    } else if (sortBy === 'price-high') {
-      filtered.sort((a, b) => b.basePrice - a.basePrice);
-    } else if (sortBy === 'name') {
-      filtered.sort((a, b) => a.productName.localeCompare(b.productName));
-    }
-
-    return filtered;
-  };
-
-  const displayedProducts = getFilteredProducts();
+  // Filtering & Sorting
+  const filteredProducts = defaultProducts
+    .filter(p => {
+      const matchesCat = selectedCategory === 'All' || selectedCategory === 'All Products' || p.category === selectedCategory;
+      const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCat && matchesSearch;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price-low') return a.price - b.price;
+      if (sortBy === 'price-high') return b.price - a.price;
+      return a.title.localeCompare(b.title);
+    });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
-      {/* Category Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-gray-200 no-scrollbar">
-        <button
-          onClick={() => {
-            setSelectedCategory(null);
-            setWoodFilter('ALL');
-          }}
-          className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-            selectedCategory === null
-              ? 'bg-[#C68B59] text-white shadow-md'
-              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-          }`}
-        >
-          All Furniture ({products.length})
-        </button>
+        {/* Catalog Page Header Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E8DEC8] pb-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">Catalog</h1>
+            <p className="text-xs text-[#7A6252] mt-0.5">Explore our handcrafted Sri Lankan wooden furniture collection</p>
+          </div>
 
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setSelectedCategory(cat.id)}
-            className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-              selectedCategory === cat.id
-                ? 'bg-[#C68B59] text-white shadow-md'
-                : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            {/* Search Input */}
+            <div className="relative flex-1 sm:w-64">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 bg-white border border-[#E8DEC8] rounded-xl text-xs text-[#2B190E] outline-none focus:border-[#8B5E3C]"
+              />
+              <Search className="w-4 h-4 text-[#7A6252] absolute left-3 top-2.5" />
+            </div>
 
-      {/* Quick Filter & Sort Options Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-wrap items-center justify-end gap-4">
-        
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-[#7A6252]">
+              <span>Sort by:</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-white border border-[#E8DEC8] text-[#2B190E] text-xs font-bold rounded-xl px-3 py-2 outline-none focus:border-[#8B5E3C]"
+              >
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name: A to Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
+        {/* Main Grid: Sidebar + Product Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+          
+          {/* Left Sidebar Category Filters */}
+          <div className="md:col-span-3 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
+            <h3 className="text-xs font-bold text-[#7A6252] uppercase tracking-wider px-3 py-2 mb-1">Categories</h3>
+            {categories.map((cat) => {
+              const isSelected = selectedCategory === cat || (cat === 'All Products' && selectedCategory === 'All');
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat === 'All Products' ? 'All' : cat)}
+                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between ${
+                    isSelected
+                      ? 'bg-[#FAF4EB] text-[#8B5E3C] border border-[#E8DEC8]'
+                      : 'text-[#2B190E] hover:bg-[#FAF4EB]/60'
+                  }`}
+                >
+                  <span>{cat}</span>
+                  {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#8B5E3C]"></span>}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Sort By Selector */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Sort By:</span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-50 border border-gray-200 text-gray-800 text-xs font-semibold rounded-xl px-3 py-2 outline-none cursor-pointer focus:border-[#C68B59] transition-colors"
-          >
-            <option value="default">Featured / Default</option>
-            <option value="price-low">Price: Low to High (ලෙස අඩු සිට වැඩි)</option>
-            <option value="price-high">Price: High to Low (ලෙස වැඩි සිට අඩු)</option>
-            <option value="name">Name (A - Z)</option>
-          </select>
+          {/* Product Cards Grid */}
+          <div className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((p) => (
+              <div
+                key={p.id}
+                className="bg-white border border-[#E8DEC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+              >
+                <div className="h-48 overflow-hidden bg-[#FAF4EB]">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="p-4 space-y-2">
+                  <h3 className="font-bold text-sm text-[#2B190E]">{p.title}</h3>
+                  <div className="text-sm font-extrabold text-[#8B5E3C]">
+                    Rs. {p.price.toLocaleString()}
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      onSelectProductForQuote({ productName: p.title, basePrice: p.price });
+                      onOpenInquiry();
+                    }}
+                    className="w-full mt-2 bg-[#F3EDE2] hover:bg-[#8B5E3C] text-[#2B190E] hover:text-white font-bold py-2 rounded-xl text-xs transition-all border border-[#E8DEC8]"
+                  >
+                    Get Quote
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
 
       </div>
-
-      {/* Products Grid */}
-      {loading ? (
-        <div className="text-center py-20">
-          <div className="w-10 h-10 border-4 border-[#C68B59] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-gray-500 text-sm">Loading Furniture Catalog...</p>
-        </div>
-      ) : displayedProducts.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-3xl border border-gray-200 space-y-3">
-          <Filter className="w-10 h-10 text-gray-400 mx-auto" />
-          <h3 className="text-lg font-bold text-gray-900">No Furniture Found</h3>
-          <p className="text-xs text-gray-500">Try changing the timber filter or selecting another category.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {displayedProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onSelectForQuote={(p) => {
-                onSelectProductForQuote(p);
-                onOpenInquiry();
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-
     </div>
   );
 }
