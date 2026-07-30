@@ -12,6 +12,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
     { id: 'catalog', label: 'Catalog', action: 'catalog' },
     { id: 'services', label: 'Services', action: 'services' },
     { id: 'gallery', label: 'Gallery', action: 'gallery' },
+    { id: 'feedback', label: 'Feedback', action: 'feedback' },
     { id: 'about', label: 'About Us', action: 'services' },
     { id: 'contact', label: 'Contact', action: 'contact' },
   ];

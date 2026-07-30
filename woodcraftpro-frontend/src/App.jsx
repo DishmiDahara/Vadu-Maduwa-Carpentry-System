@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
+import FeedbackPage from './pages/FeedbackPage';
 import ContactPage from './pages/ContactPage';
 import CustomOrderPage from './pages/CustomOrderPage';
 import AdminLoginPage from './pages/AdminLoginPage';
@@ -72,6 +73,7 @@ export default function App() {
             <ServicesPage onOpenInquiry={() => handleOpenInquiryWithProduct(null)} />
           )}
           {activeTab === 'gallery' && <GalleryPage />}
+          {activeTab === 'feedback' && <FeedbackPage />}
           {activeTab === 'contact' && (
             <ContactPage 
               selectedProduct={selectedProductForQuote}
