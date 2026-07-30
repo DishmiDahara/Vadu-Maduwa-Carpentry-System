@@ -89,11 +89,13 @@ export default function App() {
           )}
         </main>
 
-        {/* Footer */}
-        <Footer
-          setActiveTab={setActiveTab}
-          onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
-        />
+        {/* Footer (Rendered only on Home page as requested) */}
+        {activeTab === 'home' && (
+          <Footer
+            setActiveTab={setActiveTab}
+            onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
+          />
+        )}
 
       </div>
     </LanguageProvider>
