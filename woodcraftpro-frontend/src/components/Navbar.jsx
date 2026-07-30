@@ -35,18 +35,21 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo */}
+          {/* Brand Logo & Tagline */}
           <div 
             onClick={() => handleNavClick('home')} 
-            className="flex items-center cursor-pointer group py-1"
+            className="flex items-center gap-3 cursor-pointer group py-1"
           >
             {logoImg && (
               <img 
                 src={logoImg} 
                 alt="වඩු මඩුව Carpentry Workshop" 
-                className="h-14 sm:h-16 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform" 
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform" 
               />
             )}
+            <span className="hidden sm:block text-[11px] font-semibold text-[#5C4535] leading-tight max-w-[140px]">
+              ඔබේ අදහසට<br />ජීවය දෙන නිර්මාණ
+            </span>
           </div>
         </div>
 
@@ -86,13 +89,13 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
         </nav>
 
         {/* Right Section: Action Buttons */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onOpenInquiry}
-            className="hidden sm:flex items-center gap-2 bg-[#C68B59] hover:bg-[#b07646] text-white px-4 py-2 rounded-full font-medium text-xs sm:text-sm transition-all shadow-sm active:scale-95"
+            className="flex items-center gap-2 bg-[#20120A] hover:bg-[#321C0F] text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer"
           >
-            <PhoneCall className="w-4 h-4" />
-            {t('requestQuote')}
+            <PhoneCall className="w-4 h-4 text-[#C68B59]" />
+            <span>අමතන්න</span>
           </button>
 
           {adminUser ? (

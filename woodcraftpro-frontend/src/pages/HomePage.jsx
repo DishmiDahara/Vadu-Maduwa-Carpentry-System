@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Heart,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   ShieldCheck,
   Award,
   Hammer,
@@ -18,42 +16,10 @@ import {
 
 export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpenInquiry }) {
   const [wishlist, setWishlist] = useState({});
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-  // Hero Slides Data
-  const heroSlides = [
-    {
-      image: '/hero_armchair.png',
-      badge: 'PREMIUM QUALITY WOODWORK',
-      titleLine1: 'ඔබේ අදහසට',
-      titleLine2: 'ජීවය දෙන දැව නිර්මාණ',
-      descLine1: 'උළුවහු, දොර ජනෙල්, පැන්ට්‍රි කබඩ්, පඩිපෙළ අත්වැටවල් හා සියලු කැටයම් වැඩ',
-      descLine2: 'ඔබේ අවශ්‍යතාවයට හා මිනුම්වලට අනුව උසස්ම නිමාවෙන්.'
-    },
-
-  ];
-
-  // Auto-play slideshow timer (every 4.5 seconds)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlideIndex(prev => (prev + 1) % heroSlides.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [heroSlides.length]);
-
-  const nextSlide = () => {
-    setCurrentSlideIndex(prev => (prev + 1) % heroSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlideIndex(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
-  };
 
   const toggleWishlist = (id) => {
     setWishlist(prev => ({ ...prev, [id]: !prev[id] }));
   };
-
-  const currentSlide = heroSlides[currentSlideIndex];
 
   const featuredProducts = [
     {
@@ -87,124 +53,101 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
 
         {/* ========================================================
-            1. HERO SLIDER BANNER (Interactive Auto-Playing Carousel)
+            1. HERO STATIC BANNER (Dark Warm Woodcraft Theme - Image 1)
            ======================================================== */}
-        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[480px] sm:min-h-[520px] flex items-center">
+        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3E2616] bg-[#20120A] min-h-[500px] sm:min-h-[540px] flex items-center">
 
-          {/* Dynamic Background Image with Smooth Fade Transition */}
+          {/* Background Image on Right / Full Mobile Backdrop */}
           <div
-            key={currentSlideIndex}
-            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
-            style={{ backgroundImage: `url('${currentSlide.image}')` }}
+            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat opacity-60 sm:opacity-90"
+            style={{ backgroundImage: `url('/hero_armchair.png')` }}
           ></div>
 
-          {/* Gradient Overlay for Text Visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 sm:via-[#FAF8F5]/65 to-transparent"></div>
+          {/* Dark Rich Gradient Overlay for High Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#20120A] via-[#20120A]/95 sm:via-[#20120A]/85 to-transparent"></div>
 
-          {/* Slider Left Arrow Button */}
-          <button
-            onClick={prevSlide}
-            aria-label="Previous Slide"
-            className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Slider Right Arrow Button */}
-          <button
-            onClick={nextSlide}
-            aria-label="Next Slide"
-            className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Hero Content Block */}
-          <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5">
+          {/* Hero Content Panel */}
+          <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 sm:py-12 space-y-6">
 
             {/* Top Leaf Sub-Badge */}
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full shadow-sm">
-              <span>🍃</span>
-              <span>{currentSlide.badge}</span>
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#E2B784] uppercase tracking-widest bg-[#382012] border border-[#52331F] px-3.5 py-1 rounded-full shadow-sm">
+              <span>🪓</span>
+              <span>PREMIUM QUALITY WOODWORK</span>
             </div>
 
             {/* Main Sinhala Headline */}
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-[#2B190E] leading-tight">
-              {currentSlide.titleLine1} <br />
-              <span className="text-[#3D2415]">{currentSlide.titleLine2}</span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-white leading-tight">
+              ඔබේ අදහසට <br />
+              ජීවය දෙන <br />
+              <span className="text-[#E2B784]">දැව නිර්මාණ</span>
             </h1>
 
             {/* Sinhala Subtitle */}
-            <p className="text-xs sm:text-sm text-[#5C4535] leading-relaxed font-medium">
-              {currentSlide.descLine1}<br />
-              {currentSlide.descLine2}
+            <p className="text-xs sm:text-sm text-[#D1C3B7] leading-relaxed font-normal max-w-lg">
+              ඔබගේ අවශ්‍යතාවය, රුචිකත්වය සහ ඉඩකඩට ගැලපෙන පරිදි උසස් තත්ත්වයේ <span className="font-semibold text-white">Custom Furniture</span> නිර්මාණය කර දෙන්නෙමු.
             </p>
 
             {/* Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => setActiveTab('catalog')}
-                className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-md flex items-center gap-2 active:scale-95 cursor-pointer"
+                className="bg-[#A46E43] hover:bg-[#8F5D34] text-white px-7 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg flex items-center gap-2 active:scale-95 cursor-pointer"
               >
-                <span>අපගේ නිර්මාණ</span>
+                <span>එකතුව බලන්න</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="bg-white hover:bg-[#FAF4EB] text-[#2B190E] border border-[#3D2415] px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/25 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-sm active:scale-95 backdrop-blur-sm cursor-pointer"
               >
-                <Package className="w-4 h-4 text-[#8B5E3C]" />
-                <span>ඔබේ නිර්මාණය ආරම්භ කරන්න</span>
+                <Package className="w-4 h-4 text-[#E2B784]" />
+                <span>ඔබේ නිර්මාණය අරඹන්න</span>
               </button>
             </div>
 
             {/* 4 Feature Badges Row */}
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-[#E8DEC8]/60 text-[11px] text-[#5C4535]">
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#8B5E3C]" />
+            <div className="pt-6 mt-4 border-t border-[#3E2616] grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-[#D1C3B7]">
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-[#331E12] text-[#E2B784] border border-[#482B1B] shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
                 <div>
-                  <span className="font-bold block text-[#2B190E]">25+ Years</span>
-                  <span className="text-[10px] text-gray-500">Experience</span>
+                  <span className="font-bold block text-white text-[11px] sm:text-xs">25+ Years</span>
+                  <span className="text-[10px] text-[#A69485]">Experience</span>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-[#8B5E3C]" />
+
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-[#331E12] text-[#E2B784] border border-[#482B1B] shrink-0">
+                  <Award className="w-4 h-4" />
+                </div>
                 <div>
-                  <span className="font-bold block text-[#2B190E]">Premium</span>
-                  <span className="text-[10px] text-gray-500">Quality Wood</span>
+                  <span className="font-bold block text-white text-[11px] sm:text-xs">Premium</span>
+                  <span className="text-[10px] text-[#A69485]">Quality Wood</span>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Hammer className="w-4 h-4 text-[#8B5E3C]" />
+
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-[#331E12] text-[#E2B784] border border-[#482B1B] shrink-0">
+                  <Hammer className="w-4 h-4" />
+                </div>
                 <div>
-                  <span className="font-bold block text-[#2B190E]">Custom Made</span>
-                  <span className="text-[10px] text-gray-500">For Your Needs</span>
+                  <span className="font-bold block text-white text-[11px] sm:text-xs">Custom Made</span>
+                  <span className="text-[10px] text-[#A69485]">For Your Needs</span>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-[#8B5E3C]" />
+
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-[#331E12] text-[#E2B784] border border-[#482B1B] shrink-0">
+                  <Truck className="w-4 h-4" />
+                </div>
                 <div>
-                  <span className="font-bold block text-[#2B190E]">On-time</span>
-                  <span className="text-[10px] text-gray-500">Delivery</span>
+                  <span className="font-bold block text-white text-[11px] sm:text-xs">Islandwide</span>
+                  <span className="text-[10px] text-[#A69485]">Delivery</span>
                 </div>
               </div>
             </div>
 
-          </div>
-
-          {/* Interactive Slide Dots Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-            {heroSlides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentSlideIndex(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`transition-all duration-300 cursor-pointer ${currentSlideIndex === idx
-                  ? 'w-6 h-2 rounded-full bg-[#3D2415]'
-                  : 'w-2 h-2 rounded-full bg-[#E8DEC8] hover:bg-[#8B5E3C]'
-                  }`}
-              />
-            ))}
           </div>
 
         </section>
