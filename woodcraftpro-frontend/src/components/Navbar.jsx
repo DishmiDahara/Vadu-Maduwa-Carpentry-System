@@ -46,7 +46,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             <img 
               src={logoImg} 
               alt="වඩු මඩුව Carpentry Workshop" 
-              className="h-11 sm:h-13 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform" 
+              className="h-14 sm:h-16 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform" 
             />
           )}
         </div>

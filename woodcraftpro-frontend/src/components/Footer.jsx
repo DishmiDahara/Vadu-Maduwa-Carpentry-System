@@ -17,7 +17,7 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               {logoImg && (
-                <img src={logoImg} alt="වඩු මඩුව Logo" className="h-10 w-auto object-contain" />
+                <img src={logoImg} alt="වඩු මඩුව Logo" className="h-14 w-auto object-contain" />
               )}
               <div>
                 <span className="font-heading font-black text-xl text-white block">{t('brandName')}</span>
