@@ -45,6 +45,7 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-[#4A2E1B] pb-2">{t('quickLinks')}</h4>
             <ul className="space-y-2 text-xs">
               <li><button onClick={() => setActiveTab('home')} className="hover:text-amber-400 transition-colors">{t('home')}</button></li>
+              <li><button onClick={() => setActiveTab('about')} className="hover:text-amber-400 transition-colors">{t('aboutUs')}</button></li>
               <li><button onClick={() => setActiveTab('catalog')} className="hover:text-amber-400 transition-colors">{t('catalog')}</button></li>
               <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('services')}</button></li>
               <li><button onClick={() => setActiveTab('gallery')} className="hover:text-amber-400 transition-colors">{t('gallery')}</button></li>

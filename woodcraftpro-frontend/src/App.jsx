@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
 import CatalogPage from './pages/CatalogPage';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
@@ -32,11 +33,12 @@ export default function App() {
     setActiveTab('home');
   };
 
-  // Direct quote / inquiry action to Contact page as per user requirement (Inquiry Modal removed)
   const handleOpenInquiryWithProduct = (product = null) => {
     setSelectedProductForQuote(product);
     setActiveTab('contact');
   };
+
+  const isCustomerPage = ['home', 'about', 'catalog', 'services', 'gallery', 'feedback', 'contact', 'custom-order'].includes(activeTab);
 
   return (
     <LanguageProvider>
@@ -57,6 +59,12 @@ export default function App() {
             <HomePage
               setActiveTab={setActiveTab}
               onSelectProductForQuote={handleOpenInquiryWithProduct}
+              onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
+            />
+          )}
+          {activeTab === 'about' && (
+            <AboutPage
+              setActiveTab={setActiveTab}
               onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
             />
           )}
@@ -91,8 +99,8 @@ export default function App() {
           )}
         </main>
 
-        {/* Footer (Rendered only on Home page as requested) */}
-        {activeTab === 'home' && (
+        {/* Footer (Rendered on customer-facing pages) */}
+        {isCustomerPage && (
           <Footer
             setActiveTab={setActiveTab}
             onOpenInquiry={() => handleOpenInquiryWithProduct(null)}
@@ -103,4 +111,3 @@ export default function App() {
     </LanguageProvider>
   );
 }
-

@@ -9,6 +9,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
 
   const navItems = [
     { id: 'home', label: t('home') || 'Home', action: 'home' },
+    { id: 'about', label: t('aboutUs') || 'About Us', action: 'about' },
     { id: 'catalog', label: t('catalog') || 'Catalog', action: 'catalog' },
     { id: 'services', label: t('services') || 'Services', action: 'services' },
     { id: 'gallery', label: t('gallery') || 'Gallery', action: 'gallery' },
