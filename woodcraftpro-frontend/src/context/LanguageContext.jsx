@@ -45,7 +45,7 @@ const translations = {
     heroBadge1: 'MASTER TIMBER CRAFTSMANSHIP',
     heroTitle1_1: 'Handcrafted Solid Teak',
     heroTitle1_2: 'Main Entrance Doors',
-    heroDesc1_1: 'Crafted with over 25 years of master carpentry excellence in Kalutara,',
+    heroDesc1_1: 'Crafted with over 23 years of master carpentry excellence in Kalutara,',
     heroDesc1_2: 'delivering seasoned Grade-A timber doors built for lifetime durability.',
     heroBadge2: 'FITTED KITCHEN SOLUTIONS',
     heroTitle2_1: 'Custom Modular Teak',
@@ -61,7 +61,7 @@ const translations = {
     // Hero Quick Features
     getStarted: 'Explore Carpentry Catalog',
     customOrderBtn: 'Order Custom Woodwork',
-    expYears: '25+ Years',
+    expYears: '23+ Years',
     expSub: 'Master Carpentry',
     premQuality: '100% Teak',
     premSub: 'Seasoned Timber',
@@ -241,7 +241,7 @@ const translations = {
     heroBadge1: 'විශිෂ්ට දැව වඩු ශිල්පය',
     heroTitle1_1: 'අතින් නිර්මාණය කළ',
     heroTitle1_2: 'තේක්ක ප්‍රධාන දොරවල්',
-    heroDesc1_1: 'අවුරුදු 25කට අධික පළපුරුද්ද සහිත කළුතර වඩු මඩුව,',
+    heroDesc1_1: 'අවුරුදු 23කට අධික පළපුරුද්ද සහිත කළුතර වඩු මඩුව,',
     heroDesc1_2: 'පරම්පරා ගණනාවක් පවතින පිරිසිදු තේක්ක දොරවල්.',
     heroBadge2: 'නවීන පැන්ට්‍රි කබඩ්',
     heroTitle2_1: 'ඔබේ නිවසට ගැළපෙන',
@@ -257,7 +257,7 @@ const translations = {
     // Hero Quick Features
     getStarted: 'ලැයිස්තුව බලන්න',
     customOrderBtn: 'Custom Order',
-    expYears: 'අවුරුදු 25+',
+    expYears: 'අවුරුදු 23+',
     expSub: 'වඩු ශිල්ප පළපුරුද්ද',
     premQuality: '100% තේක්ක',
     premSub: 'පදම් කළ ලී',
@@ -437,7 +437,7 @@ const translations = {
     heroBadge1: 'உயர்தர மரவேலைப்பாடு',
     heroTitle1_1: 'கைகளால் செய்யப்பட்ட',
     heroTitle1_2: 'தேக்கு பிரதான கதவுகள்',
-    heroDesc1_1: '25 ஆண்டுகளுக்கும் மேலான அனுபவம் வாய்ந்த களுத்துறை தச்சு பட்டறை,',
+    heroDesc1_1: '23 ஆண்டுகளுக்கும் மேலான அனுபவம் வாய்ந்த களுத்துறை தச்சு பட்டறை,',
     heroDesc1_2: 'தலைமுறைகள் கடந்து நிலைத்து நிற்கும் கதவுகள்.',
     heroBadge2: 'சமையலறை அலமாரிகள்',
     heroTitle2_1: 'உங்கள் வீட்டிற்கான',
@@ -447,13 +447,13 @@ const translations = {
     heroBadge3: 'கட்டிட மரவேலைகள்',
     heroTitle3_1: 'நம்பகமான மரப் படிகள்',
     heroTitle3_2: 'மற்றும் உச்சவரம்புகள்',
-    heroDesc3_1: 'உங்கள் வீட்டின் அளவிற்கு ஏற்ப பிரத்யேகமாக வடிவமைக்கவும்.',
+    heroDesc3_1: 'உங்கள் வீட்டின்த்திற்கு ஏற்ப பிரத்யேகமாக வடிவமைக்கவும்.',
     heroDesc3_2: 'எங்கள் தச்சர்கள் மூலம் செய்து கொள்ளுங்கள்.',
 
     // Hero Quick Features
     getStarted: 'பட்டியலைப் பார்க்க',
     customOrderBtn: 'விருப்ப ஆர்டர்',
-    expYears: '25+ ஆண்டுகள்',
+    expYears: '23+ ஆண்டுகள்',
     expSub: 'தச்சு அனுபவம்',
     premQuality: '100% தேக்கு',
     premSub: 'தரமான மரம்',
@@ -568,7 +568,7 @@ const translations = {
     quickLinks: 'விரைவு இணைப்புகள்',
     ourServices: 'எங்கள் சேவைகள்',
     contactInfo: 'தொடர்பு விவரங்கள்',
-    allRightsReserved: '© 2026 வடு மடுவ (Wadu Maduwa). அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
+    allRightsReserved: '© 2026 வඩු මඩුව (Wadu Maduwa). அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
     designedForCraftsmanship: 'இலங்கை தச்சு கலை பெருமை',
 
     // Feedback Page
@@ -581,7 +581,7 @@ const translations = {
     // Admin
     adminLoginTitle: 'நிர்வாகி உள்நுழைவு',
     username: 'பயனர் பெயர்',
-    password: 'கடவுச்சொல்',
+    password: 'கடவுச்சොல்',
     signIn: 'உள்நுழைக',
     totalRevenue: 'மொத்த வருமானம்',
     pendingBalance: 'நிலுவை தொகை',
