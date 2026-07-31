@@ -23,7 +23,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
 
   return (
     <header className="sticky top-0 z-50 glass-panel border-b border-gray-200/50 shadow-sm transition-all bg-white/90 backdrop-blur-md">
-      <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-22 sm:h-26 flex items-center justify-between">
+      <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
         
         {/* Left Section: Mobile Menu Toggle */}
         <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             <img 
               src={logoImg} 
               alt="වඩු මඩුව Carpentry Workshop" 
-              className="h-18 sm:h-20 md:h-24 w-auto object-contain group-hover:scale-105 transition-transform" 
+              className="h-14 sm:h-16 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform" 
             />
           )}
         </div>
