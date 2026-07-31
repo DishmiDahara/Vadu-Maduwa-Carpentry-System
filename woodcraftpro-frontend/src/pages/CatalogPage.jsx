@@ -10,24 +10,27 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
 
   const categories = [
     t('allProducts'),
-    t('livingRoom'),
-    t('bedroom'),
-    t('diningRoom'),
-    t('office'),
-    t('doorsWindows')
+    t('catDoors'),
+    t('catWindows'),
+    t('catStaircases'),
+    t('catPantry'),
+    t('catDoorFrames'),
+    t('catCeilings')
   ];
 
-  const defaultProducts = [
-    { id: '1', title: 'Sofa Set', price: 61000, category: t('livingRoom'), image: '/banner_crafts/card_furniture.jpg' },
-    { id: '2', title: 'Dining Table Set', price: 65000, category: t('diningRoom'), image: '/banner_crafts/card_dining.jpg' },
-    { id: '3', title: 'Executive Office Table', price: 44000, category: t('office'), image: '/banner_crafts/staircase_main.jpg' },
-    { id: '4', title: 'King Size Bed Set', price: 120000, category: t('bedroom'), image: '/banner_crafts/card_bedroom.jpg' },
-    { id: '5', title: 'Teak Wooden Wardrobe', price: 78000, category: t('bedroom'), image: '/banner_crafts/card_furniture.jpg' },
-    { id: '6', title: 'Carved Teak Door', price: 31000, category: t('doorsWindows'), image: '/banner_crafts/door_main.jpg' }
+  const defaultCarpentryProducts = [
+    { id: '1', title: 'Carved Solid Teak Main Door', price: 45000, category: t('catDoors'), image: '/teak_door.png' },
+    { id: '2', title: 'Seasoned Mahogany Bedroom Door', price: 32000, category: t('catDoors'), image: '/banner_crafts/door_main.jpg' },
+    { id: '3', title: 'Solid Teak Door Frame (Uluwahu)', price: 28000, category: t('catDoorFrames'), image: '/banner_crafts/door_main.jpg' },
+    { id: '4', title: 'Double Glass Wooden Window Frame', price: 34000, category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: '5', title: 'Modular Teak Pantry Cupboard Unit', price: 95000, category: t('catPantry'), image: '/banner_crafts/card_dining.jpg' },
+    { id: '6', title: 'Teak Wooden Staircase & Railing', price: 120000, category: t('catStaircases'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: '7', title: 'Polyurethane Polished Timber Ceiling Panel', price: 48000, category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
+    { id: '8', title: 'Custom Jackwood Entrance Frame', price: 26000, category: t('catDoorFrames'), image: '/banner_crafts/card_furniture.jpg' }
   ];
 
   // Filtering & Sorting
-  const filteredProducts = defaultProducts
+  const filteredProducts = defaultCarpentryProducts
     .filter(p => {
       const matchesCat = selectedCategory === 'All' || selectedCategory === t('allProducts') || p.category === selectedCategory;
       const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -43,7 +46,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
     <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
-        {/* Catalog Page Header Bar */}
+        {/* Header Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E8DEC8] pb-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">{t('catalogTitle')}</h1>
@@ -51,7 +54,6 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
           </div>
 
           <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-            {/* Search Input */}
             <div className="relative flex-1 sm:w-64">
               <input
                 type="text"
@@ -63,7 +65,6 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
               <Search className="w-4 h-4 text-[#7A6252] absolute left-3 top-2.5" />
             </div>
 
-            {/* Sort Dropdown */}
             <div className="flex items-center gap-1.5 text-xs font-semibold text-[#7A6252]">
               <span>{t('sortBy')}</span>
               <select
@@ -79,10 +80,10 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
           </div>
         </div>
 
-        {/* Main Grid: Sidebar + Product Cards */}
+        {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           
-          {/* Left Sidebar Category Filters */}
+          {/* Sidebar */}
           <div className="md:col-span-3 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
             <h3 className="text-xs font-bold text-[#7A6252] uppercase tracking-wider px-3 py-2 mb-1">{t('categories')}</h3>
             {categories.map((cat) => {
@@ -104,7 +105,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
             })}
           </div>
 
-          {/* Right Product Grid */}
+          {/* Product Grid */}
           <div className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((p) => (
@@ -119,7 +120,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
                       <span className="font-extrabold text-sm text-[#8B5E3C]">Rs. {p.price.toLocaleString()}</span>
                       <button
                         onClick={onOpenInquiry}
-                        className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
+                        className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer"
                       >
                         {t('inquireQuote')}
                       </button>

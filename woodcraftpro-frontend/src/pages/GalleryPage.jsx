@@ -9,22 +9,23 @@ export default function GalleryPage() {
 
   const categories = [
     t('all'),
-    t('livingRoom'),
-    t('bedroom'),
-    t('diningRoom'),
-    t('doorsWindows'),
-    t('office')
+    t('catDoors'),
+    t('catWindows'),
+    t('catStaircases'),
+    t('catPantry'),
+    t('catDoorFrames'),
+    t('catCeilings')
   ];
 
   const galleryPhotos = [
-    { id: 1, title: 'Luxury Bedroom Bed Set', category: t('bedroom'), image: '/banner_crafts/card_bedroom.jpg' },
-    { id: 2, title: 'Solid Teak Dining Table', category: t('diningRoom'), image: '/banner_crafts/card_dining.jpg' },
-    { id: 3, title: 'Modern Teak Wooden Door', category: t('doorsWindows'), image: '/banner_crafts/door_main.jpg' },
-    { id: 4, title: 'Custom Bedroom Wardrobe', category: t('bedroom'), image: '/banner_crafts/card_furniture.jpg' },
-    { id: 5, title: 'Wooden Staircase & Railing', category: t('livingRoom'), image: '/banner_crafts/staircase_main.jpg' },
-    { id: 6, title: 'Executive Office Desk', category: t('office'), image: '/banner_crafts/card_furniture.jpg' },
-    { id: 7, title: 'Living Room Furniture Set', category: t('livingRoom'), image: '/banner_crafts/card_dining.jpg' },
-    { id: 8, title: 'Carved Main Entrance Door', category: t('doorsWindows'), image: '/banner_crafts/door_main.jpg' }
+    { id: 1, title: 'Carved Teak Main Entrance Door', category: t('catDoors'), image: '/teak_door.png' },
+    { id: 2, title: 'Fitted Modular Teak Pantry Kitchen', category: t('catPantry'), image: '/banner_crafts/card_dining.jpg' },
+    { id: 3, title: 'Solid Teak Staircase & Handrail Installation', category: t('catStaircases'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: 4, title: 'Modern Bedroom Timber Door', category: t('catDoors'), image: '/banner_crafts/door_main.jpg' },
+    { id: 5, title: 'Double Glass Wooden Window Frame', category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: 6, title: 'Polyurethane Polished Wooden Ceiling', category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
+    { id: 7, title: 'Seasoned Teak Door Frame (Uluwahu)', category: t('catDoorFrames'), image: '/banner_crafts/door_main.jpg' },
+    { id: 8, title: 'Custom Mahogany Kitchen Pantry Set', category: t('catPantry'), image: '/banner_crafts/card_dining.jpg' }
   ];
 
   const filteredPhotos = selectedCategory === 'All' || selectedCategory === t('all')
@@ -49,7 +50,7 @@ export default function GalleryPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat === t('all') ? 'All' : cat)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   isSel
                     ? 'bg-[#3D2415] text-white shadow-sm'
                     : 'bg-white text-[#2B190E] border border-[#E8DEC8] hover:bg-[#FAF4EB]'
@@ -87,7 +88,7 @@ export default function GalleryPage() {
         {/* View More Photos Button */}
         <div className="text-center pt-4">
           <button
-            onClick={() => alert('All gallery photos loaded!')}
+            onClick={() => alert('All carpentry installation photos loaded!')}
             className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-8 py-3 rounded-xl font-bold text-xs transition-all shadow cursor-pointer"
           >
             {t('viewMorePhotos')}

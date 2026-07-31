@@ -8,7 +8,7 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
 
   return (
     <footer className="bg-[#1D1109] text-amber-100/80 pt-12 pb-8 border-t border-[#3D2415]">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Footer Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
@@ -56,11 +56,13 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
           <div>
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-[#4A2E1B] pb-2">{t('ourServices')}</h4>
             <ul className="space-y-2 text-xs">
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('service1Title')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('service2Title')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('service3Title')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('service4Title')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('service5Title')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcDoors')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcWindows')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcStaircases')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcPantry')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcDoorFrames')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcCeilings')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcGeneralCarpentry')}</button></li>
             </ul>
           </div>
 

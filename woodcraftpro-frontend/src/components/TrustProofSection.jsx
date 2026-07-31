@@ -15,9 +15,9 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
   const timberTypes = [
     {
       name: 'Teak Wood (තේක්ක / தேக்கு)',
-      grade: 'Grade-A Sri Lankan Teak',
+      grade: 'Grade-A Seasoned Sri Lankan Teak',
       warranty: '15 Year Termite & Structural Warranty',
-      features: ['Natural Oils Resist Water', 'Zero Warping', 'Rich Golden Grain'],
+      features: ['Natural Oils Resist Water & Moisture', 'Zero Warping in Doors & Frames', 'Rich Golden Grain Finish'],
       badge: 'Most Popular',
       badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
       bgImage: 'https://images.unsplash.com/photo-1546484475-7f7bd55792da?auto=format&fit=crop&w=600&q=80'
@@ -26,7 +26,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       name: 'Mahogany (මහෝගනි / மகோகனி)',
       grade: 'Kiln-Dried Premium Mahogany',
       warranty: '10 Year Structural Warranty',
-      features: ['Deep Reddish-Brown Finish', 'Smooth Carving Texture', 'High Durability'],
+      features: ['Deep Reddish-Brown Polish Finish', 'Smooth Carving Texture for Doors', 'High Structural Strength'],
       badge: 'Classic Choice',
       badgeColor: 'bg-red-500/20 text-red-300 border-red-500/40',
       bgImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
@@ -35,7 +35,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       name: 'Nadun & Jackwood (නදුන් / කොස් / நதுன்)',
       grade: 'Selected Hardwood Timber',
       warranty: '12 Year Termite Warranty',
-      features: ['Traditional Warm Hue', 'Heavy Density Solid Wood', 'Ideal for Doors & Frames'],
+      features: ['Traditional Warm Golden Hue', 'Heavy Density Solid Wood', 'Ideal for Heavy Uluwahu & Frames'],
       badge: 'Heritage Hardwood',
       badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
       bgImage: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=80'
@@ -54,7 +54,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
     {
       name: 'Dr. Ruwan Wickramasinghe',
       location: 'Nawala, Rajagiriya',
-      project: 'Custom Teak Main Door',
+      project: 'Teak Main Door & Staircase Rails',
       rating: 5,
       comment: 'Vadu Maduwa executed my custom entrance door idea straight from a reference photo. The teak finish and carving quality are unmatched!',
       date: 'July 2026'
@@ -62,7 +62,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
     {
       name: 'Chaminda & Dilini Perera',
       location: 'Colombo 07',
-      project: 'Fitted Modular Pantry',
+      project: 'Fitted Modular Pantry Kitchen',
       rating: 5,
       comment: 'They provided clear estimated pricing beforehand and allowed us to adjust details to fit our budget. Very transparent team.',
       date: 'June 2026'
@@ -70,9 +70,9 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
     {
       name: 'Eng. Nishantha Fernando',
       location: 'Kalutara South',
-      project: 'King Bed & Wardrobe',
+      project: 'Teak Uluwahu & Door Frames',
       rating: 5,
-      comment: '100% genuine teak timber used. You can inspect the unvarnished wood at their Dodangoda workshop before final polish.',
+      comment: '100% genuine seasoned teak timber used. You can inspect the raw unvarnished wood at their Dodangoda workshop before final polish.',
       date: 'May 2026'
     }
   ];
@@ -102,9 +102,9 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Flame className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-white">Seasoned & Kiln-Dried Wood</h3>
+            <h3 className="text-base font-bold text-white">Kiln-Dried Timber</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Kiln-dried timber to moisture level under 12%. Prevents cracking or warping.
+              Seasoned wood to moisture level under 12%. Prevents cracking or warping in doors & frames.
             </p>
           </div>
 
@@ -114,7 +114,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             </div>
             <h3 className="text-base font-bold text-white">10-15 Year Warranty</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Written warranty against termite infestation and structural failures.
+              Written warranty against termite infestation and structural failures in doors & staircases.
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             </div>
             <h3 className="text-base font-bold text-white">Negotiable Guidelines</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Get an estimated range and tailor specifications to fit your budget.
+              Get an estimated range and tailor door, window or pantry specs to fit your budget.
             </p>
           </div>
 
@@ -147,7 +147,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
           <div>
             <span className="text-xs uppercase tracking-widest font-bold text-amber-400">{t('timberGuaranteesTitle')}</span>
             <h2 className="text-xl sm:text-3xl font-extrabold font-heading text-white">
-              Genuine Sri Lankan Timber
+              Genuine Sri Lankan Seasoned Wood
             </h2>
           </div>
           {onOpenCustomOrder && (
@@ -206,7 +206,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
         <div className="text-center space-y-2">
           <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">{t('fiveStepProcessTitle')}</span>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-            From Your Sketch to Finished Masterpiece
+            From Site Measurement to Professional Fitting
           </h2>
         </div>
 

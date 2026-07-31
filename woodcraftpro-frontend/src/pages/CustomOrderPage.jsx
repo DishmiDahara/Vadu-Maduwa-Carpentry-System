@@ -15,24 +15,20 @@ import {
   Phone,
   User,
   Building,
-  FileText,
-  TrendingUp
+  FileText
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function CustomOrderPage({ setActiveTab }) {
   const { t } = useLanguage();
 
-  // Active Step State
-  const [activeStep, setActiveStep] = useState(1);
-
   // Customization Form State
-  const [selectedFurniture, setSelectedFurniture] = useState('dining');
+  const [selectedWork, setSelectedWork] = useState('door');
   const [woodType, setWoodType] = useState('teak');
   const [finish, setFinish] = useState('natural');
-  const [length, setLength] = useState(160);
-  const [width, setWidth] = useState(90);
-  const [height, setHeight] = useState(75);
+  const [length, setLength] = useState(210);
+  const [width, setWidth] = useState(105);
+  const [height, setHeight] = useState(4);
   const [activeThumb, setActiveThumb] = useState(0);
 
   // USER DETAILS STATE
@@ -47,16 +43,14 @@ export default function CustomOrderPage({ setActiveTab }) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Modals / Selection Drawers
-  const [activeModal, setActiveModal] = useState(null); // 'furniture', 'wood', 'finish', 'dimensions', 'breakdown', 'howItWorks'
+  const [activeModal, setActiveModal] = useState(null);
 
   // Uploaded Reference Images
   const [uploads, setUploads] = useState([
-    { id: 1, name: 'sketch_1.jpg', url: '/banner_crafts/card_dining.jpg' },
-    { id: 2, name: 'room_idea.jpg', url: '/banner_crafts/card_furniture.jpg' },
-    { id: 3, name: '3d_render.png', url: '/banner_crafts/card_bedroom.jpg' }
+    { id: 1, name: 'door_sketch.jpg', url: '/teak_door.png' },
+    { id: 2, name: 'pantry_idea.jpg', url: '/banner_crafts/card_dining.jpg' }
   ]);
 
-  // Sri Lankan Districts List for Dropdown
   const sriLankaDistricts = [
     'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
     'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara',
@@ -65,44 +59,45 @@ export default function CustomOrderPage({ setActiveTab }) {
     'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'
   ];
 
-  // Options Catalog Data
-  const furnitureOptions = [
-    { id: 'dining', name: 'Dining Table', basePrice: 65000, img: '/dining_table.png' },
-    { id: 'bed', name: 'Bed Set', basePrice: 85000, img: '/wooden_bed.png' },
-    { id: 'wardrobe', name: 'Wardrobe / Closet', basePrice: 55000, img: '/wooden_wardrobe.png' },
-    { id: 'door', name: 'Teak Wooden Door', basePrice: 30000, img: '/teak_door.png' },
-    { id: 'office', name: 'Executive Office Table', basePrice: 32000, img: '/hero_armchair.png' }
+  // Actual Carpentry Options
+  const carpentryOptions = [
+    { id: 'door', name: 'Wooden Door (Main / Room Door)', basePrice: 45000, img: '/teak_door.png' },
+    { id: 'uluwahu', name: 'Door Frame (Solid Uluwahu)', basePrice: 28000, img: '/banner_crafts/door_main.jpg' },
+    { id: 'window', name: 'Wooden Window Frame & Sash', basePrice: 34000, img: '/banner_crafts/staircase_main.jpg' },
+    { id: 'pantry', name: 'Pantry Cupboards / Kitchen Unit', basePrice: 95000, img: '/banner_crafts/card_dining.jpg' },
+    { id: 'staircase', name: 'Staircase & Handrail Work', basePrice: 120000, img: '/banner_crafts/staircase_main.jpg' },
+    { id: 'ceiling', name: 'Wooden Ceiling Panel', basePrice: 48000, img: '/banner_crafts/card_bedroom.jpg' },
+    { id: 'general', name: 'General Carpentry & Structural Woodwork', basePrice: 30000, img: '/banner_crafts/card_furniture.jpg' }
   ];
 
   const woodOptions = [
-    { id: 'teak', name: 'Teak Wood (තේක්ක)', multiplier: 1.4, desc: 'Water Resistant & Premium Hardwood' },
+    { id: 'teak', name: 'Teak Wood (තේක්ක)', multiplier: 1.4, desc: 'Water Resistant & Premium Seasoned Hardwood' },
     { id: 'mahogany', name: 'Mahogany (මහෝගනි)', multiplier: 1.15, desc: 'Rich Red Finish & Termite Proof' },
     { id: 'jackwood', name: 'Jackwood (කොස්)', multiplier: 1.1, desc: 'Traditional Yellow Wood' },
     { id: 'satinwood', name: 'Satinwood (බුරුත)', multiplier: 1.35, desc: 'Ultra Dense Heavy Hardwood' }
   ];
 
   const finishOptions = [
-    { id: 'natural', name: 'Natural Polish', desc: 'Preserves original wood grain & warmth' },
-    { id: 'matte', name: 'Matte Finish', desc: 'Modern non-reflective smooth sheen' },
-    { id: 'gloss', name: 'Gloss Finish', desc: 'High reflection mirror polish' },
-    { id: 'teak_stain', name: 'Teak Stain', desc: 'Golden teak timber color tint' },
-    { id: 'walnut', name: 'Dark Walnut', desc: 'Rich dark espresso wood stain' }
+    { id: 'natural', name: 'Natural PU Polish', desc: 'Preserves original wood grain & warmth' },
+    { id: 'matte', name: 'Matte Polyurethane Finish', desc: 'Modern non-reflective smooth sheen' },
+    { id: 'gloss', name: 'High Gloss Finish', desc: 'High reflection mirror lacquer polish' },
+    { id: 'teak_stain', name: 'Teak Stain Tint', desc: 'Golden teak timber color tint' },
+    { id: 'walnut', name: 'Dark Walnut Stain', desc: 'Rich dark espresso wood stain' }
   ];
 
   // Dynamic Price Calculation
-  const currentFurniture = furnitureOptions.find(f => f.id === selectedFurniture) || furnitureOptions[0];
+  const currentWork = carpentryOptions.find(f => f.id === selectedWork) || carpentryOptions[0];
   const currentWood = woodOptions.find(w => w.id === woodType) || woodOptions[0];
   const currentFinish = finishOptions.find(fo => fo.id === finish) || finishOptions[0];
 
-  const volumeFactor = (length * width * height) / (160 * 90 * 75);
-  const estimatedPrice = Math.round(currentFurniture.basePrice * currentWood.multiplier * (0.85 + 0.15 * volumeFactor));
+  const volumeFactor = (length * width * height) / (210 * 105 * 4);
+  const estimatedPrice = Math.round(currentWork.basePrice * currentWood.multiplier * (0.85 + 0.15 * volumeFactor));
 
-  // Thumbnail previews array
   const previewImages = [
-    currentFurniture.img,
-    '/dining_table.png',
-    '/hero_armchair.png',
-    '/wooden_wardrobe.png'
+    currentWork.img,
+    '/teak_door.png',
+    '/banner_crafts/card_dining.jpg',
+    '/banner_crafts/staircase_main.jpg'
   ];
 
   const handleFileUpload = (e) => {
@@ -119,7 +114,7 @@ export default function CustomOrderPage({ setActiveTab }) {
     setUploads(prev => prev.filter(u => u.id !== id));
   };
 
-  // ORDER SUBMISSION & WHATSAPP LOGIC
+  // ORDER SUBMISSION VIA WHATSAPP
   const handleSubmitOrder = (e) => {
     e?.preventDefault();
     setValidationError('');
@@ -133,7 +128,7 @@ export default function CustomOrderPage({ setActiveTab }) {
 
     setShowSuccessModal(true);
 
-    const message = `*වඩු මඩුව (Wadu Maduwa) - නව අභිරුචි ඇණවුම*
+    const message = `*වඩු මඩුව (Wadu Maduwa) - නව අභිරුචි වඩු ඇණවුම*
 
 *පාරිභෝගික තොරතුරු:*
 • *නම:* ${userName.trim()}
@@ -141,10 +136,10 @@ export default function CustomOrderPage({ setActiveTab }) {
 • *දිස්ත්‍රික්කය:* ${userDistrict}
 • *දුරකථන අංකය:* ${userPhone.trim()}
 
-*ඇණවුම් කළ ගෘහ භාණ්ඩය:* ${currentFurniture.name}
+*වඩු කාර්මික නිර්මාණය:* ${currentWork.name}
 *ලී වර්ගය:* ${currentWood.name}
 *නිමාව (Finish):* ${currentFinish.name}
-*ප්‍රමාණයන්:* ${length} (L) x ${width} (W) x ${height} (H) cm
+*ප්‍රමාණයන්:* ${length} (H/L) x ${width} (W) x ${height} (D) cm
 *ඇස්තමේන්තුගත මිල:* LKR ${estimatedPrice.toLocaleString()}
 
 *විශේෂ සටහන / Description:*
@@ -170,7 +165,7 @@ ${orderDescription.trim() || 'නැත'}`;
 
           <button
             onClick={() => setActiveModal('howItWorks')}
-            className="flex items-center gap-1.5 bg-white border border-[#E8DEC8] text-[#2B190E] px-3 py-1.5 rounded-full text-xs font-bold shadow-sm hover:bg-[#FAF4EB] transition-colors shrink-0"
+            className="flex items-center gap-1.5 bg-white border border-[#E8DEC8] text-[#2B190E] px-3 py-1.5 rounded-full text-xs font-bold shadow-sm hover:bg-[#FAF4EB] transition-colors shrink-0 cursor-pointer"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#8B5E3C]" />
             <span>How it works</span>
@@ -183,16 +178,12 @@ ${orderDescription.trim() || 'නැත'}`;
             <div className="w-6 h-6 rounded-full bg-[#23160D] text-white flex items-center justify-center text-xs font-black shadow">1</div>
             <span className="text-[#23160D]">{t('step1')}</span>
           </div>
-
           <div className="w-8 sm:w-16 h-[1px] bg-[#E8DEC8]"></div>
-
           <div className="flex items-center gap-2 opacity-80">
             <div className="w-6 h-6 rounded-full bg-[#23160D] text-white flex items-center justify-center text-xs font-black">2</div>
             <span className="text-[#23160D]">{t('step2')}</span>
           </div>
-
           <div className="w-8 sm:w-16 h-[1px] bg-[#E8DEC8]"></div>
-
           <div className="flex items-center gap-2 opacity-80">
             <div className="w-6 h-6 rounded-full bg-[#23160D] text-white flex items-center justify-center text-xs font-black">3</div>
             <span className="text-[#23160D]">{t('step3')}</span>
@@ -207,11 +198,11 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="relative z-10 flex items-center justify-between">
             <div className="bg-black/60 backdrop-blur-md text-amber-300 border border-white/20 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow">
               <RotateCw className="w-3.5 h-3.5" />
-              <span>360° View</span>
+              <span>360° Preview</span>
             </div>
 
             <button
-              onClick={() => alert('3D viewer active')}
+              onClick={() => alert('Viewer active')}
               className="bg-black/60 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-black transition-colors"
             >
               <Maximize2 className="w-4 h-4" />
@@ -219,7 +210,7 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
 
           <div className="relative z-10 self-center bg-black/60 backdrop-blur-md text-white border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow pointer-events-none">
-            <span>Drag / Click to preview</span>
+            <span>Click thumbnail to switch preview</span>
           </div>
 
           <div className="relative z-10 flex items-center justify-between gap-2 pt-2">
@@ -246,16 +237,16 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
         </div>
 
-        {/* 4. SUMMARY SELECTION CARD */}
+        {/* 4. SELECTION SUMMARY CARD */}
         <div className="bg-[#23160D] text-amber-100/90 border border-[#3D2415] rounded-3xl p-5 shadow-md space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-[#3D2415]">
             <div>
               <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">{t('selectFurniture')}</span>
-              <span className="text-sm font-bold text-white">{currentFurniture.name}</span>
+              <span className="text-sm font-bold text-white">{currentWork.name}</span>
             </div>
             <button
-              onClick={() => setActiveModal('furniture')}
-              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors"
+              onClick={() => setActiveModal('work')}
+              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors cursor-pointer"
             >
               <span>Change</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -269,7 +260,7 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
             <button
               onClick={() => setActiveModal('wood')}
-              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors"
+              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors cursor-pointer"
             >
               <span>Change</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -283,7 +274,7 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
             <button
               onClick={() => setActiveModal('finish')}
-              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors"
+              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors cursor-pointer"
             >
               <span>Change</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -293,11 +284,11 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between">
             <div>
               <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">{t('setDimensions')}</span>
-              <span className="text-sm font-bold text-white">{length} (L) x {width} (W) x {height} (H) cm</span>
+              <span className="text-sm font-bold text-white">{length} (H/L) x {width} (W) x {height} (D) cm</span>
             </div>
             <button
               onClick={() => setActiveModal('dimensions')}
-              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors"
+              className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors cursor-pointer"
             >
               <span>Change</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -310,7 +301,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
             <div>
               <h3 className="font-bold text-sm text-[#2B190E]">{t('customerInformation')} <span className="text-xs text-red-500 font-extrabold">*</span></h3>
-              <p className="text-xs text-[#7A6252] mt-0.5">Please fill in your details to process your custom quote</p>
+              <p className="text-xs text-[#7A6252] mt-0.5">Please fill in your details to process your custom carpentry quote</p>
             </div>
             <span className="text-xs bg-amber-100 text-[#8B5E3C] font-bold px-2.5 py-1 rounded-full border border-amber-200">
               * Required
@@ -402,7 +393,7 @@ ${orderDescription.trim() || 'නැත'}`;
             <div className="relative">
               <textarea
                 rows="3"
-                placeholder="Any special carving details, custom handles, color preference or timeline targets..."
+                placeholder="Any special carving details, door frame thickness, glass pane requirements or timeline targets..."
                 value={orderDescription}
                 onChange={(e) => setOrderDescription(e.target.value)}
                 className="w-full pl-9 pr-3 py-2.5 bg-[#FAF4EB] border border-[#E8DEC8] rounded-xl text-xs text-[#2B190E] outline-none font-medium focus:border-[#8B5E3C]"
@@ -417,7 +408,7 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="font-bold text-xs text-[#7A6252] uppercase tracking-wider">{t('estimatedPriceTitle')}</span>
-              <Info className="w-3.5 h-3.5 text-[#7A6252] cursor-pointer" onClick={() => setActiveModal('breakdown')} />
+              <Info className="w-3.5 h-3.5 text-[#7A6252] cursor-pointer" onClick={() => setActiveModal('howItWorks')} />
             </div>
           </div>
 
@@ -443,7 +434,7 @@ ${orderDescription.trim() || 'නැත'}`;
         <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
           <div>
             <h3 className="font-bold text-sm text-[#2B190E]">{t('referencePhotos')}</h3>
-            <p className="text-xs text-[#7A6252] mt-0.5">Share your Pinterest reference photo or sketch</p>
+            <p className="text-xs text-[#7A6252] mt-0.5">Share your door carving design, window drawing or pantry sketch</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
@@ -499,7 +490,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <p><strong>{t('fullName')}:</strong> {userName}</p>
               <p><strong>{t('phoneField')}:</strong> {userPhone}</p>
               <p><strong>{t('districtField')}:</strong> {userDistrict}</p>
-              <p><strong>{t('selectFurniture')}:</strong> {currentFurniture.name}</p>
+              <p><strong>{t('selectFurniture')}:</strong> {currentWork.name}</p>
               <p><strong>{t('estimatedPriceTitle')}:</strong> LKR {estimatedPrice.toLocaleString()}</p>
             </div>
 
@@ -519,11 +510,10 @@ ${orderDescription.trim() || 'නැත'}`;
           <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-[#E8DEC8]" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
               <h3 className="font-bold text-base text-[#2B190E] capitalize">
-                {activeModal === 'furniture' && t('selectFurniture')}
+                {activeModal === 'work' && t('selectFurniture')}
                 {activeModal === 'wood' && t('selectWood')}
                 {activeModal === 'finish' && t('selectFinish')}
                 {activeModal === 'dimensions' && t('setDimensions')}
-                {activeModal === 'breakdown' && 'Price Breakdown'}
                 {activeModal === 'howItWorks' && 'How Custom Order Works'}
               </h3>
               <button onClick={() => setActiveModal(null)} className="p-1 text-gray-400 hover:text-black">
@@ -531,15 +521,15 @@ ${orderDescription.trim() || 'නැත'}`;
               </button>
             </div>
 
-            {/* Furniture Type Drawer */}
-            {activeModal === 'furniture' && (
+            {/* Work Drawer */}
+            {activeModal === 'work' && (
               <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
-                {furnitureOptions.map(f => (
+                {carpentryOptions.map(f => (
                   <div
                     key={f.id}
-                    onClick={() => { setSelectedFurniture(f.id); setActiveModal(null); }}
+                    onClick={() => { setSelectedWork(f.id); setActiveModal(null); }}
                     className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer ${
-                      selectedFurniture === f.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
+                      selectedWork === f.id ? 'border-[#8B5E3C] bg-[#FAF4EB] font-bold' : 'border-[#E8DEC8] hover:bg-gray-50'
                     }`}
                   >
                     <span className="text-xs text-[#2B190E]">{f.name}</span>
@@ -594,15 +584,15 @@ ${orderDescription.trim() || 'නැත'}`;
               <div className="space-y-3">
                 <div>
                   <label className="text-xs font-bold text-[#2B190E]">{t('lengthCm')}: {length} cm</label>
-                  <input type="range" min="50" max="300" value={length} onChange={e => setLength(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
+                  <input type="range" min="100" max="350" value={length} onChange={e => setLength(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-[#2B190E]">{t('widthCm')}: {width} cm</label>
-                  <input type="range" min="30" max="200" value={width} onChange={e => setWidth(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
+                  <input type="range" min="30" max="250" value={width} onChange={e => setWidth(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-[#2B190E]">{t('heightCm')}: {height} cm</label>
-                  <input type="range" min="30" max="250" value={height} onChange={e => setHeight(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
+                  <input type="range" min="2" max="30" value={height} onChange={e => setHeight(Number(e.target.value))} className="w-full text-[#8B5E3C]" />
                 </div>
                 <button onClick={() => setActiveModal(null)} className="w-full bg-[#3D2415] text-white py-2.5 rounded-xl text-xs font-bold">Done</button>
               </div>
@@ -611,9 +601,9 @@ ${orderDescription.trim() || 'නැත'}`;
             {/* How It Works Modal */}
             {activeModal === 'howItWorks' && (
               <div className="space-y-3 text-xs text-[#7A6252]">
-                <p>1. Choose furniture item & timber preference.</p>
-                <p>2. Enter dimensions or upload Pinterest reference photos.</p>
-                <p>3. Submit your details to send automated WhatsApp inquiry to our master carpenter.</p>
+                <p>1. Select door, window, staircase, pantry or ceiling item & timber species.</p>
+                <p>2. Enter your site dimensions or upload reference photos/sketches.</p>
+                <p>3. Submit details to send an instant WhatsApp order to our master carpenter in Kalutara.</p>
               </div>
             )}
           </div>
