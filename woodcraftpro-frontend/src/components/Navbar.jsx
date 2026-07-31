@@ -23,10 +23,10 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
 
   return (
     <header className="sticky top-0 z-50 glass-panel border-b border-gray-200/50 shadow-sm transition-all bg-white/90 backdrop-blur-md">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
+      <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
         
-        {/* Left Section: Brand Logo & Mobile Menu Toggle */}
-        <div className="flex items-center gap-3">
+        {/* Left Section: Mobile Menu Toggle */}
+        <div className="flex items-center">
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -35,20 +35,20 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
+        </div>
 
-          {/* Brand Logo */}
-          <div 
-            onClick={() => handleNavClick('home')} 
-            className="flex items-center cursor-pointer group py-1"
-          >
-            {logoImg && (
-              <img 
-                src={logoImg} 
-                alt="වඩු මඩුව Carpentry Workshop" 
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform" 
-              />
-            )}
-          </div>
+        {/* Brand Logo (Centered on Mobile, Left-aligned on Desktop) */}
+        <div 
+          onClick={() => handleNavClick('home')} 
+          className="absolute left-1/2 -translate-x-1/2 md:relative md:left-auto md:translate-x-0 flex items-center cursor-pointer group py-1"
+        >
+          {logoImg && (
+            <img 
+              src={logoImg} 
+              alt="වඩු මඩුව Carpentry Workshop" 
+              className="h-11 sm:h-13 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform" 
+            />
+          )}
         </div>
 
         {/* Center Section: Navigation Links with Integrated Language Select */}
