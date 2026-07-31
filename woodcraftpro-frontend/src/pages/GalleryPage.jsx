@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import { Eye, X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function GalleryPage() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImg, setLightboxImg] = useState(null);
 
   const categories = [
-    'All',
-    'Living Room',
-    'Bedroom',
-    'Dining',
-    'Doors & Windows',
-    'Office'
+    t('all'),
+    t('livingRoom'),
+    t('bedroom'),
+    t('diningRoom'),
+    t('doorsWindows'),
+    t('office')
   ];
 
   const galleryPhotos = [
-    { id: 1, title: 'Luxury Bedroom Bed Set', category: 'Bedroom', image: '/banner_crafts/card_bedroom.jpg' },
-    { id: 2, title: 'Solid Teak Dining Table', category: 'Dining', image: '/banner_crafts/card_dining.jpg' },
-    { id: 3, title: 'Modern Wooden Door', category: 'Doors & Windows', image: '/banner_crafts/door_main.jpg' },
-    { id: 4, title: 'Custom Wardrobe', category: 'Bedroom', image: '/banner_crafts/card_furniture.jpg' },
-    { id: 5, title: 'Wooden Staircase & Railing', category: 'Living Room', image: '/banner_crafts/staircase_main.jpg' },
-    { id: 6, title: 'Executive Office Desk', category: 'Office', image: '/banner_crafts/card_furniture.jpg' },
-    { id: 7, title: 'Living Room Furniture Set', category: 'Living Room', image: '/banner_crafts/card_dining.jpg' },
-    { id: 8, title: 'Carved Main Entrance Door', category: 'Doors & Windows', image: '/banner_crafts/door_main.jpg' }
+    { id: 1, title: 'Luxury Bedroom Bed Set', category: t('bedroom'), image: '/banner_crafts/card_bedroom.jpg' },
+    { id: 2, title: 'Solid Teak Dining Table', category: t('diningRoom'), image: '/banner_crafts/card_dining.jpg' },
+    { id: 3, title: 'Modern Teak Wooden Door', category: t('doorsWindows'), image: '/banner_crafts/door_main.jpg' },
+    { id: 4, title: 'Custom Bedroom Wardrobe', category: t('bedroom'), image: '/banner_crafts/card_furniture.jpg' },
+    { id: 5, title: 'Wooden Staircase & Railing', category: t('livingRoom'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: 6, title: 'Executive Office Desk', category: t('office'), image: '/banner_crafts/card_furniture.jpg' },
+    { id: 7, title: 'Living Room Furniture Set', category: t('livingRoom'), image: '/banner_crafts/card_dining.jpg' },
+    { id: 8, title: 'Carved Main Entrance Door', category: t('doorsWindows'), image: '/banner_crafts/door_main.jpg' }
   ];
 
-  const filteredPhotos = selectedCategory === 'All'
+  const filteredPhotos = selectedCategory === 'All' || selectedCategory === t('all')
     ? galleryPhotos
     : galleryPhotos.filter(p => p.category === selectedCategory);
 
@@ -35,18 +37,18 @@ export default function GalleryPage() {
 
         {/* Page Header */}
         <div className="border-b border-[#E8DEC8] pb-4">
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">Gallery</h1>
-          <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">Browse our completed carpentry & furniture installation projects</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">{t('galleryTitle')}</h1>
+          <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">{t('gallerySubtitle')}</p>
         </div>
 
-        {/* Category Pills (Mockup Match) */}
+        {/* Category Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
           {categories.map((cat) => {
-            const isSel = selectedCategory === cat;
+            const isSel = selectedCategory === cat || (cat === t('all') && selectedCategory === 'All');
             return (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => setSelectedCategory(cat === t('all') ? 'All' : cat)}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                   isSel
                     ? 'bg-[#3D2415] text-white shadow-sm'
@@ -59,7 +61,7 @@ export default function GalleryPage() {
           })}
         </div>
 
-        {/* 8 Photo Grid */}
+        {/* Photo Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {filteredPhotos.map((photo) => (
             <div
@@ -75,7 +77,7 @@ export default function GalleryPage() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                 <div className="bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5">
                   <Eye className="w-3.5 h-3.5 text-amber-300" />
-                  <span>View</span>
+                  <span>{t('view')}</span>
                 </div>
               </div>
             </div>
@@ -86,9 +88,9 @@ export default function GalleryPage() {
         <div className="text-center pt-4">
           <button
             onClick={() => alert('All gallery photos loaded!')}
-            className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-8 py-3 rounded-xl font-bold text-xs transition-all shadow"
+            className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-8 py-3 rounded-xl font-bold text-xs transition-all shadow cursor-pointer"
           >
-            View More Photos
+            {t('viewMorePhotos')}
           </button>
         </div>
 
@@ -100,26 +102,22 @@ export default function GalleryPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
           onClick={() => setLightboxImg(null)}
         >
-          <div
-            className="bg-white border border-[#E8DEC8] rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative"
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="relative h-80 sm:h-96">
-              <img src={lightboxImg.image} alt={lightboxImg.title} className="w-full h-full object-cover" />
-              <button
-                onClick={() => setLightboxImg(null)}
-                className="absolute top-3 right-3 bg-black/60 text-white p-2 rounded-full hover:bg-black"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-4 bg-[#FAF4EB]">
-              <span className="text-[10px] font-bold text-[#8B5E3C] uppercase">{lightboxImg.category}</span>
-              <h3 className="text-base font-bold text-[#2B190E]">{lightboxImg.title}</h3>
+          <div className="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setLightboxImg(null)}
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <img src={lightboxImg.image} alt={lightboxImg.title} className="w-full h-auto max-h-[75vh] object-contain rounded-xl" />
+            <div className="p-3 text-center">
+              <h3 className="font-bold text-sm text-[#2B190E]">{lightboxImg.title}</h3>
+              <p className="text-xs text-[#7A6252]">{lightboxImg.category}</p>
             </div>
           </div>
         </div>
       )}
+
     </div>
   );
 }

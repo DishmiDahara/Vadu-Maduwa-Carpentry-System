@@ -1,7 +1,10 @@
 import React from 'react';
 import { Tag, CheckCircle2, MessageSquarePlus } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProductCard({ product, onSelectForQuote }) {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group card-hover">
       
@@ -20,7 +23,7 @@ export default function ProductCard({ product, onSelectForQuote }) {
         {product.available && (
           <div className="absolute bottom-3 left-3 bg-emerald-500/90 text-white backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-semibold flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3" />
-            In Stock / Custom Made
+            {t('inStock')}
           </div>
         )}
       </div>
@@ -38,7 +41,7 @@ export default function ProductCard({ product, onSelectForQuote }) {
 
         <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
           <div>
-            <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider block">Estimated Price</span>
+            <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider block">{t('estimatedPrice')}</span>
             <span className="text-base font-bold text-gray-900">
               LKR {Number(product.basePrice).toLocaleString()}
             </span>
@@ -49,7 +52,7 @@ export default function ProductCard({ product, onSelectForQuote }) {
             className="flex items-center gap-1.5 bg-amber-50 hover:bg-[#C68B59] text-[#8B4513] hover:text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200"
           >
             <MessageSquarePlus className="w-4 h-4" />
-            Inquire / Quote
+            {t('inquireQuote')}
           </button>
         </div>
       </div>

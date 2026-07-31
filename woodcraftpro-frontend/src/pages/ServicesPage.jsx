@@ -1,36 +1,39 @@
 import React from 'react';
 import { Hammer, Wrench, Building2, Paintbrush, Truck } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ServicesPage({ onOpenInquiry }) {
+  const { t } = useLanguage();
+
   const serviceItems = [
     {
       id: 1,
-      title: 'Custom Furniture Design & Build',
-      desc: 'Unique & personalized furniture made for you.',
+      title: t('service1Title'),
+      desc: t('service1Desc'),
       icon: Hammer
     },
     {
       id: 2,
-      title: 'Restoration & Repair',
-      desc: 'We restore old furniture with care and expertise.',
+      title: t('service2Title'),
+      desc: t('service2Desc'),
       icon: Wrench
     },
     {
       id: 3,
-      title: 'Architectural Woodwork',
-      desc: 'Doors, windows, ceilings & interior woodwork.',
+      title: t('service3Title'),
+      desc: t('service3Desc'),
       icon: Building2
     },
     {
       id: 4,
-      title: 'Polishing & Finishing',
-      desc: 'High quality polish & paint finishes.',
+      title: t('service4Title'),
+      desc: t('service4Desc'),
       icon: Paintbrush
     },
     {
       id: 5,
-      title: 'On-site Installation',
-      desc: 'Professional installation at your location.',
+      title: t('service5Title'),
+      desc: t('service5Desc'),
       icon: Truck
     }
   ];
@@ -41,8 +44,8 @@ export default function ServicesPage({ onOpenInquiry }) {
         
         {/* Header */}
         <div className="border-b border-[#E8DEC8] pb-4">
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">Services</h1>
-          <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">What we do best at Wadu Maduwa</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">{t('servicesTitle')}</h1>
+          <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">{t('servicesSubtitle')}</p>
         </div>
 
         {/* 5 Service Cards Grid */}
@@ -66,7 +69,7 @@ export default function ServicesPage({ onOpenInquiry }) {
                   onClick={onOpenInquiry}
                   className="w-full bg-[#3D2415] hover:bg-[#8B5E3C] text-white py-2.5 rounded-xl font-bold text-xs transition-all border border-[#3D2415]"
                 >
-                  Inquire Now
+                  {t('inquireNow')}
                 </button>
               </div>
             );

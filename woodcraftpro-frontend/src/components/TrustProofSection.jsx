@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   ShieldCheck, 
   Award, 
-  CheckCircle2, 
   Flame, 
   BadgePercent,
   Truck,
@@ -15,7 +14,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
 
   const timberTypes = [
     {
-      name: 'Teak Wood (තේක්ක)',
+      name: 'Teak Wood (තේක්ක / தேக்கு)',
       grade: 'Grade-A Sri Lankan Teak',
       warranty: '15 Year Termite & Structural Warranty',
       features: ['Natural Oils Resist Water', 'Zero Warping', 'Rich Golden Grain'],
@@ -24,7 +23,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       bgImage: 'https://images.unsplash.com/photo-1546484475-7f7bd55792da?auto=format&fit=crop&w=600&q=80'
     },
     {
-      name: 'Mahogany (මහෝගනි)',
+      name: 'Mahogany (මහෝගනි / மகோகனி)',
       grade: 'Kiln-Dried Premium Mahogany',
       warranty: '10 Year Structural Warranty',
       features: ['Deep Reddish-Brown Finish', 'Smooth Carving Texture', 'High Durability'],
@@ -33,7 +32,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       bgImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
     },
     {
-      name: 'Nadun & Jackwood (නදුන් / කොස්)',
+      name: 'Nadun & Jackwood (නදුන් / කොස් / நதுன்)',
       grade: 'Selected Hardwood Timber',
       warranty: '12 Year Termite Warranty',
       features: ['Traditional Warm Hue', 'Heavy Density Solid Wood', 'Ideal for Doors & Frames'],
@@ -44,36 +43,36 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
   ];
 
   const processSteps = [
-    { step: '01', title: 'Idea & Measurements', desc: 'Share your sketch or Pinterest photo. We take exact measurements at your location for free.' },
-    { step: '02', title: 'Timber Selection', desc: 'Pick 100% seasoned Grade-A Teak or Mahogany timber inspected for zero sapwood.' },
-    { step: '03', title: 'Master Hand-Carving', desc: 'Our master craftsmen in Kalutara shape & carve every curve with mathematical precision.' },
-    { step: '04', title: 'PU Lacquer Polish', desc: '5-layer protective sanding and matte/gloss polyurethane polish treatment.' },
-    { step: '05', title: 'Delivery & Fitting', desc: 'Safe islandwide transport and professional on-site installation by our team.' }
+    { step: '01', title: t('step1Title'), desc: t('step1Desc') },
+    { step: '02', title: t('step2Title'), desc: t('step2Desc') },
+    { step: '03', title: t('step3Title'), desc: t('step3Desc') },
+    { step: '04', title: t('step4Title'), desc: t('step4Desc') },
+    { step: '05', title: t('step5Title'), desc: t('step5Desc') }
   ];
 
   const clientReviews = [
     {
       name: 'Dr. Ruwan Wickramasinghe',
       location: 'Nawala, Rajagiriya',
-      project: 'Custom Teak Main Door & Staircase Rails',
+      project: 'Custom Teak Main Door',
       rating: 5,
-      comment: 'Vadu Maduwa executed my custom entrance door idea straight from a reference photo I showed them. The teak finish and carving quality are unmatched!',
+      comment: 'Vadu Maduwa executed my custom entrance door idea straight from a reference photo. The teak finish and carving quality are unmatched!',
       date: 'July 2026'
     },
     {
       name: 'Chaminda & Dilini Perera',
       location: 'Colombo 07',
-      project: 'Fitted Modular Pantry Kitchen Set',
+      project: 'Fitted Modular Pantry',
       rating: 5,
-      comment: 'They provided clear estimated pricing beforehand and allowed us to adjust details to fit our budget. Very transparent & trustworthy team.',
+      comment: 'They provided clear estimated pricing beforehand and allowed us to adjust details to fit our budget. Very transparent team.',
       date: 'June 2026'
     },
     {
       name: 'Eng. Nishantha Fernando',
       location: 'Kalutara South',
-      project: 'King Bed & 4-Door Sliding Wardrobe',
+      project: 'King Bed & Wardrobe',
       rating: 5,
-      comment: '100% genuine teak timber used. You can inspect the unvarnished wood at their Dodangoda workshop before final polish. Highly recommended!',
+      comment: '100% genuine teak timber used. You can inspect the unvarnished wood at their Dodangoda workshop before final polish.',
       date: 'May 2026'
     }
   ];
@@ -81,32 +80,31 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
   return (
     <section className="space-y-12 py-6 text-white">
       
-      {/* 1. WHY TRUST US - GUARANTEE BADGES */}
+      {/* 1. WHY TRUST US */}
       <div className="bg-[#14161D]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
         
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 uppercase tracking-widest">
             <ShieldCheck className="w-4 h-4 text-amber-400" />
-            <span>Guaranteed Timber Standard</span>
+            <span>{t('guaranteedTimberStandard')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold font-heading text-white tracking-tight">
-            Why 1,200+ Families Trust <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D99B6A] to-[#C68B59]">වඩු මඩුව</span>
+            {t('whyTrustUsTitle')}
           </h2>
           <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-            We don’t use MDF or cheap composite boards. Every piece of furniture is crafted from genuine, seasoned Sri Lankan solid wood with full structural warranties.
+            {t('trustDesc')}
           </p>
         </div>
 
         {/* 4 Trust Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-          
           <div className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3 hover:border-amber-500/40 transition-colors">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Flame className="w-6 h-6" />
             </div>
             <h3 className="text-base font-bold text-white">Seasoned & Kiln-Dried Wood</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Kiln-dried timber to moisture level under 12%. Prevents cracking, swelling, or shrinking in Sri Lanka’s humid climate.
+              Kiln-dried timber to moisture level under 12%. Prevents cracking or warping.
             </p>
           </div>
 
@@ -116,7 +114,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             </div>
             <h3 className="text-base font-bold text-white">10-15 Year Warranty</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Written warranty against termite infestation and structural failures. Certified quality guarantee.
+              Written warranty against termite infestation and structural failures.
             </p>
           </div>
 
@@ -126,7 +124,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             </div>
             <h3 className="text-base font-bold text-white">Negotiable Guidelines</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Get an estimated range and tailor the specifications to fit your budget during design discussion.
+              Get an estimated range and tailor specifications to fit your budget.
             </p>
           </div>
 
@@ -134,12 +132,11 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Truck className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-white">Islandwide Delivery & Fitting</h3>
+            <h3 className="text-base font-bold text-white">{t('ontimeDelivery')}</h3>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Direct workshop installation with free site inspection & measurement across Sri Lanka.
+              Direct workshop installation with free site measurement across Sri Lanka.
             </p>
           </div>
-
         </div>
 
       </div>
@@ -148,9 +145,9 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="text-xs uppercase tracking-widest font-bold text-amber-400">Premium Sri Lankan Wood Types</span>
+            <span className="text-xs uppercase tracking-widest font-bold text-amber-400">{t('timberGuaranteesTitle')}</span>
             <h2 className="text-xl sm:text-3xl font-extrabold font-heading text-white">
-              Choose Your Genuine Hardwood Timber
+              Genuine Sri Lankan Timber
             </h2>
           </div>
           {onOpenCustomOrder && (
@@ -158,7 +155,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
               onClick={onOpenCustomOrder}
               className="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-md self-start sm:self-auto cursor-pointer"
             >
-              Custom Order Calculator ➔
+              {t('customOrderBtn')} ➔
             </button>
           )}
         </div>
@@ -207,7 +204,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       {/* 3. STEP-BY-STEP WORKSHOP CRAFT PROCESS */}
       <div className="bg-[#14161D]/90 rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
         <div className="text-center space-y-2">
-          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">How Custom Crafting Works</span>
+          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">{t('fiveStepProcessTitle')}</span>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
             From Your Sketch to Finished Masterpiece
           </h2>
@@ -234,7 +231,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
             <span className="text-white font-extrabold text-sm ml-2">4.9 / 5.0 Rating</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-            What Our Clients Say About Their Custom Orders
+            {t('clientReviewsTitle')}
           </h2>
         </div>
 
