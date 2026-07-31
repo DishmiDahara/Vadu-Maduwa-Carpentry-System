@@ -285,6 +285,30 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
         </section>
 
+        {/* 2.5 ABOUT US SHOWCASE SECTION */}
+        <section className="bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#FAF4EB] border border-[#E8DEC8] px-3 py-1 rounded-full">
+              <span>🪵</span>
+              <span>{t('aboutUs')} • {t('expYears')} {t('expSub')}</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
+              {t('aboutHeader')}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#5C4535] leading-relaxed font-medium">
+              {t('aboutSub')}
+            </p>
+          </div>
+
+          <button
+            onClick={() => setActiveTab('about')}
+            className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-7 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+          >
+            <span>{t('aboutUs')}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </section>
+
         {/* 3. FEATURED CARPENTRY WORKS GRID */}
         <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
