@@ -36,10 +36,10 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo & Tagline */}
+          {/* Brand Logo */}
           <div 
             onClick={() => handleNavClick('home')} 
-            className="flex items-center gap-3 cursor-pointer group py-1"
+            className="flex items-center cursor-pointer group py-1"
           >
             {logoImg && (
               <img 
@@ -48,9 +48,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform" 
               />
             )}
-            <span className="hidden sm:block text-[11px] font-semibold text-[#5C4535] leading-tight max-w-[140px]">
-              ඔබේ අදහසට<br />ජීවය දෙන නිර්මාණ
-            </span>
           </div>
         </div>
 
