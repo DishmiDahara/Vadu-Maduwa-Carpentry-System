@@ -109,32 +109,33 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
 
         {/* 1. HERO SLIDER BANNER */}
-        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[480px] sm:min-h-[520px] flex items-center">
+        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[500px] sm:min-h-[520px] flex items-center">
           <div 
             key={currentSlideIndex}
-            className="absolute inset-0 bg-cover bg-right sm:bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
             style={{ backgroundImage: `url('${currentSlide.image}')` }}
           ></div>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 sm:via-[#FAF8F5]/65 to-transparent"></div>
+          {/* Responsive overlay gradient: vertical on mobile so photo shows clearly behind content */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/85 via-[#FAF8F5]/65 to-[#FAF8F5]/30 sm:bg-gradient-to-r sm:from-[#FAF8F5] sm:via-[#FAF8F5]/75 sm:to-transparent"></div>
 
           <button 
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="absolute left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute left-2 sm:left-4 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
           <button 
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute right-2 sm:right-4 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5">
+          <div className="relative z-10 max-w-xl px-5 sm:px-12 py-8 sm:py-10 space-y-4 sm:space-y-5 rounded-2xl bg-[#FAF8F5]/65 sm:bg-transparent backdrop-blur-[2px] sm:backdrop-blur-none border border-[#E8DEC8]/40 sm:border-none shadow-sm sm:shadow-none m-3 sm:m-0">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full shadow-sm">
               <span>🍃</span>
               <span>{currentSlide.badge}</span>
