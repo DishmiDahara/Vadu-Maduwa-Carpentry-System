@@ -19,10 +19,10 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
   const [wishlist, setWishlist] = useState({});
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  // Hero Slides Data (Carpentry & Timber Works Focus)
+  // Hero Slides Data using images from /images/home/
   const heroSlides = [
     {
-      image: '/teak_door.png',
+      image: '/images/home/IMG_7211.PNG',
       badge: t('heroBadge1'),
       titleLine1: t('heroTitle1_1'),
       titleLine2: t('heroTitle1_2'),
@@ -30,7 +30,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       descLine2: t('heroDesc1_2')
     },
     {
-      image: '/banner_crafts/card_dining.jpg',
+      image: '/images/home/IMG_7212.PNG',
       badge: t('heroBadge2'),
       titleLine1: t('heroTitle2_1'),
       titleLine2: t('heroTitle2_2'),
@@ -38,12 +38,20 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       descLine2: t('heroDesc2_2')
     },
     {
-      image: '/banner_crafts/staircase_main.jpg',
+      image: '/images/home/IMG_7215.PNG',
       badge: t('heroBadge3'),
       titleLine1: t('heroTitle3_1'),
       titleLine2: t('heroTitle3_2'),
       descLine1: t('heroDesc3_1'),
       descLine2: t('heroDesc3_2')
+    },
+    {
+      image: '/images/home/IMG_7216.PNG',
+      badge: t('heroBadge4'),
+      titleLine1: t('heroTitle4_1'),
+      titleLine2: t('heroTitle4_2'),
+      descLine1: t('heroDesc4_1'),
+      descLine2: t('heroDesc4_2')
     }
   ];
 

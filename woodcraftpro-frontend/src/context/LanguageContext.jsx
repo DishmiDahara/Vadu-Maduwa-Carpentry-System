@@ -60,6 +60,11 @@ const translations = {
     heroTitle3_2: 'Polished Wooden Ceilings',
     heroDesc3_1: 'Bespoke solid wood stair steps, handrails, door frames and ceilings.',
     heroDesc3_2: 'Custom designed to your exact home measurements.',
+    heroBadge4: 'FINE TIMBER CARPENTRY',
+    heroTitle4_1: 'Premium Handcrafted Woodwork',
+    heroTitle4_2: '& Architectural Furniture',
+    heroDesc4_1: 'Expertly crafted doors, windows, and custom timber solutions',
+    heroDesc4_2: 'designed for long-lasting quality and elegance.',
 
     // Hero Quick Features
     getStarted: 'Explore Carpentry Catalog',
@@ -259,6 +264,11 @@ const translations = {
     heroTitle3_2: 'සහ ලී සිවිලිම්',
     heroDesc3_1: 'ඔබේ නිවසේ ඉඩකඩට සහ රුචිකත්වයට ගැළපෙන පරිදි',
     heroDesc3_2: 'අපගේ ශිල්පීන් ලවා සාදාගන්න.',
+    heroBadge4: 'උසස් ප්‍රමිතියේ ලී නිර්මාණ',
+    heroTitle4_1: 'විශිෂ්ට නිමාවෙන් යුතු',
+    heroTitle4_2: 'ලී භාණ්ඩ සහ සේවාවන්',
+    heroDesc4_1: 'ඔබේ නිවසට සරිලන පරිදි නිමවන ලද උසස් ලී නිර්මාණ',
+    heroDesc4_2: 'කල්පවතින නිමාව සහ විශ්වසනීය සේවාව.',
 
     // Hero Quick Features
     getStarted: 'ලැයිස්තුව බලන්න',
@@ -458,6 +468,11 @@ const translations = {
     heroTitle3_2: 'மற்றும் உச்சவரம்புகள்',
     heroDesc3_1: 'உங்கள் வீட்டின்த்திற்கு ஏற்ப பிரத்யேகமாக வடிவமைக்கவும்.',
     heroDesc3_2: 'எங்கள் தச்சர்கள் மூலம் செய்து கொள்ளுங்கள்.',
+    heroBadge4: 'உயர்தர தச்சு சேவைகள்',
+    heroTitle4_1: 'சிறந்த மரவேலைப்பாடுகள்',
+    heroTitle4_2: 'மற்றும் தயாரிப்புகள்',
+    heroDesc4_1: 'உங்கள் வீட்டிற்கு ஏற்ற சிறந்த மரவேலைகள்',
+    heroDesc4_2: 'நீடித்த தரம் மற்றும் அழகிய வடிவமைப்பு.',
 
     // Hero Quick Features
     getStarted: 'பட்டியலைப் பார்க்க',
