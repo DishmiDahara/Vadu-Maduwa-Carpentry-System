@@ -109,44 +109,45 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
 
         {/* 1. HERO SLIDER BANNER */}
-        <section className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#FAF8F5] min-h-[500px] sm:min-h-[520px] flex items-center">
+        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E8DEC8] bg-[#1C120C] min-h-[500px] sm:min-h-[540px] flex items-center">
+          {/* Full background image without box clipping */}
           <div 
             key={currentSlideIndex}
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 animate-fade-in"
             style={{ backgroundImage: `url('${currentSlide.image}')` }}
           ></div>
 
-          {/* Responsive overlay gradient: vertical on mobile so photo shows clearly behind content */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/85 via-[#FAF8F5]/65 to-[#FAF8F5]/30 sm:bg-gradient-to-r sm:from-[#FAF8F5] sm:via-[#FAF8F5]/75 sm:to-transparent"></div>
+          {/* Premium dark gradient overlay ensuring 100% image visibility while keeping text crisp */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35 sm:bg-gradient-to-r sm:from-black/85 sm:via-black/50 sm:to-black/20"></div>
 
           <button 
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="absolute left-2 sm:left-4 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute left-2 sm:left-4 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
           <button 
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="absolute right-2 sm:right-4 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 shadow-md border border-[#E8DEC8] flex items-center justify-center text-[#2B190E] hover:bg-white hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute right-2 sm:right-4 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
-          <div className="relative z-10 max-w-xl px-5 sm:px-12 py-8 sm:py-10 space-y-4 sm:space-y-5 rounded-2xl bg-[#FAF8F5]/65 sm:bg-transparent backdrop-blur-[2px] sm:backdrop-blur-none border border-[#E8DEC8]/40 sm:border-none shadow-sm sm:shadow-none m-3 sm:m-0">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full shadow-sm">
+          <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5 text-white">
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 border border-amber-500/40 px-3.5 py-1.5 rounded-full shadow-md backdrop-blur-md">
               <span>🍃</span>
               <span>{currentSlide.badge}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-[#2B190E] leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-white leading-tight drop-shadow-md">
               {currentSlide.titleLine1} <br />
-              <span className="text-[#3D2415]">{currentSlide.titleLine2}</span>
+              <span className="text-amber-400">{currentSlide.titleLine2}</span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-[#5C4535] leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed font-medium drop-shadow-sm">
               {currentSlide.descLine1}<br />
               {currentSlide.descLine2}
             </p>
@@ -154,47 +155,47 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => setActiveTab('catalog')}
-                className="bg-[#3D2415] hover:bg-[#2B190E] text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-md flex items-center gap-2 active:scale-95 cursor-pointer"
+                className="bg-amber-700 hover:bg-amber-600 text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-lg flex items-center gap-2 active:scale-95 cursor-pointer border border-amber-500/40"
               >
                 <span>{t('getStarted')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="bg-white hover:bg-[#FAF4EB] text-[#2B190E] border border-[#3D2415] px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
+                className="bg-white/15 hover:bg-white/25 text-white border border-white/40 px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-md backdrop-blur-md active:scale-95 cursor-pointer"
               >
-                <Package className="w-4 h-4 text-[#8B5E3C]" />
+                <Package className="w-4 h-4 text-amber-300" />
                 <span>{t('customOrderBtn')}</span>
               </button>
             </div>
 
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-[#E8DEC8]/60 text-[11px] text-[#5C4535]">
+            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-white/20 text-[11px] text-gray-200">
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#8B5E3C]" />
+                <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
-                  <span className="font-bold block text-[#2B190E]">{t('expYears')}</span>
-                  <span className="text-[10px] text-gray-500">{t('expSub')}</span>
+                  <span className="font-bold block text-white">{t('expYears')}</span>
+                  <span className="text-[10px] text-gray-300">{t('expSub')}</span>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-[#8B5E3C]" />
+                <Award className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
-                  <span className="font-bold block text-[#2B190E]">{t('premQuality')}</span>
-                  <span className="text-[10px] text-gray-500">{t('premSub')}</span>
+                  <span className="font-bold block text-white">{t('premQuality')}</span>
+                  <span className="text-[10px] text-gray-300">{t('premSub')}</span>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
-                <Hammer className="w-4 h-4 text-[#8B5E3C]" />
+                <Hammer className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
-                  <span className="font-bold block text-[#2B190E]">{t('customMade')}</span>
-                  <span className="text-[10px] text-gray-500">{t('customSub')}</span>
+                  <span className="font-bold block text-white">{t('customMade')}</span>
+                  <span className="text-[10px] text-gray-300">{t('customSub')}</span>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-[#8B5E3C]" />
+                <Truck className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
-                  <span className="font-bold block text-[#2B190E]">{t('ontimeDelivery')}</span>
-                  <span className="text-[10px] text-gray-500">{t('ontimeSub')}</span>
+                  <span className="font-bold block text-white">{t('ontimeDelivery')}</span>
+                  <span className="text-[10px] text-gray-300">{t('ontimeSub')}</span>
                 </div>
               </div>
             </div>
@@ -208,8 +209,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 aria-label={`Go to slide ${idx + 1}`}
                 className={`transition-all duration-300 cursor-pointer ${
                   currentSlideIndex === idx
-                    ? 'w-6 h-2 rounded-full bg-[#3D2415]'
-                    : 'w-2 h-2 rounded-full bg-[#E8DEC8] hover:bg-[#8B5E3C]'
+                    ? 'w-6 h-2 rounded-full bg-amber-400'
+                    : 'w-2 h-2 rounded-full bg-white/40 hover:bg-white/80'
                 }`}
               />
             ))}
