@@ -48,7 +48,7 @@ export default function CustomOrderPage({ setActiveTab }) {
   // Uploaded Reference Images
   const [uploads, setUploads] = useState([
     { id: 1, name: 'door_sketch.jpg', url: '/teak_door.png' },
-    { id: 2, name: 'pantry_idea.jpg', url: '/banner_crafts/card_dining.jpg' }
+    { id: 2, name: 'pantry_idea.jpg', url: '/images/cupboards/IMG_7175.PNG' }
   ]);
 
   const sriLankaDistricts = [
@@ -64,7 +64,7 @@ export default function CustomOrderPage({ setActiveTab }) {
     { id: 'door', name: 'Wooden Door (Main / Room Door)', basePrice: 45000, img: '/teak_door.png' },
     { id: 'uluwahu', name: 'Door Frame (Solid Uluwahu)', basePrice: 28000, img: '/banner_crafts/door_main.jpg' },
     { id: 'window', name: 'Wooden Window Frame & Sash', basePrice: 34000, img: '/banner_crafts/staircase_main.jpg' },
-    { id: 'pantry', name: 'Pantry Cupboards / Kitchen Unit', basePrice: 95000, img: '/banner_crafts/card_dining.jpg' },
+    { id: 'pantry', name: 'Pantry Cupboards / Kitchen Unit', basePrice: 95000, img: '/images/cupboards/IMG_7175.PNG' },
     { id: 'staircase', name: 'Staircase & Handrail Work', basePrice: 120000, img: '/banner_crafts/staircase_main.jpg' },
     { id: 'ceiling', name: 'Wooden Ceiling Panel', basePrice: 48000, img: '/banner_crafts/card_bedroom.jpg' },
     { id: 'general', name: 'General Carpentry & Structural Woodwork', basePrice: 30000, img: '/banner_crafts/card_furniture.jpg' }
@@ -96,7 +96,7 @@ export default function CustomOrderPage({ setActiveTab }) {
   const previewImages = [
     currentWork.img,
     '/teak_door.png',
-    '/banner_crafts/card_dining.jpg',
+    '/images/cupboards/IMG_7175.PNG',
     '/banner_crafts/staircase_main.jpg'
   ];
 

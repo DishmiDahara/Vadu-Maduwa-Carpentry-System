@@ -20,8 +20,8 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
                 <img src={logoImg} alt="වඩු මඩුව Logo" className="h-14 w-auto object-contain" />
               )}
               <div>
-                <span className="font-heading font-black text-xl text-white block">{t('brandName')}</span>
-                <span className="text-[9px] tracking-widest text-amber-300 uppercase block -mt-1">{t('brandTag')}</span>
+                <span className="font-heading font-black text-xl text-white block leading-tight">{t('brandName')}</span>
+                <span className="text-[9.5px] tracking-widest text-amber-300 uppercase block mt-1.5 leading-relaxed">{t('brandTag')}</span>
               </div>
             </div>
             <p className="text-xs text-amber-200/70 leading-relaxed">

@@ -2,7 +2,7 @@ import React from 'react';
 import { DoorOpen, LayoutGrid, Layers, Columns3, Box, ShieldCheck, Wrench } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function ServicesPage({ onOpenInquiry }) {
+export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
   const { t } = useLanguage();
 
   const serviceItems = [
@@ -11,7 +11,7 @@ export default function ServicesPage({ onOpenInquiry }) {
       title: t('svcDoors'),
       desc: t('svcDoorsDesc'),
       icon: DoorOpen,
-      badge: 'Teak & Mahogany'
+      badge: 'Teak & Mahogany (33 Photos)'
     },
     {
       id: 2,
@@ -32,7 +32,7 @@ export default function ServicesPage({ onOpenInquiry }) {
       title: t('svcPantry'),
       desc: t('svcPantryDesc'),
       icon: Columns3,
-      badge: 'Fitted Kitchens'
+      badge: 'Fitted Kitchens (22 Photos)'
     },
     {
       id: 5,
@@ -90,12 +90,42 @@ export default function ServicesPage({ onOpenInquiry }) {
                   <p className="text-xs text-[#7A6252] leading-relaxed">{svc.desc}</p>
                 </div>
 
-                <button
-                  onClick={onOpenInquiry}
-                  className="w-full bg-[#3D2415] hover:bg-[#8B5E3C] text-white py-2.5 rounded-xl font-bold text-xs transition-all border border-[#3D2415] cursor-pointer"
-                >
-                  {t('inquireNow')}
-                </button>
+                <div className="space-y-2">
+                  {svc.id === 1 && setActiveTab && (
+                    <button
+                      onClick={() => {
+                        setActiveTab('home');
+                        setTimeout(() => {
+                          const el = document.getElementById('doors-section');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className="w-full bg-[#FAF4EB] hover:bg-[#E8DEC8] text-[#8B5E3C] py-2 rounded-xl font-bold text-xs transition-all border border-[#E8DEC8] cursor-pointer"
+                    >
+                      View 33 Door Photos
+                    </button>
+                  )}
+                  {svc.id === 4 && setActiveTab && (
+                    <button
+                      onClick={() => {
+                        setActiveTab('home');
+                        setTimeout(() => {
+                          const el = document.getElementById('pantry-cupboard-section');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className="w-full bg-[#FAF4EB] hover:bg-[#E8DEC8] text-[#8B5E3C] py-2 rounded-xl font-bold text-xs transition-all border border-[#E8DEC8] cursor-pointer"
+                    >
+                      View 22 Pantry Photos
+                    </button>
+                  )}
+                  <button
+                    onClick={onOpenInquiry}
+                    className="w-full bg-[#3D2415] hover:bg-[#8B5E3C] text-white py-2.5 rounded-xl font-bold text-xs transition-all border border-[#3D2415] cursor-pointer"
+                  >
+                    {t('inquireNow')}
+                  </button>
+                </div>
               </div>
             );
           })}

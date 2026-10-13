@@ -78,7 +78,10 @@ export default function App() {
             />
           )}
           {activeTab === 'services' && (
-            <ServicesPage onOpenInquiry={() => handleOpenInquiryWithProduct(null)} />
+            <ServicesPage 
+              setActiveTab={setActiveTab}
+              onOpenInquiry={() => handleOpenInquiryWithProduct(null)} 
+            />
           )}
           {activeTab === 'gallery' && <GalleryPage />}
           {activeTab === 'feedback' && <FeedbackPage />}

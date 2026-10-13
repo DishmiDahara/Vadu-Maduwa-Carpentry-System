@@ -19,14 +19,40 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
   ];
 
   const defaultCarpentryProducts = [
-    { id: '1', title: 'Carved Solid Teak Main Door', price: 45000, category: t('catDoors'), image: '/teak_door.png' },
-    { id: '2', title: 'Seasoned Mahogany Bedroom Door', price: 32000, category: t('catDoors'), image: '/banner_crafts/door_main.jpg' },
-    { id: '3', title: 'Solid Teak Door Frame (Uluwahu)', price: 28000, category: t('catDoorFrames'), image: '/banner_crafts/door_main.jpg' },
+    { id: '1', title: 'Carved Solid Teak Main Door', price: 45000, category: t('catDoors'), image: '/images/doors/IMG_6930.PNG' },
+    { id: '2', title: 'Seasoned Mahogany Bedroom Door', price: 32000, category: t('catDoors'), image: '/images/doors/IMG_7104.PNG' },
+    { id: 'd3', title: 'Heavy Timber Double Entrance Door', price: 68000, category: t('catDoors'), image: '/images/doors/IMG_6936.PNG' },
+    { id: 'd4', title: 'Modern Slat Groove Flush Wooden Door', price: 38000, category: t('catDoors'), image: '/images/doors/IMG_6942.PNG' },
+    { id: 'd5', title: 'Multi-Panel Classic Bedroom Teak Door', price: 42000, category: t('catDoors'), image: '/images/doors/IMG_6950.PNG' },
+    { id: 'd6', title: 'Traditional Sri Lankan Floral Carved Door', price: 58000, category: t('catDoors'), image: '/images/doors/IMG_7110.PNG' },
+    { id: 'd7', title: 'Pre-Hung Hardwood Internal Room Door', price: 35000, category: t('catDoors'), image: '/images/doors/IMG_7116.PNG' },
+    { id: 'd8', title: 'Double Sash French Glass Panel Door', price: 62000, category: t('catDoors'), image: '/images/doors/IMG_7118.PNG' },
+    { id: '3', title: 'Solid Teak Door Frame (Uluwahu)', price: 28000, category: t('catDoorFrames'), image: '/images/doors/IMG_6931.PNG' },
     { id: '4', title: 'Double Glass Wooden Window Frame', price: 34000, category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
-    { id: '5', title: 'Modular Teak Pantry Cupboard Unit', price: 95000, category: t('catPantry'), image: '/banner_crafts/card_dining.jpg' },
-    { id: '6', title: 'Teak Wooden Staircase & Railing', price: 120000, category: t('catStaircases'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: '5', title: 'Modular Teak Kitchen Pantry System', price: 185000, category: t('catPantry'), image: '/images/cupboards/IMG_7175.PNG' },
+    { id: '6', title: 'Teak Wooden Staircase & Railing', price: 120000, category: t('catStaircases'), image: '/images/cupboards/IMG_7203.PNG' },
     { id: '7', title: 'Polyurethane Polished Timber Ceiling Panel', price: 48000, category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
-    { id: '8', title: 'Custom Jackwood Entrance Frame', price: 26000, category: t('catDoorFrames'), image: '/banner_crafts/card_furniture.jpg' }
+    { id: '8', title: 'Custom Jackwood Entrance Frame', price: 26000, category: t('catDoorFrames'), image: '/banner_crafts/card_furniture.jpg' },
+    { id: '9', title: 'Solid Mahogany Pantry & Island Bar Suite', price: 240000, category: t('catPantry'), image: '/images/cupboards/IMG_7176.PNG' },
+    { id: '10', title: 'Wall-Mounted Glass-Door Kitchen Wall Cabinet', price: 75000, category: t('catPantry'), image: '/images/cupboards/IMG_7180.PNG' },
+    { id: '11', title: 'Custom Hardwood Kitchen Pantry with Plate Rack', price: 165000, category: t('catPantry'), image: '/images/cupboards/IMG_7177.PNG' },
+    { id: '12', title: 'L-Shape Solid Wood Kitchen Cabinet Suite', price: 295000, category: t('catPantry'), image: '/images/cupboards/IMG_7185.PNG' },
+    { id: '13', title: 'Classic Teak Corner Pantry & Display Shelving', price: 110000, category: t('catPantry'), image: '/images/cupboards/IMG_7189.PNG' },
+    { id: '14', title: 'Modern Compact Apartment Pantry Unit', price: 135000, category: t('catPantry'), image: '/images/cupboards/IMG_7178.PNG' },
+    { id: '16', title: 'Deep Pantry Storage Drawers & Spice Pull-Out', price: 88000, category: t('catPantry'), image: '/images/cupboards/IMG_7179.PNG' },
+    { id: '17', title: 'Full Wall Fitted Tall Pantry Cabinets', price: 320000, category: t('catPantry'), image: '/images/cupboards/IMG_7181.PNG' },
+    { id: '18', title: 'Bespoke Central Cooking Island Countertop', price: 175000, category: t('catPantry'), image: '/images/cupboards/IMG_7182.PNG' },
+    { id: '19', title: 'Natural Teak Grain Moisture-Sealed Cabinets', price: 210000, category: t('catPantry'), image: '/images/cupboards/IMG_7183.PNG' },
+    { id: '20', title: 'Dual-Tone Contemporary Kitchen Pantry Finish', price: 225000, category: t('catPantry'), image: '/images/cupboards/IMG_7184.PNG' },
+    { id: '21', title: 'Corner Carousel Wire-Fitting Pantry Cabinet', price: 95000, category: t('catPantry'), image: '/images/cupboards/IMG_7186.PNG' },
+    { id: '22', title: 'Solid Wood Breakfast Counter & Pantry Suite', price: 190000, category: t('catPantry'), image: '/images/cupboards/IMG_7187.PNG' },
+    { id: '23', title: 'Classic Traditional Sri Lankan Carved Pantry', price: 260000, category: t('catPantry'), image: '/images/cupboards/IMG_7188.PNG' },
+    { id: '24', title: 'Integrated Cooker Hood Canopy Wooden Housing', price: 65000, category: t('catPantry'), image: '/images/cupboards/IMG_7199.PNG' },
+    { id: '25', title: 'Premium Mortise-and-Tenon Hardwood Pantry Set', price: 310000, category: t('catPantry'), image: '/images/cupboards/IMG_7200.PNG' },
+    { id: '26', title: 'Matte Natural Clear Coat Teak Cupboard Suite', price: 205000, category: t('catPantry'), image: '/images/cupboards/IMG_7201.PNG' },
+    { id: '27', title: 'Sleek Finger-Pull Handleless Modern Kitchen', price: 235000, category: t('catPantry'), image: '/images/cupboards/IMG_7202.PNG' },
+    { id: '28', title: 'Pantry Tall Multi-Shelf Vertical Larder System', price: 155000, category: t('catPantry'), image: '/images/cupboards/IMG_7204.PNG' },
+    { id: '29', title: 'High-Gloss Polyurethane Luxury Pantry Suite', price: 345000, category: t('catPantry'), image: '/images/cupboards/IMG_7205.PNG' }
   ];
 
   // Filtering & Sorting
