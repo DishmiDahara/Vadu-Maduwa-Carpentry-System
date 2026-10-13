@@ -11,10 +11,8 @@ export default function GalleryPage() {
     { key: 'All', label: t('all') },
     { key: t('catDoors'), label: t('catDoors'), count: 33 },
     { key: t('catPantry'), label: t('catPantry'), count: 22 },
-    { key: t('catWindows'), label: t('catWindows'), count: 2 },
     { key: t('catStaircases'), label: t('catStaircases'), count: 16 },
-    { key: t('catDoorFrames'), label: t('catDoorFrames'), count: 2 },
-    { key: t('catCeilings'), label: t('catCeilings'), count: 2 }
+    { key: t('catWindows'), label: t('catWindows'), count: 2 }
   ];
 
   const galleryPhotos = [
@@ -95,13 +93,9 @@ export default function GalleryPage() {
     { id: 's15', title: 'Continuous Curved Ramp & Handrail System', category: t('catStaircases'), image: '/images/stairs/IMG_7174.PNG' },
     { id: 's16', title: 'Crafted Hardwood Interior Staircase & Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7203.PNG' },
 
-    // WINDOWS, CEILINGS, DOOR FRAMES
+    // WINDOWS
     { id: 'w1', title: 'Double Glass Wooden Window Frame', category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
-    { id: 'w2', title: 'Sash Casement Teak Louver Window', category: t('catWindows'), image: '/banner_crafts/door_main.jpg' },
-    { id: 'c1', title: 'Polyurethane Polished Wooden Ceiling', category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
-    { id: 'c2', title: 'Exposed Timber Rafter Ceiling Design', category: t('catCeilings'), image: '/banner_crafts/card_furniture.jpg' },
-    { id: 'f1', title: 'Seasoned Teak Door Frame (Uluwahu)', category: t('catDoorFrames'), image: '/images/doors/IMG_6931.PNG' },
-    { id: 'f2', title: 'Moulded Hardwood Entrance Door Frame', category: t('catDoorFrames'), image: '/banner_crafts/door_main.jpg' }
+    { id: 'w2', title: 'Sash Casement Teak Louver Window', category: t('catWindows'), image: '/banner_crafts/door_main.jpg' }
   ];
 
   const filteredPhotos = selectedCategory === 'All'
