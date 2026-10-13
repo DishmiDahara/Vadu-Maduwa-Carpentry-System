@@ -178,6 +178,10 @@ export default function CustomOrderPage({ setActiveTab }) {
 
   // Pointer drag to rotate handlers (Mouse & Touch)
   const handlePointerDown = (e) => {
+    // If user clicked any button, thumbnail, or interactive control, do not drag
+    if (e.target.closest('button') || e.target.closest('.no-drag') || e.target.closest('input')) {
+      return;
+    }
     setIsDragging(true);
     setDragStartX(e.clientX);
     setDragStartAngle(rotationAngle);
@@ -206,19 +210,26 @@ export default function CustomOrderPage({ setActiveTab }) {
     }
   };
 
-  const toggleAutoRotate = () => {
+  const toggleAutoRotate = (e) => {
+    e?.stopPropagation();
     setIsAutoRotating(prev => !prev);
   };
 
-  const handleRotateLeft = () => {
+  const handleRotateLeft = (e) => {
+    e?.stopPropagation();
+    setIsAutoRotating(false);
     setRotationAngle(prev => (prev - 15 + 360) % 360);
   };
 
-  const handleRotateRight = () => {
+  const handleRotateRight = (e) => {
+    e?.stopPropagation();
+    setIsAutoRotating(false);
     setRotationAngle(prev => (prev + 15) % 360);
   };
 
-  const handleSetAngle = (deg) => {
+  const handleSetAngle = (deg, e) => {
+    e?.stopPropagation();
+    setIsAutoRotating(false);
     setRotationAngle(deg % 360);
   };
 
@@ -314,12 +325,17 @@ ${orderDescription.trim() || 'නැත'}`;
 
         {/* 3. INTERACTIVE 360° 3D TURNTABLE VIEWER */}
         <div 
-          className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/70 via-[#1A1009] to-[#0A0503] min-h-[360px] sm:min-h-[440px] flex flex-col justify-between p-4 group select-none touch-none cursor-grab active:cursor-grabbing"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
+          className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/70 via-[#1A1009] to-[#0A0503] min-h-[360px] sm:min-h-[440px] flex flex-col justify-between p-4 group select-none"
         >
+          {/* Dedicated 360 Drag Surface (Under toolbars) */}
+          <div 
+            className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing touch-none"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          />
+
           {/* Subtle workshop ambient spotlight and lighting glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none" />
@@ -459,12 +475,16 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
 
           {/* TOP CONTROLS BAR: 360 Button + Presets + Maximize */}
-          <div className="relative z-10 flex items-center justify-between gap-2">
+          <div 
+            className="relative z-30 flex items-center justify-between gap-2 pointer-events-auto no-drag"
+            onPointerDown={(e) => e.stopPropagation()}
+          >
             {/* Interactive 360° Preview Toggle Button */}
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); toggleAutoRotate(); }}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg backdrop-blur-md transition-all cursor-pointer pointer-events-auto ${
+              onClick={toggleAutoRotate}
+              onPointerDown={(e) => e.stopPropagation()}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg backdrop-blur-md transition-all cursor-pointer ${
                 isAutoRotating 
                   ? 'bg-amber-400 text-stone-950 border-2 border-white ring-2 ring-amber-400/50 shadow-amber-400/40' 
                   : 'bg-black/70 text-amber-300 border border-white/20 hover:bg-black/90 hover:border-amber-400/60'
@@ -478,45 +498,53 @@ ${orderDescription.trim() || 'නැත'}`;
 
             {/* Quick Angle Preset Pills */}
             <div 
-              onClick={(e) => e.stopPropagation()}
-              className="hidden sm:flex items-center gap-1 bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs pointer-events-auto"
+              className="hidden sm:flex items-center gap-1 bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs"
+              onPointerDown={(e) => e.stopPropagation()}
             >
               <span className="text-amber-300 font-mono font-bold text-[11px] mr-1">📐 {Math.round(rotationAngle)}°</span>
               <button 
                 type="button" 
-                onClick={() => handleSetAngle(0)} 
-                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+                onClick={(e) => handleSetAngle(0, e)} 
+                onPointerDown={(e) => e.stopPropagation()}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
               >
                 0° Front
               </button>
               <button 
                 type="button" 
-                onClick={() => handleSetAngle(45)} 
-                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+                onClick={(e) => handleSetAngle(45, e)} 
+                onPointerDown={(e) => e.stopPropagation()}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
               >
                 45°
               </button>
               <button 
                 type="button" 
-                onClick={() => handleSetAngle(90)} 
-                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+                onClick={(e) => handleSetAngle(90, e)} 
+                onPointerDown={(e) => e.stopPropagation()}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
               >
                 90° Side
               </button>
               <button 
                 type="button" 
-                onClick={() => handleSetAngle(180)} 
-                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+                onClick={(e) => handleSetAngle(180, e)} 
+                onPointerDown={(e) => e.stopPropagation()}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
               >
                 180° Back
               </button>
             </div>
 
             {/* Step Rotation & Fullscreen Studio Button */}
-            <div className="flex items-center gap-1.5 pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+            <div 
+              className="flex items-center gap-1.5"
+              onPointerDown={(e) => e.stopPropagation()}
+            >
               <button
                 type="button"
                 onClick={handleRotateLeft}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
                 title="Rotate Counter-Clockwise (-15°)"
               >
@@ -525,6 +553,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <button
                 type="button"
                 onClick={handleRotateRight}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
                 title="Rotate Clockwise (+15°)"
               >
@@ -532,7 +561,8 @@ ${orderDescription.trim() || 'නැත'}`;
               </button>
               <button
                 type="button"
-                onClick={() => setIsStudioOpen(true)}
+                onClick={(e) => { e.stopPropagation(); setIsStudioOpen(true); }}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="bg-black/70 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-amber-400 hover:text-stone-950 transition-all cursor-pointer shadow"
                 title="Open Fullscreen 360° Studio"
               >
@@ -542,18 +572,22 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
 
           {/* DRAG HELPER PROMPT */}
-          <div className="relative z-10 self-center bg-black/70 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 rounded-full text-[11px] font-medium flex items-center gap-2 shadow pointer-events-none select-none">
+          <div className="relative z-20 self-center bg-black/70 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 rounded-full text-[11px] font-medium flex items-center gap-2 shadow pointer-events-none select-none">
             <MoveHorizontal className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
             <span>Drag horizontally to rotate 360° • Click badge to auto-spin</span>
           </div>
 
           {/* BOTTOM THUMBNAILS & NEXT BUTTON */}
-          <div className="relative z-10 flex items-center justify-between gap-2 pt-2 pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="relative z-30 flex items-center justify-between gap-2 pt-2 pointer-events-auto no-drag"
+            onPointerDown={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
               {previewImages.map((img, idx) => (
                 <div
                   key={idx}
-                  onClick={() => setActiveThumb(idx)}
+                  onClick={(e) => { e.stopPropagation(); setActiveThumb(idx); }}
+                  onPointerDown={(e) => e.stopPropagation()}
                   className={`w-14 sm:w-16 h-11 sm:h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all shrink-0 ${
                     activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70 hover:opacity-100'
                   }`}
@@ -563,13 +597,14 @@ ${orderDescription.trim() || 'නැත'}`;
               ))}
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center gap-1.5 shrink-0" onPointerDown={(e) => e.stopPropagation()}>
               <span className="sm:hidden text-[10px] font-mono text-amber-300 bg-black/60 px-2 py-1 rounded-full border border-white/20">
                 {Math.round(rotationAngle)}°
               </span>
               <button
                 type="button"
-                onClick={() => setActiveThumb((prev) => (prev + 1) % previewImages.length)}
+                onClick={(e) => { e.stopPropagation(); setActiveThumb((prev) => (prev + 1) % previewImages.length); }}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-black/90 flex items-center justify-center shrink-0 cursor-pointer"
                 title="Next Angle Preview"
               >
@@ -1009,24 +1044,29 @@ ${orderDescription.trim() || 'නැත'}`;
 
           {/* Studio Canvas */}
           <div 
-            className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
+            className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503] flex items-center justify-center select-none"
           >
+            {/* Dedicated Drag Layer inside studio */}
+            <div 
+              className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing touch-none"
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+            />
+
             {/* Studio Overhead Spotlight */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Architectural Dimension Calipers */}
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-2 bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-3 rounded-2xl pointer-events-none">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-2 bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-3 rounded-2xl pointer-events-none z-20">
               <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">HEIGHT</span>
               <div className="w-[1px] h-20 bg-amber-400/50"></div>
               <span className="text-xs font-mono font-black text-white">{length} cm</span>
               <div className="w-[1px] h-20 bg-amber-400/50"></div>
             </div>
 
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/15 px-4 py-2 rounded-2xl pointer-events-none">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/15 px-4 py-2 rounded-2xl pointer-events-none z-20">
               <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">WIDTH</span>
               <div className="h-[1px] w-12 bg-amber-400/50"></div>
               <span className="text-xs font-mono font-black text-white">{width} cm</span>
@@ -1152,12 +1192,14 @@ ${orderDescription.trim() || 'නැත'}`;
 
             {/* Floating Studio Toolbar at Bottom of Canvas */}
             <div 
+              onPointerDown={(e) => e.stopPropagation()} 
               onClick={(e) => e.stopPropagation()} 
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs shadow-2xl max-w-[95%] overflow-x-auto no-scrollbar"
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-black/85 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs shadow-2xl max-w-[95%] overflow-x-auto no-scrollbar pointer-events-auto no-drag"
             >
               <button
                 type="button"
                 onClick={toggleAutoRotate}
+                onPointerDown={(e) => e.stopPropagation()}
                 className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 ${
                   isAutoRotating ? 'bg-amber-400 text-stone-950 font-black' : 'bg-white/10 text-amber-300 hover:bg-white/20'
                 }`}
@@ -1171,6 +1213,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <button
                 type="button"
                 onClick={handleRotateLeft}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
                 title="Rotate Left 15°"
               >
@@ -1184,6 +1227,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <button
                 type="button"
                 onClick={handleRotateRight}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
                 title="Rotate Right 15°"
               >
@@ -1193,23 +1237,27 @@ ${orderDescription.trim() || 'නැත'}`;
               <div className="w-[1px] h-4 bg-white/20 hidden sm:block shrink-0"></div>
 
               <div className="hidden sm:flex items-center gap-1 shrink-0">
-                <button type="button" onClick={() => handleSetAngle(0)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>0°</button>
-                <button type="button" onClick={() => handleSetAngle(45)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>45°</button>
-                <button type="button" onClick={() => handleSetAngle(90)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>90°</button>
-                <button type="button" onClick={() => handleSetAngle(180)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>180°</button>
+                <button type="button" onClick={(e) => handleSetAngle(0, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>0°</button>
+                <button type="button" onClick={(e) => handleSetAngle(45, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>45°</button>
+                <button type="button" onClick={(e) => handleSetAngle(90, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>90°</button>
+                <button type="button" onClick={(e) => handleSetAngle(180, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>180°</button>
               </div>
             </div>
           </div>
 
           {/* Studio Footer: Timber Switcher + Price + Order CTA */}
-          <div className="border-t border-[#3D2415] pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+          <div 
+            className="border-t border-[#3D2415] pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 relative z-30 no-drag"
+            onPointerDown={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1 sm:pb-0">
               <span className="text-xs font-bold text-amber-400/80 uppercase tracking-wider shrink-0 mr-1">Timber:</span>
               {woodOptions.map(w => (
                 <button
                   type="button"
                   key={w.id}
-                  onClick={() => setWoodType(w.id)}
+                  onClick={(e) => { e.stopPropagation(); setWoodType(w.id); }}
+                  onPointerDown={(e) => e.stopPropagation()}
                   className={`px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                     woodType === w.id 
                       ? 'bg-amber-500 text-stone-950 shadow-md font-black' 
@@ -1229,11 +1277,13 @@ ${orderDescription.trim() || 'නැත'}`;
 
               <button
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setIsStudioOpen(false);
                   const el = document.getElementById('user-details-section');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
+                onPointerDown={(e) => e.stopPropagation()}
                 className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black px-5 py-2.5 rounded-2xl text-xs flex items-center gap-2 shadow-lg hover:shadow-amber-500/20 transition-all cursor-pointer"
               >
                 <span>Proceed to Order</span>
