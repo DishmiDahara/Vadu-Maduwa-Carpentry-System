@@ -121,14 +121,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       descLine2: t('heroDesc1_2')
     },
     {
-      image: '/images/cupboards/IMG_7175.PNG',
-      badge: t('heroBadge2'),
-      titleLine1: t('heroTitle2_1'),
-      titleLine2: t('heroTitle2_2'),
-      descLine1: t('heroDesc2_1'),
-      descLine2: t('heroDesc2_2')
-    },
-    {
       image: '/images/home/IMG_7215.PNG',
       badge: t('heroBadge3'),
       titleLine1: t('heroTitle3_1'),
