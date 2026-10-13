@@ -24,6 +24,28 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
   const [showAllPantryPhotos, setShowAllPantryPhotos] = useState(false);
   const [doorLightboxIndex, setDoorLightboxIndex] = useState(null);
   const [showAllDoorPhotos, setShowAllDoorPhotos] = useState(false);
+  const [staircaseLightboxIndex, setStaircaseLightboxIndex] = useState(null);
+  const [showAllStaircasePhotos, setShowAllStaircasePhotos] = useState(false);
+
+  // All 16 authentic staircase project photos from "images\wadu maduwa\Wadu maduwa 3"
+  const allStaircasePhotos = [
+    { id: 1, src: '/images/stairs/IMG_7160.PNG', title: 'Solid Teak Floating Tread Staircase', desc: 'Minimalist cantilever wooden steps with polyurethane finish' },
+    { id: 2, src: '/images/stairs/IMG_7161.PNG', title: 'Grand Curved Mahogany Staircase Suite', desc: 'Bespoke architectural curved flight with handcrafted risers' },
+    { id: 3, src: '/images/stairs/IMG_7162.PNG', title: 'Classic Turned Baluster Timber Railing', desc: 'Traditional fluted balusters and smooth ergonomic handrail' },
+    { id: 4, src: '/images/stairs/IMG_7163.PNG', title: 'Contemporary Open-Riser Hardwood Staircase', desc: 'Allows ambient daylight to flow between floors with solid teak steps' },
+    { id: 5, src: '/images/stairs/IMG_7164.PNG', title: 'Heavy Timber Newel Post & Handrail Set', desc: 'Carved decorative master newel post with solid brass fittings' },
+    { id: 6, src: '/images/stairs/IMG_7165.PNG', title: 'Modern Geometric Slat Balustrade', desc: 'Vertical timber batten screen railing for modern residences' },
+    { id: 7, src: '/images/stairs/IMG_7166.PNG', title: 'Luxury Duplex Teak Staircase Installation', desc: 'Complete dual-flight staircase with intermediate landing platform' },
+    { id: 8, src: '/images/stairs/IMG_7167.PNG', title: 'Rustic Natural Grain Hardwood Treads', desc: 'Anti-slip routed nosing profiles with deep natural grain protection' },
+    { id: 9, src: '/images/stairs/IMG_7168.PNG', title: 'Tempered Glass & Solid Teak Cap Railing', desc: 'Modern frameless glass panels fitted with solid teak groove capping' },
+    { id: 10, src: '/images/stairs/IMG_7169.PNG', title: 'Spiral Solid Timber Space-Saver Staircase', desc: 'Artisan turned central column with fan-shaped wooden treads' },
+    { id: 11, src: '/images/stairs/IMG_7170.PNG', title: 'Under-Stair Custom Timber Storage & Cladding', desc: 'Seamless matching wood paneling and integrated pull-out cabinets' },
+    { id: 12, src: '/images/stairs/IMG_7171.PNG', title: 'Heritage Villa Traditional Timber Balustrade', desc: 'Colonial Sri Lankan style turned timber spindles and handrails' },
+    { id: 13, src: '/images/stairs/IMG_7172.PNG', title: 'Cantilever Floating Timber Tread Steps', desc: 'Steel core embedded solid teak treads with heavy lacquer coat' },
+    { id: 14, src: '/images/stairs/IMG_7173.PNG', title: 'High-Gloss Polished Teak Landing Cladding', desc: 'Mirror finish polyurethane coating designed for high foot traffic' },
+    { id: 15, src: '/images/stairs/IMG_7174.PNG', title: 'Continuous Curved Ramp & Handrail System', desc: 'Hand-carved curved transition volute and smooth gooseneck joints' },
+    { id: 16, src: '/images/stairs/IMG_7203.PNG', title: 'Crafted Hardwood Interior Staircase & Railing', desc: 'Seasoned timber structure with mortise joinery and safety balusters' }
+  ];
 
   // All 33 authentic wooden door photos from "images\wadu maduwa\Wadu maduwa"
   const allWoodenDoorPhotos = [
@@ -322,12 +344,22 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </div>
 
             <div 
-              onClick={() => setActiveTab('catalog')}
-              className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
+              onClick={() => {
+                const el = document.getElementById('staircases-section');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  setActiveTab('catalog');
+                }
+              }}
+              className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0 group border border-transparent hover:border-[#E8DEC8]"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center font-bold text-lg">🪜</div>
+              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🪜</div>
               <div>
-                <h4 className="text-xs font-bold text-[#2B190E]">{t('svcStaircases')}</h4>
+                <div className="flex items-center gap-1.5">
+                  <h4 className="text-xs font-bold text-[#2B190E]">{t('svcStaircases')}</h4>
+                  <span className="text-[9px] font-extrabold bg-[#8B5E3C] text-white px-1.5 py-0.2 rounded-full">16</span>
+                </div>
                 <p className="text-[10px] text-[#7A6252]">Steps & Railings</p>
               </div>
             </div>
@@ -584,6 +616,101 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           )}
         </section>
 
+        {/* 2.9 DEDICATED STAIRCASES & RAILINGS SHOWCASE SECTION (16 REAL WORKSHOP PHOTOS) */}
+        <section id="staircases-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-wider bg-[#FAF4EB] border border-[#E8DEC8] px-3.5 py-1 rounded-full">
+                <span>🪜</span>
+                <span>{t('svcStaircases')} • 16 Real Workshop Photos</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
+                <span>{t('svcStaircases')}</span>
+                <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
+                  16 Photos
+                </span>
+              </h2>
+              <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
+                Handcrafted solid Teak and Mahogany architectural staircases, floating wooden steps, turned balusters, and custom safety railings manufactured and fitted by our master carpenters.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              <button
+                onClick={() => setShowAllStaircasePhotos(prev => !prev)}
+                className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow cursor-pointer flex items-center gap-1.5"
+              >
+                <span>{showAllStaircasePhotos ? 'Show Top 8' : 'Show All 16 Staircases'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Photo Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {(showAllStaircasePhotos ? allStaircasePhotos : allStaircasePhotos.slice(0, 8)).map((photo, index) => (
+              <div
+                key={photo.id}
+                onClick={() => setStaircaseLightboxIndex(index)}
+                className="group bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer"
+              >
+                <div className="relative h-52 sm:h-56 overflow-hidden bg-[#2B190E]/5">
+                  <img
+                    src={photo.src}
+                    alt={photo.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-3 text-white">
+                    <span className="text-[11px] font-bold bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1">
+                      <Eye className="w-3 h-3 text-amber-300" /> View Large
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onSelectProductForQuote) {
+                          onSelectProductForQuote({
+                            productName: photo.title,
+                            basePrice: 120000,
+                            imageUrl: photo.src
+                          });
+                        } else {
+                          setActiveTab('contact');
+                        }
+                      }}
+                      className="text-[10px] bg-[#8B5E3C] hover:bg-amber-600 text-white font-bold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                    >
+                      Quote This Design
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-white space-y-0.5 border-t border-[#E8DEC8]">
+                  <h4 className="text-xs font-bold text-[#2B190E] line-clamp-1 group-hover:text-[#8B5E3C] transition-colors">
+                    {photo.title}
+                  </h4>
+                  <p className="text-[10px] text-[#7A6252] line-clamp-1">
+                    {photo.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Expand Bar */}
+          {!showAllStaircasePhotos && (
+            <div className="text-center pt-2">
+              <button
+                onClick={() => setShowAllStaircasePhotos(true)}
+                className="bg-[#FAF4EB] hover:bg-[#8B5E3C] hover:text-white text-[#2B190E] border border-[#E8DEC8] px-6 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer inline-flex items-center gap-2"
+              >
+                <span>Browse All 16 Real Workshop Photos</span>
+                <span className="bg-[#8B5E3C] text-white text-[10px] px-2 py-0.5 rounded-full">16</span>
+              </button>
+            </div>
+          )}
+        </section>
+
         {/* 3. FEATURED CARPENTRY WORKS GRID */}
         <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
@@ -682,8 +809,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 <h3 className="font-bold text-xs text-white">{t('svcStaircases')}</h3>
                 <p className="text-[10px] text-amber-200/70">{t('svcStaircasesDesc')}</p>
               </div>
-              <button onClick={() => setActiveTab('services')} className="text-[11px] font-bold text-[#E2B784] hover:underline flex items-center gap-1 pt-2">
-                <span>{t('inquireNow')}</span> <ArrowRight className="w-3 h-3" />
+              <button 
+                onClick={() => {
+                  const el = document.getElementById('staircases-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }} 
+                className="text-[11px] font-bold text-[#E2B784] hover:underline flex items-center gap-1 pt-2 cursor-pointer"
+              >
+                <span>View 16 Workshop Photos</span> <ArrowRight className="w-3 h-3" />
               </button>
             </div>
 
@@ -865,6 +998,93 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                       onSelectProductForQuote({
                         productName: selected.title,
                         basePrice: 250000,
+                        imageUrl: selected.src
+                      });
+                    } else {
+                      setActiveTab('contact');
+                    }
+                  }}
+                  className="bg-[#8B5E3C] hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Request Quotation</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {staircaseLightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+          onClick={() => setStaircaseLightboxIndex(null)}
+        >
+          <div 
+            className="relative max-w-4xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between pb-2 border-b border-[#3D2415]">
+              <div className="flex items-center gap-2">
+                <span className="bg-[#8B5E3C] text-white text-xs font-bold px-2.5 py-0.5 rounded-md">
+                  Staircase Photo {staircaseLightboxIndex + 1} of {allStaircasePhotos.length}
+                </span>
+                <h3 className="font-bold text-sm sm:text-base text-amber-200">
+                  {allStaircasePhotos[staircaseLightboxIndex].title}
+                </h3>
+              </div>
+              <button
+                onClick={() => setStaircaseLightboxIndex(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Main Image with Navigation Arrows */}
+            <div className="relative flex items-center justify-center bg-black/50 rounded-xl overflow-hidden min-h-[50vh] max-h-[70vh]">
+              <img
+                src={allStaircasePhotos[staircaseLightboxIndex].src}
+                alt={allStaircasePhotos[staircaseLightboxIndex].title}
+                className="w-full h-auto max-h-[70vh] object-contain"
+              />
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setStaircaseLightboxIndex(prev => (prev === 0 ? allStaircasePhotos.length - 1 : prev - 1));
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setStaircaseLightboxIndex(prev => (prev === allStaircasePhotos.length - 1 ? 0 : prev + 1));
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Footer details & Action */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              <p className="text-xs text-gray-300">
+                {allStaircasePhotos[staircaseLightboxIndex].desc}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const selected = allStaircasePhotos[staircaseLightboxIndex];
+                    setStaircaseLightboxIndex(null);
+                    if (onSelectProductForQuote) {
+                      onSelectProductForQuote({
+                        productName: selected.title,
+                        basePrice: 120000,
                         imageUrl: selected.src
                       });
                     } else {

@@ -25,7 +25,7 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
       title: t('svcStaircases'),
       desc: t('svcStaircasesDesc'),
       icon: Layers,
-      badge: 'Custom Handrails'
+      badge: 'Custom Handrails (16 Photos)'
     },
     {
       id: 4,
@@ -103,6 +103,20 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
                       className="w-full bg-[#FAF4EB] hover:bg-[#E8DEC8] text-[#8B5E3C] py-2 rounded-xl font-bold text-xs transition-all border border-[#E8DEC8] cursor-pointer"
                     >
                       View 33 Door Photos
+                    </button>
+                  )}
+                  {svc.id === 3 && setActiveTab && (
+                    <button
+                      onClick={() => {
+                        setActiveTab('home');
+                        setTimeout(() => {
+                          const el = document.getElementById('staircases-section');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className="w-full bg-[#FAF4EB] hover:bg-[#E8DEC8] text-[#8B5E3C] py-2 rounded-xl font-bold text-xs transition-all border border-[#E8DEC8] cursor-pointer"
+                    >
+                      View 16 Staircase Photos
                     </button>
                   )}
                   {svc.id === 4 && setActiveTab && (

@@ -12,7 +12,7 @@ export default function GalleryPage() {
     { key: t('catDoors'), label: t('catDoors'), count: 33 },
     { key: t('catPantry'), label: t('catPantry'), count: 22 },
     { key: t('catWindows'), label: t('catWindows'), count: 2 },
-    { key: t('catStaircases'), label: t('catStaircases'), count: 2 },
+    { key: t('catStaircases'), label: t('catStaircases'), count: 16 },
     { key: t('catDoorFrames'), label: t('catDoorFrames'), count: 2 },
     { key: t('catCeilings'), label: t('catCeilings'), count: 2 }
   ];
@@ -77,9 +77,25 @@ export default function GalleryPage() {
     { id: 'p21', title: 'Pantry Tall Larder Storage System', category: t('catPantry'), image: '/images/cupboards/IMG_7204.PNG' },
     { id: 'p22', title: 'High-Gloss Luxury Pantry Cupboard Finish', category: t('catPantry'), image: '/images/cupboards/IMG_7205.PNG' },
 
-    // STAIRCASES, WINDOWS, CEILINGS, DOOR FRAMES
-    { id: 's1', title: 'Solid Teak Staircase & Handrail Installation', category: t('catStaircases'), image: '/images/cupboards/IMG_7203.PNG' },
-    { id: 's2', title: 'Custom Mahogany Turned Railings & Treads', category: t('catStaircases'), image: '/banner_crafts/staircase_main.jpg' },
+    // 16 AUTHENTIC WORKSHOP STAIRCASES & RAILINGS FROM "images\wadu maduwa\Wadu maduwa 3"
+    { id: 's1', title: 'Solid Teak Floating Tread Staircase', category: t('catStaircases'), image: '/images/stairs/IMG_7160.PNG' },
+    { id: 's2', title: 'Grand Curved Mahogany Staircase Suite', category: t('catStaircases'), image: '/images/stairs/IMG_7161.PNG' },
+    { id: 's3', title: 'Classic Turned Baluster Timber Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7162.PNG' },
+    { id: 's4', title: 'Contemporary Open-Riser Hardwood Staircase', category: t('catStaircases'), image: '/images/stairs/IMG_7163.PNG' },
+    { id: 's5', title: 'Heavy Timber Newel Post & Handrail Set', category: t('catStaircases'), image: '/images/stairs/IMG_7164.PNG' },
+    { id: 's6', title: 'Modern Geometric Slat Balustrade', category: t('catStaircases'), image: '/images/stairs/IMG_7165.PNG' },
+    { id: 's7', title: 'Luxury Duplex Teak Staircase Installation', category: t('catStaircases'), image: '/images/stairs/IMG_7166.PNG' },
+    { id: 's8', title: 'Rustic Natural Grain Hardwood Treads', category: t('catStaircases'), image: '/images/stairs/IMG_7167.PNG' },
+    { id: 's9', title: 'Tempered Glass & Solid Teak Cap Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7168.PNG' },
+    { id: 's10', title: 'Spiral Solid Timber Space-Saver Staircase', category: t('catStaircases'), image: '/images/stairs/IMG_7169.PNG' },
+    { id: 's11', title: 'Under-Stair Custom Timber Storage & Cladding', category: t('catStaircases'), image: '/images/stairs/IMG_7170.PNG' },
+    { id: 's12', title: 'Heritage Villa Traditional Timber Balustrade', category: t('catStaircases'), image: '/images/stairs/IMG_7171.PNG' },
+    { id: 's13', title: 'Cantilever Floating Timber Tread Steps', category: t('catStaircases'), image: '/images/stairs/IMG_7172.PNG' },
+    { id: 's14', title: 'High-Gloss Polished Teak Landing Cladding', category: t('catStaircases'), image: '/images/stairs/IMG_7173.PNG' },
+    { id: 's15', title: 'Continuous Curved Ramp & Handrail System', category: t('catStaircases'), image: '/images/stairs/IMG_7174.PNG' },
+    { id: 's16', title: 'Crafted Hardwood Interior Staircase & Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7203.PNG' },
+
+    // WINDOWS, CEILINGS, DOOR FRAMES
     { id: 'w1', title: 'Double Glass Wooden Window Frame', category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
     { id: 'w2', title: 'Sash Casement Teak Louver Window', category: t('catWindows'), image: '/banner_crafts/door_main.jpg' },
     { id: 'c1', title: 'Polyurethane Polished Wooden Ceiling', category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
