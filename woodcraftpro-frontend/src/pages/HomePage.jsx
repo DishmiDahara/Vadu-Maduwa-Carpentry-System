@@ -411,10 +411,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         {/* 2.5 ABOUT US SHOWCASE SECTION */}
         <section className="bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#FAF4EB] border border-[#E8DEC8] px-3 py-1 rounded-full">
-              <span>🪵</span>
-              <span>{t('aboutUs')} • {t('expYears')} {t('expSub')}</span>
-            </div>
             <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
               {t('aboutHeader')}
             </h2>
@@ -436,10 +432,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="doors-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-wider bg-[#FAF4EB] border border-[#E8DEC8] px-3.5 py-1 rounded-full">
-                <span>🚪</span>
-                <span>{t('svcDoors')} • 33 Real Workshop Photos</span>
-              </div>
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
                 <span>{t('svcDoors')}</span>
                 <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
@@ -524,10 +516,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="pantry-cupboard-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-wider bg-[#FAF4EB] border border-[#E8DEC8] px-3.5 py-1 rounded-full">
-                <span>🗄️</span>
-                <span>{t('svcPantry')} • 22 Real Workshop Photos</span>
-              </div>
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
                 <span>{t('svcPantry')}</span>
                 <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
@@ -612,10 +600,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="staircases-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 text-[11px] font-bold text-[#8B5E3C] uppercase tracking-wider bg-[#FAF4EB] border border-[#E8DEC8] px-3.5 py-1 rounded-full">
-                <span>🪜</span>
-                <span>{t('svcStaircases')} • 16 Real Workshop Photos</span>
-              </div>
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
                 <span>{t('svcStaircases')}</span>
                 <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
