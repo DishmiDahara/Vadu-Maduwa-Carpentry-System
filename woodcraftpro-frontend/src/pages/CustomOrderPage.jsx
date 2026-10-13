@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   RotateCw,
+  RotateCcw,
+  Play,
+  Pause,
   Upload,
   Trash2,
   ChevronRight,
+  ChevronLeft,
   HelpCircle,
   Maximize2,
+  ZoomIn,
+  ZoomOut,
+  MoveHorizontal,
   MessageSquare,
   Info,
   X,
@@ -15,7 +22,8 @@ import {
   Phone,
   User,
   Building,
-  FileText
+  FileText,
+  Sparkles
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -30,6 +38,15 @@ export default function CustomOrderPage({ setActiveTab }) {
   const [width, setWidth] = useState(105);
   const [height, setHeight] = useState(4);
   const [activeThumb, setActiveThumb] = useState(0);
+
+  // 360 Interactive Viewer State
+  const [rotationAngle, setRotationAngle] = useState(0);
+  const [isAutoRotating, setIsAutoRotating] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragStartAngle, setDragStartAngle] = useState(0);
+  const [isStudioOpen, setIsStudioOpen] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
 
   // USER DETAILS STATE
   const [userName, setUserName] = useState('');
@@ -47,7 +64,7 @@ export default function CustomOrderPage({ setActiveTab }) {
 
   // Uploaded Reference Images
   const [uploads, setUploads] = useState([
-    { id: 1, name: 'door_sketch.jpg', url: '/teak_door.png' },
+    { id: 1, name: 'door_sketch.jpg', url: '/images/doors/IMG_6930.PNG' },
     { id: 2, name: 'pantry_idea.jpg', url: '/images/cupboards/IMG_7175.PNG' }
   ]);
 
@@ -59,15 +76,15 @@ export default function CustomOrderPage({ setActiveTab }) {
     'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'
   ];
 
-  // Actual Carpentry Options
+  // Actual Carpentry Options with real workshop photos
   const carpentryOptions = [
-    { id: 'door', name: 'Wooden Door (Main / Room Door)', basePrice: 45000, img: '/teak_door.png' },
-    { id: 'uluwahu', name: 'Door Frame (Solid Uluwahu)', basePrice: 28000, img: '/banner_crafts/door_main.jpg' },
-    { id: 'window', name: 'Wooden Window Frame & Sash', basePrice: 34000, img: '/banner_crafts/staircase_main.jpg' },
+    { id: 'door', name: 'Wooden Door (Main / Room Door)', basePrice: 45000, img: '/images/doors/IMG_6930.PNG' },
+    { id: 'uluwahu', name: 'Door Frame (Solid Uluwahu)', basePrice: 28000, img: '/images/doors/IMG_6934.PNG' },
+    { id: 'window', name: 'Wooden Window Frame & Sash', basePrice: 34000, img: '/images/doors/IMG_6933.PNG' },
     { id: 'pantry', name: 'Pantry Cupboards / Kitchen Unit', basePrice: 95000, img: '/images/cupboards/IMG_7175.PNG' },
-    { id: 'staircase', name: 'Staircase & Handrail Work', basePrice: 120000, img: '/banner_crafts/staircase_main.jpg' },
-    { id: 'ceiling', name: 'Wooden Ceiling Panel', basePrice: 48000, img: '/banner_crafts/card_bedroom.jpg' },
-    { id: 'general', name: 'General Carpentry & Structural Woodwork', basePrice: 30000, img: '/banner_crafts/card_furniture.jpg' }
+    { id: 'staircase', name: 'Staircase & Handrail Work', basePrice: 120000, img: '/images/stairs/IMG_7160.PNG' },
+    { id: 'ceiling', name: 'Wooden Ceiling Panel', basePrice: 48000, img: '/images/doors/IMG_6942.PNG' },
+    { id: 'general', name: 'General Carpentry & Structural Woodwork', basePrice: 30000, img: '/images/stairs/IMG_7163.PNG' }
   ];
 
   const woodOptions = [
@@ -93,12 +110,117 @@ export default function CustomOrderPage({ setActiveTab }) {
   const volumeFactor = (length * width * height) / (210 * 105 * 4);
   const estimatedPrice = Math.round(currentWork.basePrice * currentWood.multiplier * (0.85 + 0.15 * volumeFactor));
 
-  const previewImages = [
+  // Dynamic authentic workshop images mapped per category
+  const previewImagesMap = {
+    door: [
+      '/images/doors/IMG_6930.PNG',
+      '/images/doors/IMG_6931.PNG',
+      '/images/doors/IMG_6934.PNG',
+      '/images/doors/IMG_6935.PNG'
+    ],
+    uluwahu: [
+      '/images/doors/IMG_6934.PNG',
+      '/images/doors/IMG_6930.PNG',
+      '/images/doors/IMG_6936.PNG',
+      '/images/doors/IMG_6942.PNG'
+    ],
+    window: [
+      '/images/doors/IMG_6933.PNG',
+      '/images/doors/IMG_6930.PNG',
+      '/images/doors/IMG_6931.PNG',
+      '/images/doors/IMG_6935.PNG'
+    ],
+    pantry: [
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/cupboards/IMG_7176.PNG',
+      '/images/cupboards/IMG_7177.PNG',
+      '/images/cupboards/IMG_7178.PNG'
+    ],
+    staircase: [
+      '/images/stairs/IMG_7160.PNG',
+      '/images/stairs/IMG_7161.PNG',
+      '/images/stairs/IMG_7162.PNG',
+      '/images/stairs/IMG_7163.PNG'
+    ],
+    ceiling: [
+      '/images/doors/IMG_6942.PNG',
+      '/images/doors/IMG_6950.PNG',
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/doors/IMG_6930.PNG'
+    ],
+    general: [
+      '/images/stairs/IMG_7163.PNG',
+      '/images/doors/IMG_6930.PNG',
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/stairs/IMG_7160.PNG'
+    ]
+  };
+
+  const previewImages = previewImagesMap[selectedWork] || [
     currentWork.img,
-    '/teak_door.png',
+    '/images/doors/IMG_6930.PNG',
     '/images/cupboards/IMG_7175.PNG',
-    '/banner_crafts/staircase_main.jpg'
+    '/images/stairs/IMG_7160.PNG'
   ];
+
+  // Auto-rotation timer for 360 preview
+  useEffect(() => {
+    let interval = null;
+    if (isAutoRotating && !isDragging) {
+      interval = setInterval(() => {
+        setRotationAngle(prev => (prev + 1) % 360);
+      }, 30);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isAutoRotating, isDragging]);
+
+  // Pointer drag to rotate handlers (Mouse & Touch)
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    setDragStartX(e.clientX);
+    setDragStartAngle(rotationAngle);
+    if (e.currentTarget.setPointerCapture) {
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - dragStartX;
+    const newAngle = Math.round((dragStartAngle + deltaX * 0.75) % 360 + 360) % 360;
+    setRotationAngle(newAngle);
+  };
+
+  const handlePointerUp = (e) => {
+    if (isDragging) {
+      setIsDragging(false);
+      if (e.currentTarget.releasePointerCapture) {
+        try {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        } catch (err) {}
+      }
+    }
+  };
+
+  const toggleAutoRotate = () => {
+    setIsAutoRotating(prev => !prev);
+  };
+
+  const handleRotateLeft = () => {
+    setRotationAngle(prev => (prev - 15 + 360) % 360);
+  };
+
+  const handleRotateRight = () => {
+    setRotationAngle(prev => (prev + 15) % 360);
+  };
+
+  const handleSetAngle = (deg) => {
+    setRotationAngle(deg % 360);
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -190,37 +312,250 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
         </div>
 
-        {/* 3. 3D VIEWER CARD */}
-        <div className="relative rounded-3xl overflow-hidden shadow-lg border border-[#3D2415] bg-[#1A1009] min-h-[300px] sm:min-h-[380px] flex flex-col justify-between p-4 group">
-          <div className="absolute inset-0 bg-cover bg-center transition-all duration-700" style={{ backgroundImage: `url('${previewImages[activeThumb]}')` }}></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+        {/* 3. INTERACTIVE 360° 3D TURNTABLE VIEWER */}
+        <div 
+          className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/70 via-[#1A1009] to-[#0A0503] min-h-[360px] sm:min-h-[440px] flex flex-col justify-between p-4 group select-none touch-none cursor-grab active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          {/* Subtle workshop ambient spotlight and lighting glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none" />
 
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="bg-black/60 backdrop-blur-md text-amber-300 border border-white/20 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow">
-              <RotateCw className="w-3.5 h-3.5" />
-              <span>360° Preview</span>
+          {/* 3D SCENE: Turntable & Rotating Carpentry Item */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" style={{ perspective: '1100px' }}>
+            {/* Turntable Disc Platform */}
+            <div 
+              className="absolute bottom-16 sm:bottom-14 w-64 sm:w-88 h-18 sm:h-22 rounded-full border border-amber-600/40 bg-gradient-to-b from-[#2F1C10] to-[#120904] shadow-[0_20px_50px_rgba(0,0,0,0.95)] flex items-center justify-center transition-transform"
+              style={{
+                transform: `rotateX(68deg) rotateZ(${rotationAngle}deg)`,
+                transformStyle: 'preserve-3d'
+              }}
+            >
+              <div className="w-52 sm:w-72 h-13 sm:h-16 rounded-full border border-amber-500/30 bg-[#23150C] flex items-center justify-center">
+                <div className="w-36 sm:w-52 h-8 sm:h-10 rounded-full border border-amber-400/20 bg-[#150A05] flex items-center justify-center">
+                  <span className="text-[9px] font-mono tracking-widest text-amber-400/60 uppercase">360° TURNTABLE</span>
+                </div>
+              </div>
             </div>
 
-            <button
-              onClick={() => alert('Viewer active')}
-              className="bg-black/60 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-black transition-colors"
+            {/* Dynamic Cast Drop Shadow */}
+            <div 
+              className="absolute bottom-14 sm:bottom-12 w-44 sm:w-56 h-8 rounded-full bg-black/85 blur-md transition-all duration-75"
+              style={{
+                transform: `scaleX(${Math.max(0.35, Math.abs(Math.cos(rotationAngle * Math.PI / 180)))}) scaleY(0.7)`
+              }}
+            />
+
+            {/* 3D Rotating Carpentry Workpiece */}
+            <div
+              className="relative w-44 sm:w-56 h-64 sm:h-80 transition-transform duration-75"
+              style={{
+                transform: `rotateY(${rotationAngle}deg)`,
+                transformStyle: 'preserve-3d'
+              }}
             >
-              <Maximize2 className="w-4 h-4" />
+              {/* FRONT FACE (0 deg) */}
+              <div 
+                className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-700/60 shadow-[0_25px_50px_rgba(0,0,0,0.85)] bg-[#2A180E]"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  transform: 'translateZ(6px)'
+                }}
+              >
+                <img
+                  src={previewImages[activeThumb] || currentWork.img}
+                  alt={currentWork.name}
+                  className="w-full h-full object-cover select-none"
+                  draggable="false"
+                />
+
+                {/* Timber Polish / Grain Tint based on selected woodType */}
+                <div 
+                  className="absolute inset-0 pointer-events-none mix-blend-color transition-colors duration-500"
+                  style={{
+                    backgroundColor: 
+                      woodType === 'teak' ? 'rgba(217, 119, 6, 0.15)' :
+                      woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.22)' :
+                      woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.18)' :
+                      'rgba(245, 158, 11, 0.12)'
+                  }}
+                />
+
+                {/* Dynamic Specular Lighting Glare based on rotationAngle */}
+                <div 
+                  className="absolute inset-0 pointer-events-none transition-all duration-75"
+                  style={{
+                    background: `linear-gradient(${110 + ((rotationAngle % 180) - 90) * 0.9}deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 28%, transparent 60%)`,
+                    opacity: finish === 'gloss' ? 0.9 : finish === 'matte' ? 0.3 : 0.6
+                  }}
+                />
+              </div>
+
+              {/* REAR / BACK FACE (180 deg) */}
+              <div 
+                className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-800/60 shadow-[0_25px_50px_rgba(0,0,0,0.85)] bg-gradient-to-b from-[#3D2415] via-[#2D1B0F] to-[#1C1008] p-3 flex flex-col justify-between"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  transform: 'rotateY(180deg) translateZ(6px)'
+                }}
+              >
+                {/* Rear Timber Frame Rails & Stiles Architecture */}
+                <div className="w-full h-full rounded-xl border border-amber-600/40 p-2 flex flex-col justify-between bg-[#24150C]/60">
+                  <div className="flex items-center justify-between border-b border-amber-700/40 pb-1.5">
+                    <span className="text-[10px] font-bold text-amber-400 font-mono">100% SEASONED WOOD</span>
+                    <span className="text-[10px] text-amber-200/70 font-mono">REAR PROFILE</span>
+                  </div>
+
+                  <div className="my-auto space-y-2 py-3 px-1 text-center">
+                    <div className="w-8 h-8 mx-auto rounded-full border border-amber-400/50 bg-amber-950/60 flex items-center justify-center text-amber-300 font-black text-xs">
+                      වම
+                    </div>
+                    <p className="text-xs font-bold text-amber-200 tracking-wide font-heading">වඩු මඩුව • KALUTARA</p>
+                    <p className="text-[10px] text-amber-300/80 font-mono uppercase">
+                      {currentWood.name.split(' ')[0]} • {length}x{width}x{height}cm
+                    </p>
+                    <div className="h-0.5 w-16 mx-auto bg-amber-500/30 rounded-full"></div>
+                    <p className="text-[9px] text-amber-400/60">Architectural Handcrafted Timber Backing</p>
+                  </div>
+
+                  <div className="border-t border-amber-700/40 pt-1.5 flex items-center justify-between text-[9px] text-amber-400/70 font-mono">
+                    <span>INTERIOR SIDE</span>
+                    <span>GRADE-A TIMBER</span>
+                  </div>
+                </div>
+
+                {/* Timber Tint Overlay for Rear */}
+                <div 
+                  className="absolute inset-0 pointer-events-none mix-blend-color"
+                  style={{
+                    backgroundColor: 
+                      woodType === 'teak' ? 'rgba(217, 119, 6, 0.20)' :
+                      woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.28)' :
+                      woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.22)' :
+                      'rgba(245, 158, 11, 0.16)'
+                  }}
+                />
+              </div>
+
+              {/* 3D Timber Thickness Edges */}
+              <div 
+                className="absolute top-0 bottom-0 left-0 w-3 -translate-x-full origin-right bg-[#1D1109] border-y border-amber-900/60"
+                style={{
+                  transform: 'rotateY(-90deg) translateZ(0px)',
+                  background: 'linear-gradient(to right, #1a0e07, #2d180c)'
+                }}
+              />
+              <div 
+                className="absolute top-0 bottom-0 right-0 w-3 translate-x-full origin-left bg-[#1D1109] border-y border-amber-900/60"
+                style={{
+                  transform: 'rotateY(90deg) translateZ(0px)',
+                  background: 'linear-gradient(to left, #1a0e07, #2d180c)'
+                }}
+              />
+            </div>
+          </div>
+
+          {/* TOP CONTROLS BAR: 360 Button + Presets + Maximize */}
+          <div className="relative z-10 flex items-center justify-between gap-2">
+            {/* Interactive 360° Preview Toggle Button */}
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); toggleAutoRotate(); }}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg backdrop-blur-md transition-all cursor-pointer pointer-events-auto ${
+                isAutoRotating 
+                  ? 'bg-amber-400 text-stone-950 border-2 border-white ring-2 ring-amber-400/50 shadow-amber-400/40' 
+                  : 'bg-black/70 text-amber-300 border border-white/20 hover:bg-black/90 hover:border-amber-400/60'
+              }`}
+              title="Click to toggle 360° Auto-Spin"
+            >
+              <RotateCw className={`w-3.5 h-3.5 ${isAutoRotating ? 'animate-spin' : ''}`} />
+              <span>{isAutoRotating ? '360° Spinning' : '360° Preview'}</span>
+              <span className={`w-2 h-2 rounded-full ${isAutoRotating ? 'bg-emerald-500 animate-ping' : 'bg-amber-400/70'}`} />
             </button>
+
+            {/* Quick Angle Preset Pills */}
+            <div 
+              onClick={(e) => e.stopPropagation()}
+              className="hidden sm:flex items-center gap-1 bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs pointer-events-auto"
+            >
+              <span className="text-amber-300 font-mono font-bold text-[11px] mr-1">📐 {Math.round(rotationAngle)}°</span>
+              <button 
+                type="button" 
+                onClick={() => handleSetAngle(0)} 
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+              >
+                0° Front
+              </button>
+              <button 
+                type="button" 
+                onClick={() => handleSetAngle(45)} 
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+              >
+                45°
+              </button>
+              <button 
+                type="button" 
+                onClick={() => handleSetAngle(90)} 
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+              >
+                90° Side
+              </button>
+              <button 
+                type="button" 
+                onClick={() => handleSetAngle(180)} 
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-stone-950' : 'text-gray-300 hover:text-white'}`}
+              >
+                180° Back
+              </button>
+            </div>
+
+            {/* Step Rotation & Fullscreen Studio Button */}
+            <div className="flex items-center gap-1.5 pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={handleRotateLeft}
+                className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
+                title="Rotate Counter-Clockwise (-15°)"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleRotateRight}
+                className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
+                title="Rotate Clockwise (+15°)"
+              >
+                <RotateCw className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsStudioOpen(true)}
+                className="bg-black/70 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-amber-400 hover:text-stone-950 transition-all cursor-pointer shadow"
+                title="Open Fullscreen 360° Studio"
+              >
+                <Maximize2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="relative z-10 self-center bg-black/60 backdrop-blur-md text-white border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow pointer-events-none">
-            <span>Click thumbnail to switch preview</span>
+          {/* DRAG HELPER PROMPT */}
+          <div className="relative z-10 self-center bg-black/70 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 rounded-full text-[11px] font-medium flex items-center gap-2 shadow pointer-events-none select-none">
+            <MoveHorizontal className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span>Drag horizontally to rotate 360° • Click badge to auto-spin</span>
           </div>
 
-          <div className="relative z-10 flex items-center justify-between gap-2 pt-2">
+          {/* BOTTOM THUMBNAILS & NEXT BUTTON */}
+          <div className="relative z-10 flex items-center justify-between gap-2 pt-2 pointer-events-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
               {previewImages.map((img, idx) => (
                 <div
                   key={idx}
                   onClick={() => setActiveThumb(idx)}
-                  className={`w-16 h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
-                    activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70'
+                  className={`w-14 sm:w-16 h-11 sm:h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all shrink-0 ${
+                    activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt="Thumbnail preview" className="w-full h-full object-cover" />
@@ -228,12 +563,19 @@ ${orderDescription.trim() || 'නැත'}`;
               ))}
             </div>
 
-            <button
-              onClick={() => setActiveThumb((prev) => (prev + 1) % previewImages.length)}
-              className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center justify-center shrink-0"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="sm:hidden text-[10px] font-mono text-amber-300 bg-black/60 px-2 py-1 rounded-full border border-white/20">
+                {Math.round(rotationAngle)}°
+              </span>
+              <button
+                type="button"
+                onClick={() => setActiveThumb((prev) => (prev + 1) % previewImages.length)}
+                className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-black/90 flex items-center justify-center shrink-0 cursor-pointer"
+                title="Next Angle Preview"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -606,6 +948,298 @@ ${orderDescription.trim() || 'නැත'}`;
                 <p>3. Submit details to send an instant WhatsApp order to our master carpenter in Kalutara.</p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* 8. FULLSCREEN 360° VIRTUAL INSPECTION STUDIO MODAL */}
+      {isStudioOpen && (
+        <div className="fixed inset-0 z-50 bg-[#0C0603]/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 text-amber-100 select-none animate-fade-in">
+          {/* Studio Header */}
+          <div className="flex items-center justify-between border-b border-[#3D2415] pb-3 shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
+                <RotateCw className={`w-5 h-5 ${isAutoRotating ? 'animate-spin' : ''}`} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-sm sm:text-lg font-black font-heading text-white">360° Virtual Inspection Studio</h2>
+                  <span className="hidden sm:inline-block text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/30 font-bold uppercase tracking-wider">
+                    Interactive Turntable
+                  </span>
+                </div>
+                <p className="text-xs text-amber-300/70 font-medium">
+                  {currentWork.name} • {currentWood.name} ({currentFinish.name})
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Zoom Controls */}
+              <div className="flex items-center gap-1 bg-black/60 border border-white/20 rounded-full px-2 py-1">
+                <button
+                  type="button"
+                  onClick={() => setZoomLevel(prev => Math.max(0.8, Number((prev - 0.2).toFixed(1))))}
+                  className="p-1 hover:text-amber-400 transition-colors cursor-pointer"
+                  title="Zoom Out"
+                >
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-[10px] font-mono font-bold text-amber-300 w-8 text-center">{Math.round(zoomLevel * 100)}%</span>
+                <button
+                  type="button"
+                  onClick={() => setZoomLevel(prev => Math.min(1.8, Number((prev + 0.2).toFixed(1))))}
+                  className="p-1 hover:text-amber-400 transition-colors cursor-pointer"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsStudioOpen(false)}
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                title="Close Studio"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Studio Canvas */}
+          <div 
+            className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503] flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          >
+            {/* Studio Overhead Spotlight */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Architectural Dimension Calipers */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-2 bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-3 rounded-2xl pointer-events-none">
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">HEIGHT</span>
+              <div className="w-[1px] h-20 bg-amber-400/50"></div>
+              <span className="text-xs font-mono font-black text-white">{length} cm</span>
+              <div className="w-[1px] h-20 bg-amber-400/50"></div>
+            </div>
+
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/15 px-4 py-2 rounded-2xl pointer-events-none">
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">WIDTH</span>
+              <div className="h-[1px] w-12 bg-amber-400/50"></div>
+              <span className="text-xs font-mono font-black text-white">{width} cm</span>
+              <div className="h-[1px] w-12 bg-amber-400/50"></div>
+              <span className="text-[10px] font-mono text-amber-300/70 border-l border-white/20 pl-2">THICKNESS: {height} cm</span>
+            </div>
+
+            {/* 3D Model Assembly */}
+            <div 
+              className="relative flex items-center justify-center transition-transform duration-75 pointer-events-none"
+              style={{ 
+                perspective: '1200px',
+                transform: `scale(${zoomLevel})`
+              }}
+            >
+              {/* Turntable Disc Base */}
+              <div 
+                className="absolute -bottom-16 w-80 sm:w-[420px] h-24 sm:h-28 rounded-full border border-amber-600/50 bg-gradient-to-b from-[#3D2415] to-[#120B06] shadow-[0_30px_60px_rgba(0,0,0,0.95)] flex items-center justify-center"
+                style={{
+                  transform: `rotateX(68deg) rotateZ(${rotationAngle}deg)`,
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                <div className="w-64 sm:w-80 h-16 sm:h-20 rounded-full border border-amber-500/30 bg-[#25150C] flex items-center justify-center">
+                  <div className="w-48 sm:w-60 h-10 sm:h-12 rounded-full border border-amber-400/20 bg-[#160A05] flex items-center justify-center">
+                    <span className="text-[10px] font-mono tracking-widest text-amber-400/80 uppercase">360° TURNTABLE STAGE</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Cast Shadow */}
+              <div 
+                className="absolute -bottom-12 w-64 sm:w-80 h-10 rounded-full bg-black/90 blur-lg transition-all duration-75"
+                style={{
+                  transform: `scaleX(${Math.max(0.35, Math.abs(Math.cos(rotationAngle * Math.PI / 180)))}) scaleY(0.7)`
+                }}
+              />
+
+              {/* Rotating Workpiece */}
+              <div
+                className="relative w-56 sm:w-72 h-80 sm:h-[420px] transition-transform duration-75"
+                style={{
+                  transform: `rotateY(${rotationAngle}deg)`,
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                {/* Front Panel */}
+                <div 
+                  className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-600/60 shadow-[0_30px_70px_rgba(0,0,0,0.95)] bg-[#2A180E]"
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(8px)'
+                  }}
+                >
+                  <img
+                    src={previewImages[activeThumb] || currentWork.img}
+                    alt={currentWork.name}
+                    className="w-full h-full object-cover select-none"
+                    draggable="false"
+                  />
+                  {/* Species Tint */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none mix-blend-color"
+                    style={{
+                      backgroundColor: 
+                        woodType === 'teak' ? 'rgba(217, 119, 6, 0.16)' :
+                        woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.24)' :
+                        woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.20)' :
+                        'rgba(245, 158, 11, 0.14)'
+                    }}
+                  />
+                  {/* Dynamic Specular Sheen */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: `linear-gradient(${110 + ((rotationAngle % 180) - 90) * 0.9}deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 25%, transparent 60%)`,
+                      opacity: finish === 'gloss' ? 0.95 : finish === 'matte' ? 0.35 : 0.65
+                    }}
+                  />
+                </div>
+
+                {/* Rear Panel */}
+                <div 
+                  className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-800/60 shadow-[0_30px_70px_rgba(0,0,0,0.95)] bg-gradient-to-b from-[#3D2415] via-[#2D1B0F] to-[#1C1008] p-4 flex flex-col justify-between"
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    transform: 'rotateY(180deg) translateZ(8px)'
+                  }}
+                >
+                  <div className="w-full h-full rounded-xl border border-amber-600/40 p-3 flex flex-col justify-between bg-[#24150C]/70">
+                    <div className="flex items-center justify-between border-b border-amber-700/40 pb-2">
+                      <span className="text-[11px] font-bold text-amber-400 font-mono">100% SEASONED WOOD</span>
+                      <span className="text-[11px] text-amber-200/80 font-mono">REAR PROFILE</span>
+                    </div>
+                    <div className="my-auto space-y-2 py-4 px-2 text-center">
+                      <div className="w-10 h-10 mx-auto rounded-full border border-amber-400/60 bg-amber-950/70 flex items-center justify-center text-amber-300 font-black text-sm">
+                        වම
+                      </div>
+                      <p className="text-sm font-bold text-amber-200 font-heading">වඩු මඩුව • MASTER WORKSHOP</p>
+                      <p className="text-xs text-amber-300 font-mono uppercase">
+                        {currentWood.name} • {length} x {width} x {height} cm
+                      </p>
+                      <p className="text-[10px] text-amber-400/70">Solid Seasoned Hardwood Backing with Architectural Cross Braces</p>
+                    </div>
+                    <div className="border-t border-amber-700/40 pt-2 flex items-center justify-between text-[10px] text-amber-400/80 font-mono">
+                      <span>KALUTARA HERITAGE</span>
+                      <span>LIFETIME GUARANTEE</span>
+                    </div>
+                  </div>
+                  <div 
+                    className="absolute inset-0 pointer-events-none mix-blend-color"
+                    style={{
+                      backgroundColor: 
+                        woodType === 'teak' ? 'rgba(217, 119, 6, 0.22)' :
+                        woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.30)' :
+                        woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.25)' :
+                        'rgba(245, 158, 11, 0.18)'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Studio Toolbar at Bottom of Canvas */}
+            <div 
+              onClick={(e) => e.stopPropagation()} 
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/85 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs shadow-2xl max-w-[95%] overflow-x-auto no-scrollbar"
+            >
+              <button
+                type="button"
+                onClick={toggleAutoRotate}
+                className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 ${
+                  isAutoRotating ? 'bg-amber-400 text-stone-950 font-black' : 'bg-white/10 text-amber-300 hover:bg-white/20'
+                }`}
+              >
+                {isAutoRotating ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                <span>{isAutoRotating ? 'Pause Spin' : 'Auto-Spin'}</span>
+              </button>
+
+              <div className="w-[1px] h-4 bg-white/20 shrink-0"></div>
+
+              <button
+                type="button"
+                onClick={handleRotateLeft}
+                className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
+                title="Rotate Left 15°"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+
+              <span className="text-[11px] font-mono font-bold text-amber-300 px-1 shrink-0">
+                {Math.round(rotationAngle)}°
+              </span>
+
+              <button
+                type="button"
+                onClick={handleRotateRight}
+                className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
+                title="Rotate Right 15°"
+              >
+                <RotateCw className="w-3.5 h-3.5" />
+              </button>
+
+              <div className="w-[1px] h-4 bg-white/20 hidden sm:block shrink-0"></div>
+
+              <div className="hidden sm:flex items-center gap-1 shrink-0">
+                <button type="button" onClick={() => handleSetAngle(0)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>0°</button>
+                <button type="button" onClick={() => handleSetAngle(45)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>45°</button>
+                <button type="button" onClick={() => handleSetAngle(90)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>90°</button>
+                <button type="button" onClick={() => handleSetAngle(180)} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-black' : 'hover:text-white text-gray-400'}`}>180°</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Studio Footer: Timber Switcher + Price + Order CTA */}
+          <div className="border-t border-[#3D2415] pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+            <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1 sm:pb-0">
+              <span className="text-xs font-bold text-amber-400/80 uppercase tracking-wider shrink-0 mr-1">Timber:</span>
+              {woodOptions.map(w => (
+                <button
+                  type="button"
+                  key={w.id}
+                  onClick={() => setWoodType(w.id)}
+                  className={`px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                    woodType === w.id 
+                      ? 'bg-amber-500 text-stone-950 shadow-md font-black' 
+                      : 'bg-black/50 text-amber-200/80 border border-white/10 hover:border-amber-400/40'
+                  }`}
+                >
+                  {w.name.split(' ')[0]}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between w-full sm:w-auto gap-4">
+              <div className="text-right">
+                <span className="text-[10px] uppercase tracking-wider text-amber-400/70 block">Estimated Price</span>
+                <span className="text-base font-black text-amber-300 font-mono">LKR {estimatedPrice.toLocaleString()}</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsStudioOpen(false);
+                  const el = document.getElementById('user-details-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black px-5 py-2.5 rounded-2xl text-xs flex items-center gap-2 shadow-lg hover:shadow-amber-500/20 transition-all cursor-pointer"
+              >
+                <span>Proceed to Order</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}
