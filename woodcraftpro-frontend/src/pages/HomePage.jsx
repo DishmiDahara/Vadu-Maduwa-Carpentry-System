@@ -316,10 +316,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             >
               <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🚪</div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h4 className="text-xs font-bold text-[#2B190E]">{t('svcDoors')}</h4>
-                  <span className="text-[9px] font-extrabold bg-[#8B5E3C] text-white px-1.5 py-0.2 rounded-full">33</span>
-                </div>
+                <h4 className="text-xs font-bold text-[#2B190E]">{t('svcDoors')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Main & Room Doors</p>
               </div>
             </div>
@@ -348,10 +345,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             >
               <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🪜</div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h4 className="text-xs font-bold text-[#2B190E]">{t('svcStaircases')}</h4>
-                  <span className="text-[9px] font-extrabold bg-[#8B5E3C] text-white px-1.5 py-0.2 rounded-full">16</span>
-                </div>
+                <h4 className="text-xs font-bold text-[#2B190E]">{t('svcStaircases')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Steps & Railings</p>
               </div>
             </div>
@@ -369,10 +363,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             >
               <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🗄️</div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h4 className="text-xs font-bold text-[#2B190E]">{t('svcPantry')}</h4>
-                  <span className="text-[9px] font-extrabold bg-[#8B5E3C] text-white px-1.5 py-0.2 rounded-full">22</span>
-                </div>
+                <h4 className="text-xs font-bold text-[#2B190E]">{t('svcPantry')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Kitchen Cabinets</p>
               </div>
             </div>
@@ -432,11 +423,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="doors-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
-                <span>{t('svcDoors')}</span>
-                <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
-                  33 Photos
-                </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
+                {t('svcDoors')}
               </h2>
               <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
                 Handcrafted solid Teak, Mahogany, and Nadun timber main entrance doors, interior bedroom doors, and double arch doors with traditional Sri Lankan hand carvings.
@@ -516,11 +504,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="pantry-cupboard-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
-                <span>{t('svcPantry')}</span>
-                <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
-                  22 Photos
-                </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
+                {t('svcPantry')}
               </h2>
               <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
                 Handcrafted modular kitchen pantries, teak cupboards, wall cabinets, and custom island units manufactured right in our workshop.
@@ -600,11 +585,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         <section id="staircases-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
             <div className="space-y-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E] flex items-center gap-2">
-                <span>{t('svcStaircases')}</span>
-                <span className="text-xs font-semibold text-[#8B5E3C] bg-[#FAF4EB] border border-[#E8DEC8] px-2.5 py-0.5 rounded-full">
-                  16 Photos
-                </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
+                {t('svcStaircases')}
               </h2>
               <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
                 Handcrafted solid Teak and Mahogany architectural staircases, floating wooden steps, turned balusters, and custom safety railings manufactured and fitted by our master carpenters.
