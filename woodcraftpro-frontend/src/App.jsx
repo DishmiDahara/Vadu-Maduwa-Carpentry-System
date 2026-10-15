@@ -98,7 +98,11 @@ export default function App() {
             />
           )}
           {activeTab === 'admin-dashboard' && (
-            <AdminDashboard adminUser={adminUser} />
+            <AdminDashboard 
+              adminUser={adminUser} 
+              setActiveTab={setActiveTab} 
+              onLogout={handleLogout} 
+            />
           )}
         </main>
 

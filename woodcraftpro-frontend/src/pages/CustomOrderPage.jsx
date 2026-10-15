@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import ThreeCarpentryViewer from '../components/ThreeCarpentryViewer';
+import { api } from '../services/api';
 
 export default function CustomOrderPage({ setActiveTab }) {
   const { t } = useLanguage();
@@ -344,6 +345,31 @@ export default function CustomOrderPage({ setActiveTab }) {
     const designLabel = isUploaded
       ? `පාරිභෝගිකයාගේ අභිරුචි ඡායාරූපයකි (Customer Uploaded: ${uploadedDesign.name})`
       : `නාමාවලි නිර්මාණය (Catalogue: ${currentWork.name})`;
+
+    // Automatically record custom order into Admin Order Desk
+    try {
+      api.createCustomOrder({
+        customerName: userName.trim(),
+        customerPhone: userPhone.trim(),
+        customerAddress: userAddress.trim(),
+        customerDistrict: userDistrict,
+        orderDescription: orderDescription.trim() || 'නැත',
+        designTitle: activeDesignTitle,
+        designImage: activeDesignImage,
+        isUploadedDesign: isUploaded,
+        furnitureType: currentWork.name,
+        woodType: currentWood.name,
+        finish: currentFinish.name,
+        dimensions: `${length} x ${width} x ${height} cm`,
+        length,
+        width,
+        height,
+        estimatedPrice,
+        status: 'Pending Review'
+      });
+    } catch (err) {
+      console.warn("Could not save custom order:", err);
+    }
 
     const message = `*වඩු මඩුව (Wadu Maduwa) - නව අභිරුචි වඩු ඇණවුම*
 
