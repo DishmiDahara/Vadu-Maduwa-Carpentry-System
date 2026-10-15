@@ -61,9 +61,6 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
               <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcWindows')}</button></li>
               <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcStaircases')}</button></li>
               <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcPantry')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcDoorFrames')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcCeilings')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcGeneralCarpentry')}</button></li>
             </ul>
           </div>
 

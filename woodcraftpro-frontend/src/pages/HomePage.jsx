@@ -367,17 +367,6 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                 <p className="text-[10px] text-[#7A6252]">Kitchen Cabinets</p>
               </div>
             </div>
-
-            <div 
-              onClick={() => setActiveTab('catalog')}
-              className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
-            >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center font-bold text-lg">🪵</div>
-              <div>
-                <h4 className="text-xs font-bold text-[#2B190E]">{t('svcCeilings')}</h4>
-                <p className="text-[10px] text-[#7A6252]">Timber Panels</p>
-              </div>
-            </div>
           </div>
 
           <div className="lg:col-span-4 bg-[#1D1109] text-white border border-[#3D2415] rounded-2xl p-4 shadow-sm flex items-center justify-between">

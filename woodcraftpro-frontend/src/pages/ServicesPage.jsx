@@ -1,5 +1,5 @@
 import React from 'react';
-import { DoorOpen, LayoutGrid, Layers, Columns3, Box, ShieldCheck, Wrench } from 'lucide-react';
+import { DoorOpen, LayoutGrid, Layers, Columns3 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
@@ -33,27 +33,6 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
       desc: t('svcPantryDesc'),
       icon: Columns3,
       badge: 'Fitted Kitchens (22 Photos)'
-    },
-    {
-      id: 5,
-      title: t('svcDoorFrames'),
-      desc: t('svcDoorFramesDesc'),
-      icon: Box,
-      badge: 'Seasoned Uluwahu'
-    },
-    {
-      id: 6,
-      title: t('svcCeilings'),
-      desc: t('svcCeilingsDesc'),
-      icon: ShieldCheck,
-      badge: 'PU Polished Timber'
-    },
-    {
-      id: 7,
-      title: t('svcGeneralCarpentry'),
-      desc: t('svcGeneralCarpentryDesc'),
-      icon: Wrench,
-      badge: 'On-site Fitting'
     }
   ];
 
@@ -67,8 +46,8 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
           <p className="text-xs sm:text-sm text-[#7A6252] mt-0.5 font-medium">{t('servicesSubtitle')}</p>
         </div>
 
-        {/* 7 Carpentry Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 4 Core Carpentry Service Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
           {serviceItems.map((svc) => {
             const IconComponent = svc.icon;
             return (

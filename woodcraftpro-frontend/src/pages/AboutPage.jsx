@@ -188,38 +188,6 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
               </button>
             </div>
 
-            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🪵</div>
-                <h3 className="font-bold text-sm text-[#2B190E]">{t('svcDoorFrames')}</h3>
-                <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcDoorFramesDesc')}</p>
-              </div>
-              <button onClick={() => setActiveTab('catalog')} className="text-xs font-bold text-[#8B5E3C] flex items-center gap-1 hover:underline pt-2 cursor-pointer">
-                <span>View Designs</span> <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🛡️</div>
-                <h3 className="font-bold text-sm text-[#2B190E]">{t('svcCeilings')}</h3>
-                <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcCeilingsDesc')}</p>
-              </div>
-              <button onClick={() => setActiveTab('catalog')} className="text-xs font-bold text-[#8B5E3C] flex items-center gap-1 hover:underline pt-2 cursor-pointer">
-                <span>View Designs</span> <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all sm:col-span-2">
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🧰</div>
-                <h3 className="font-bold text-sm text-[#2B190E]">{t('svcGeneralCarpentry')}</h3>
-                <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcGeneralCarpentryDesc')}</p>
-              </div>
-              <button onClick={() => setActiveTab('contact')} className="text-xs font-bold text-[#8B5E3C] flex items-center gap-1 hover:underline pt-2 cursor-pointer">
-                <span>Contact Workshop</span> <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
 
           </div>
         </section>
