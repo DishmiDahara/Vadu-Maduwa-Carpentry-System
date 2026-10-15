@@ -105,7 +105,7 @@ const translations = {
 
     // Gallery Page
     galleryTitle: 'Completed Projects Gallery',
-    gallerySubtitle: 'Real client installations: doors, windows, staircases, pantry cupboards & ceilings',
+    gallerySubtitle: 'Real client installations: doors, staircases & pantry cupboards',
     all: 'All',
     view: 'View',
     viewMorePhotos: 'View More Photos',
@@ -309,7 +309,7 @@ const translations = {
 
     // Gallery Page
     galleryTitle: 'නිර්මාණ ගැලරිය',
-    gallerySubtitle: 'අප විසින් සවිකර දෙන ලද දොරවල්, ජනෙල්, පඩිපෙළ සහ පැන්ට්‍රි කබඩ් ඡායාරූප',
+    gallerySubtitle: 'අප විසින් සවිකර දෙන ලද දොරවල්, පඩිපෙළ සහ පැන්ට්‍රි කබඩ් ඡායාරූප',
     all: 'සියල්ල',
     view: 'බලන්න',
     viewMorePhotos: 'තවත් ඡායාරූප බලන්න',
@@ -513,7 +513,7 @@ const translations = {
 
     // Gallery Page
     galleryTitle: 'படைப்புகள் கேலரி',
-    gallerySubtitle: 'நாங்கள் பொறுத்திய கதவுகள், ஜன்னல்கள் மற்றும் சமையலறை அலமாரிகள்',
+    gallerySubtitle: 'நாங்கள் பொறுத்திய கதவுகள், படிக்கட்டுகள் மற்றும் சமையலறை அலமாரிகள்',
     all: 'அனைத்தும்',
     view: 'பார்க்க',
     viewMorePhotos: 'மேலும் படங்களை பார்க்க',

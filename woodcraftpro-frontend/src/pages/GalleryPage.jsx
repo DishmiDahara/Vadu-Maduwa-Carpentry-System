@@ -11,8 +11,7 @@ export default function GalleryPage() {
     { key: 'All', label: t('all') },
     { key: t('catDoors'), label: t('catDoors'), count: 33 },
     { key: t('catPantry'), label: t('catPantry'), count: 22 },
-    { key: t('catStaircases'), label: t('catStaircases'), count: 16 },
-    { key: t('catWindows'), label: t('catWindows'), count: 2 }
+    { key: t('catStaircases'), label: t('catStaircases'), count: 16 }
   ];
 
   const galleryPhotos = [
@@ -91,11 +90,7 @@ export default function GalleryPage() {
     { id: 's13', title: 'Cantilever Floating Timber Tread Steps', category: t('catStaircases'), image: '/images/stairs/IMG_7172.PNG' },
     { id: 's14', title: 'High-Gloss Polished Teak Landing Cladding', category: t('catStaircases'), image: '/images/stairs/IMG_7173.PNG' },
     { id: 's15', title: 'Continuous Curved Ramp & Handrail System', category: t('catStaircases'), image: '/images/stairs/IMG_7174.PNG' },
-    { id: 's16', title: 'Crafted Hardwood Interior Staircase & Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7203.PNG' },
-
-    // WINDOWS
-    { id: 'w1', title: 'Double Glass Wooden Window Frame', category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
-    { id: 'w2', title: 'Sash Casement Teak Louver Window', category: t('catWindows'), image: '/banner_crafts/door_main.jpg' }
+    { id: 's16', title: 'Crafted Hardwood Interior Staircase & Railing', category: t('catStaircases'), image: '/images/stairs/IMG_7203.PNG' }
   ];
 
   const filteredPhotos = selectedCategory === 'All'
