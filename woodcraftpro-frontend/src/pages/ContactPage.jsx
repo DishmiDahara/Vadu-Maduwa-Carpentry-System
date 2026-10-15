@@ -90,11 +90,8 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
 
           </div>
 
-          {/* Column 2: Interactive Google Map Button Card (4 Cols) */}
-          <div 
-            onClick={handleMapClick}
-            className="lg:col-span-4 h-full min-h-[320px] bg-gradient-to-br from-[#23160D] to-[#3D2415] text-white border border-[#3D2415] rounded-2xl overflow-hidden shadow-sm p-6 flex flex-col justify-between cursor-pointer group relative"
-          >
+          {/* Column 2: Interactive Google Map Card with Live Preview (4 Cols) */}
+          <div className="lg:col-span-4 h-full min-h-[420px] bg-gradient-to-br from-[#23160D] to-[#3D2415] text-white border border-[#3D2415] rounded-2xl overflow-hidden shadow-sm p-6 flex flex-col justify-between group relative">
             <div className="space-y-3 z-10">
               <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
                 <MapPin className="w-5 h-5" />
@@ -105,9 +102,30 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
               </p>
             </div>
 
-            <div className="z-10 pt-4 border-t border-[#4A2E1B] flex items-center justify-between">
-              <span className="text-xs font-bold text-amber-300 group-hover:underline">{t('openInMaps')}</span>
-              <ExternalLink className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
+            {/* Embedded Google Maps Preview */}
+            <div className="my-4 rounded-xl overflow-hidden border border-[#4A2E1B] shadow-inner relative flex-1 min-h-[220px] w-full bg-[#1A0E07]">
+              <iframe
+                title="Wadumaduwa Workshop Location Map"
+                src="https://maps.google.com/maps?q=6.5273329,79.9869844+(Wadumaduwa+Dodangoda)&hl=en&z=15&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full min-h-[220px]"
+              ></iframe>
+            </div>
+
+            <div className="z-10 pt-4 border-t border-[#4A2E1B]">
+              <button
+                type="button"
+                onClick={handleMapClick}
+                className="w-full flex items-center justify-between text-xs font-bold text-amber-300 hover:text-amber-200 group/btn cursor-pointer transition-colors"
+              >
+                <span className="group-hover/btn:underline">{t('openInMaps')}</span>
+                <ExternalLink className="w-4 h-4 text-amber-300 group-hover/btn:translate-x-1 transition-transform" />
+              </button>
             </div>
           </div>
 
