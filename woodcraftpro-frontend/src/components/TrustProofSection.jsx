@@ -20,7 +20,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       features: ['Natural Oils Resist Water & Moisture', 'Zero Warping in Doors & Frames', 'Rich Golden Grain Finish'],
       badge: 'Most Popular',
       badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-      bgImage: 'https://images.unsplash.com/photo-1546484475-7f7bd55792da?auto=format&fit=crop&w=600&q=80'
+      bgImage: '/images/doors/IMG_6930.PNG'
     },
     {
       name: 'Mahogany (මහෝගනි / மகோகனி)',
@@ -29,7 +29,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       features: ['Deep Reddish-Brown Polish Finish', 'Smooth Carving Texture for Doors', 'High Structural Strength'],
       badge: 'Classic Choice',
       badgeColor: 'bg-red-500/20 text-red-300 border-red-500/40',
-      bgImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
+      bgImage: '/images/cupboards/IMG_7176.PNG'
     },
     {
       name: 'Nadun & Jackwood (නදුන් / කොස් / நதுன்)',
@@ -38,7 +38,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       features: ['Traditional Warm Golden Hue', 'Heavy Density Solid Wood', 'Ideal for Heavy Uluwahu & Frames'],
       badge: 'Heritage Hardwood',
       badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-      bgImage: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=80'
+      bgImage: '/images/stairs/IMG_7160.PNG'
     }
   ];
 

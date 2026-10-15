@@ -11,11 +11,8 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
   const categories = [
     t('allProducts'),
     t('catDoors'),
-    t('catWindows'),
-    t('catStaircases'),
     t('catPantry'),
-    t('catDoorFrames'),
-    t('catCeilings')
+    t('catStaircases')
   ];
 
   const defaultCarpentryProducts = [
@@ -27,16 +24,15 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
     { id: 'd6', title: 'Traditional Sri Lankan Floral Carved Door', price: 58000, category: t('catDoors'), image: '/images/doors/IMG_7110.PNG' },
     { id: 'd7', title: 'Pre-Hung Hardwood Internal Room Door', price: 35000, category: t('catDoors'), image: '/images/doors/IMG_7116.PNG' },
     { id: 'd8', title: 'Double Sash French Glass Panel Door', price: 62000, category: t('catDoors'), image: '/images/doors/IMG_7118.PNG' },
-    { id: '3', title: 'Solid Teak Door Frame (Uluwahu)', price: 28000, category: t('catDoorFrames'), image: '/images/doors/IMG_6931.PNG' },
-    { id: '4', title: 'Double Glass Wooden Window Frame', price: 34000, category: t('catWindows'), image: '/banner_crafts/staircase_main.jpg' },
+    { id: '3', title: 'Solid Teak Door Arch & Frame (Uluwahu)', price: 28000, category: t('catDoors'), image: '/images/doors/IMG_6931.PNG' },
     { id: '5', title: 'Modular Teak Kitchen Pantry System', price: 185000, category: t('catPantry'), image: '/images/cupboards/IMG_7175.PNG' },
     { id: '6', title: 'Crafted Hardwood Interior Staircase & Railing', price: 120000, category: t('catStaircases'), image: '/images/stairs/IMG_7203.PNG' },
     { id: 's2', title: 'Solid Teak Floating Tread Staircase', price: 145000, category: t('catStaircases'), image: '/images/stairs/IMG_7160.PNG' },
     { id: 's3', title: 'Grand Curved Mahogany Staircase Suite', price: 195000, category: t('catStaircases'), image: '/images/stairs/IMG_7161.PNG' },
     { id: 's4', title: 'Classic Turned Baluster Timber Railing', price: 65000, category: t('catStaircases'), image: '/images/stairs/IMG_7162.PNG' },
     { id: 's5', title: 'Tempered Glass & Solid Teak Cap Railing', price: 85000, category: t('catStaircases'), image: '/images/stairs/IMG_7168.PNG' },
-    { id: '7', title: 'Polyurethane Polished Timber Ceiling Panel', price: 48000, category: t('catCeilings'), image: '/banner_crafts/card_bedroom.jpg' },
-    { id: '8', title: 'Custom Jackwood Entrance Frame', price: 26000, category: t('catDoorFrames'), image: '/banner_crafts/card_furniture.jpg' },
+    { id: 's6', title: 'Contemporary Open-Riser Hardwood Staircase', price: 155000, category: t('catStaircases'), image: '/images/stairs/IMG_7163.PNG' },
+    { id: 's7', title: 'Continuous Curved Ramp & Handrail System', price: 95000, category: t('catStaircases'), image: '/images/stairs/IMG_7174.PNG' },
     { id: '9', title: 'Solid Mahogany Pantry & Island Bar Suite', price: 240000, category: t('catPantry'), image: '/images/cupboards/IMG_7176.PNG' },
     { id: '10', title: 'Wall-Mounted Glass-Door Kitchen Wall Cabinet', price: 75000, category: t('catPantry'), image: '/images/cupboards/IMG_7180.PNG' },
     { id: '11', title: 'Custom Hardwood Kitchen Pantry with Plate Rack', price: 165000, category: t('catPantry'), image: '/images/cupboards/IMG_7177.PNG' },

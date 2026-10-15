@@ -1060,11 +1060,9 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                   className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-xl px-3 py-2 text-xs font-bold text-[#2B190E] focus:outline-none"
                 >
                   <option value="ALL">All Categories</option>
-                  <option value="1">Beds & Bedroom</option>
-                  <option value="2">Dining & Kitchen</option>
-                  <option value="3">Living Room</option>
-                  <option value="4">Wardrobes & Closets</option>
-                  <option value="5">Doors & Windows</option>
+                  <option value="1">Wooden Doors (දොරවල්)</option>
+                  <option value="2">Pantry Cupboards (පැන්ට්‍රි කබඩ්)</option>
+                  <option value="3">Staircases & Railings (පඩිපෙළ)</option>
                 </select>
               </div>
 
@@ -1549,11 +1547,9 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                     onChange={(e) => setProductForm({ ...productForm, categoryId: Number(e.target.value) })}
                     className="w-full px-3 py-2.5 rounded-xl border border-[#E8DEC8] bg-[#FAF4EB]/40 text-xs font-semibold focus:outline-none"
                   >
-                    <option value={1}>Beds & Bedroom</option>
-                    <option value={2}>Dining & Kitchen</option>
-                    <option value={3}>Living Room</option>
-                    <option value={4}>Wardrobes & Closets</option>
-                    <option value={5}>Doors & Windows</option>
+                    <option value={1}>Wooden Doors (දොරවල්)</option>
+                    <option value={2}>Pantry Cupboards (පැන්ට්‍රි කබඩ්)</option>
+                    <option value={3}>Staircases & Railings (පඩිපෙළ)</option>
                   </select>
                 </div>
 
@@ -1661,10 +1657,9 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                   onChange={(e) => setGalleryForm({ ...galleryForm, category: e.target.value })}
                   className="w-full px-3 py-2.5 rounded-xl border border-[#E8DEC8] bg-[#FAF4EB]/40 text-xs font-semibold focus:outline-none"
                 >
-                  <option value="doors">Doors & Windows</option>
-                  <option value="cupboards">Pantry & Cupboards</option>
-                  <option value="stairs">Staircases & Handrails</option>
-                  <option value="custom">Custom Carvings & Bedroom</option>
+                  <option value="Wooden Doors">Wooden Doors (දොරවල්)</option>
+                  <option value="Pantry Cupboards">Pantry Cupboards (පැන්ට්‍රි කබඩ්)</option>
+                  <option value="Staircases">Staircases & Railings (පඩිපෙළ)</option>
                 </select>
               </div>
 

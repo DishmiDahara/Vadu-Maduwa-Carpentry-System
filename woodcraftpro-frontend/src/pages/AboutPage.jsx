@@ -28,7 +28,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
         <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[#1D1109] text-white p-8 sm:p-14 min-h-[380px] flex items-center">
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
-            style={{ backgroundImage: `url('/banner_crafts/staircase_main.jpg')` }}
+            style={{ backgroundImage: `url('/images/stairs/IMG_7160.PNG')` }}
           ></div>
 
           <div className="relative z-10 max-w-3xl space-y-5">
@@ -118,7 +118,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
             </div>
             <div className="rounded-3xl overflow-hidden border border-[#E8DEC8] shadow-md h-64 bg-[#FAF4EB] mt-8">
               <img 
-                src="/banner_crafts/staircase_main.jpg" 
+                src="/images/stairs/IMG_7160.PNG" 
                 alt="Teak Staircase Installation" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" 
               />

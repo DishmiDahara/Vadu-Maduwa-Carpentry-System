@@ -10,11 +10,19 @@ const apiClient = axios.create({
   timeout: 5000,
 });
 
-// Helper for persistent local storage fallbacks
+// Helper for persistent local storage fallbacks with auto-migration
 const getStored = (key, fallback) => {
   try {
     const val = localStorage.getItem(key);
-    return val ? JSON.parse(val) : fallback;
+    if (!val) return fallback;
+    const parsed = JSON.parse(val);
+    const raw = JSON.stringify(parsed);
+    // If stored cache has old dummy items (unsplash, Beds & Bedroom, or banner_crafts), wipe and use authentic fallback
+    if (raw.includes('unsplash.com') || raw.includes('Beds & Bedroom') || raw.includes('banner_crafts') || raw.includes('Dining & Kitchen') || raw.includes('Doors & Windows')) {
+      localStorage.setItem(key, JSON.stringify(fallback));
+      return fallback;
+    }
+    return parsed;
   } catch (e) {
     return fallback;
   }
@@ -28,25 +36,31 @@ const setStored = (key, data) => {
   }
 };
 
-// Initial Seed Data Store
+// Initial Seed Data Store - ONLY AUTHENTIC WORKSHOP CATEGORIES
 const defaultCategories = [
-  { id: 1, name: 'Beds & Bedroom', description: 'Custom teak bed frames, dressers and nightstands', imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80' },
-  { id: 2, name: 'Dining & Kitchen', description: 'Solid timber dining tables and modular pantry cabinets', imageUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80' },
-  { id: 3, name: 'Living Room', description: 'Carved sofas, TV console units and coffee tables', imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80' },
-  { id: 4, name: 'Wardrobes & Closets', description: 'Fitted sliding wardrobes and walk-in closets', imageUrl: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=800&q=80' },
-  { id: 5, name: 'Doors & Windows', description: 'Carved entrance doors and timber window frames', imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80' }
+  { id: 1, name: 'Wooden Doors', description: 'Carved solid entrance doors, room doors and timber frames', imageUrl: '/images/doors/IMG_6930.PNG' },
+  { id: 2, name: 'Pantry Cupboards', description: 'Custom fitted modular kitchen pantry cupboards and counter units', imageUrl: '/images/cupboards/IMG_7175.PNG' },
+  { id: 3, name: 'Staircases & Railings', description: 'Architectural solid timber staircases, handrails and balusters', imageUrl: '/images/stairs/IMG_7160.PNG' }
 ];
 
 const defaultProducts = [
-  { id: 1, categoryId: 1, productName: 'Teak King Size Bed with Storage', description: '100% genuine Sri Lankan Teak wood with under-bed storage drawers', basePrice: 185000, imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 2, categoryId: 1, productName: 'Mahogany Queen Bed Frame', description: 'Carved headboard with smooth matte varnish finish', basePrice: 145000, imageUrl: 'https://images.unsplash.com/photo-1540518614846-7ede433c517a?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 3, categoryId: 2, productName: '6-Seater Teak Dining Table Set', description: 'Heavy timber table with 6 ergonomic chairs', basePrice: 220000, imageUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 4, categoryId: 2, productName: 'Modular Kitchen Pantry Cabinet Set', description: 'Custom fitted counters with soft-close drawers & granite top', basePrice: 350000, imageUrl: '/images/cupboards/IMG_7175.PNG', available: true },
-  { id: 5, categoryId: 3, productName: '3-Seater Cushion Wooden Sofa', description: 'Nadun timber sofa with premium fabric cushions', basePrice: 165000, imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 6, categoryId: 3, productName: 'Modern Teak TV Console Unit', description: 'Tempered glass cabinet doors and cable management', basePrice: 85000, imageUrl: 'https://images.unsplash.com/photo-1601760562234-9814eea6663a?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 7, categoryId: 4, productName: '4-Door Sliding Wardrobe with Mirror', description: 'Dedicated hanging rails, shelves, internal lock drawers', basePrice: 280000, imageUrl: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=800&q=80', available: true },
-  { id: 8, categoryId: 5, productName: 'Carved Jackwood Main Entrance Door', description: 'Traditional Sri Lankan wood carving design with heavy frame', basePrice: 125000, imageUrl: '/images/doors/IMG_6930.PNG', available: true },
-  { id: 9, categoryId: 2, productName: 'Luxury Teak Modular Pantry Suite', description: 'Complete custom-fitted L-shape kitchen pantry units with granite tops', basePrice: 420000, imageUrl: '/images/cupboards/IMG_7176.PNG', available: true }
+  // 1. Wooden Doors (categoryId: 1)
+  { id: 1, categoryId: 1, productName: 'Carved Solid Teak Main Entrance Door', description: '100% genuine Sri Lankan Teak wood with traditional lotus carving & heavy frame', basePrice: 125000, imageUrl: '/images/doors/IMG_6930.PNG', available: true },
+  { id: 2, categoryId: 1, productName: 'Seasoned Mahogany Bedroom Door', description: 'Smooth fluted panel room door with natural polyurethane polish', basePrice: 32000, imageUrl: '/images/doors/IMG_7104.PNG', available: true },
+  { id: 3, categoryId: 1, productName: 'Solid Heavy Timber Double Door Suite', description: 'Double sash entrance door with architectural detailing and brass lock fittings', basePrice: 68000, imageUrl: '/images/doors/IMG_6936.PNG', available: true },
+  { id: 4, categoryId: 1, productName: 'Modern Vertical Slat Villa Entrance Door', description: 'Contemporary minimalist teak door with durable weather seal', basePrice: 42000, imageUrl: '/images/doors/IMG_6942.PNG', available: true },
+
+  // 2. Pantry Cupboards (categoryId: 2)
+  { id: 5, categoryId: 2, productName: 'Modular Kitchen Pantry Cabinet Set', description: 'Custom fitted counters with soft-close drawers & granite top support', basePrice: 350000, imageUrl: '/images/cupboards/IMG_7175.PNG', available: true },
+  { id: 6, categoryId: 2, productName: 'Luxury Teak Modular Pantry Suite', description: 'Complete custom-fitted L-shape kitchen pantry units with quartz tops', basePrice: 420000, imageUrl: '/images/cupboards/IMG_7176.PNG', available: true },
+  { id: 7, categoryId: 2, productName: 'Wall-Mounted Glass-Door Kitchen Cabinet', description: 'Overhead wall-mounted solid wood cabinet with tempered glass inserts', basePrice: 75000, imageUrl: '/images/cupboards/IMG_7180.PNG', available: true },
+  { id: 8, categoryId: 2, productName: 'Bespoke Central Cooking Island Countertop', description: 'Freestanding solid wood kitchen island with integrated breakfast bar', basePrice: 175000, imageUrl: '/images/cupboards/IMG_7182.PNG', available: true },
+
+  // 3. Staircases & Railings (categoryId: 3)
+  { id: 9, categoryId: 3, productName: 'Crafted Hardwood Interior Staircase & Railing', description: 'Precision engineered solid wood steps with turned balusters & polished handrail', basePrice: 120000, imageUrl: '/images/stairs/IMG_7203.PNG', available: true },
+  { id: 10, categoryId: 3, productName: 'Solid Teak Floating Tread Staircase', description: 'Modern open-riser cantilever floating steps with natural wood grain', basePrice: 145000, imageUrl: '/images/stairs/IMG_7160.PNG', available: true },
+  { id: 11, categoryId: 3, productName: 'Grand Curved Mahogany Staircase Suite', description: 'Architectural curved staircase with continuous smooth handrail system', basePrice: 195000, imageUrl: '/images/stairs/IMG_7161.PNG', available: true },
+  { id: 12, categoryId: 3, productName: 'Classic Turned Baluster Timber Railing', description: 'Handcrafted hardwood balustrade and durable heavy newel post set', basePrice: 65000, imageUrl: '/images/stairs/IMG_7162.PNG', available: true }
 ];
 
 const defaultCustomOrders = [
@@ -116,11 +130,12 @@ const defaultInquiries = [
 ];
 
 const defaultGallery = [
-  { id: 1, title: 'Luxury Teak Bedroom Suite - Nawala Villa', description: 'Master bedroom with king bed and sliding closet.', category: 'Bedroom', imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80', completedDate: '2026-05-15' },
-  { id: 2, title: 'Open Plan Modular Pantry Kitchen - Colombo 07', description: 'High-end mahogany pantry cabinets.', category: 'Kitchen', imageUrl: '/images/cupboards/IMG_7175.PNG', completedDate: '2026-06-02' },
-  { id: 3, title: 'Solid Wood Dining Room Setup - Kandy Residence', description: '10-seater custom teak dining table.', category: 'Dining', imageUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80', completedDate: '2026-06-20' },
-  { id: 4, title: 'Fitted Teak Kitchen Pantry - Kandy Villa', description: 'Custom wall-to-wall solid teak kitchen cupboards with quartz worktops.', category: 'Kitchen', imageUrl: '/images/cupboards/IMG_7176.PNG', completedDate: '2026-07-10' },
-  { id: 5, title: 'Solid Teak Temple Arch Entrance Door', description: 'Hand-carved double entrance door installed in Kalutara.', category: 'Doors', imageUrl: '/images/doors/IMG_6930.PNG', completedDate: '2026-07-18' }
+  { id: 1, title: 'Carved Teak Traditional Main Entrance Door', description: 'Hand-carved double entrance door installed in Kalutara.', category: 'Wooden Doors', imageUrl: '/images/doors/IMG_6930.PNG', completedDate: '2026-07-18' },
+  { id: 2, title: 'Modular L-Shape Teak Pantry Suite - Colombo 07', description: 'High-end mahogany pantry cabinets with quartz tops.', category: 'Pantry Cupboards', imageUrl: '/images/cupboards/IMG_7175.PNG', completedDate: '2026-06-02' },
+  { id: 3, title: 'Solid Teak Floating Tread Staircase - Nawala Villa', description: 'Custom open-riser teak staircase installation.', category: 'Staircases', imageUrl: '/images/stairs/IMG_7160.PNG', completedDate: '2026-05-15' },
+  { id: 4, title: 'Fitted Teak Kitchen Pantry - Kandy Villa', description: 'Custom wall-to-wall solid teak kitchen cupboards with quartz worktops.', category: 'Pantry Cupboards', imageUrl: '/images/cupboards/IMG_7176.PNG', completedDate: '2026-07-10' },
+  { id: 5, title: 'Solid Mahogany Fluted Arch Room Door', description: 'Custom fluted interior arch door with satin PU polish.', category: 'Wooden Doors', imageUrl: '/images/doors/IMG_6931.PNG', completedDate: '2026-07-22' },
+  { id: 6, title: 'Crafted Hardwood Interior Staircase & Railing', description: 'Completed hardwood staircase and handrail in Kalutara North.', category: 'Staircases', imageUrl: '/images/stairs/IMG_7203.PNG', completedDate: '2026-06-25' }
 ];
 
 const defaultQuotations = [

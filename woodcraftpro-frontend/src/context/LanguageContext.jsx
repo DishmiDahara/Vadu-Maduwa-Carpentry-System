@@ -85,8 +85,8 @@ const translations = {
 
     // Catalog Page
     catalogTitle: 'Carpentry Catalog',
-    catalogSubtitle: 'Browse our Sri Lankan solid wooden doors, windows, staircases, pantries & ceilings',
-    searchPlaceholder: 'Search doors, windows, staircases, pantry, uluwahu, ceiling...',
+    catalogSubtitle: 'Browse our Sri Lankan solid wooden doors, staircases & pantry cupboards',
+    searchPlaceholder: 'Search doors, staircases, pantry cupboards, uluwahu...',
     sortBy: 'Sort by:',
     priceLowHigh: 'Price: Low to High',
     priceHighLow: 'Price: High to Low',
@@ -289,8 +289,8 @@ const translations = {
 
     // Catalog Page
     catalogTitle: 'වඩු කාර්මික ලැයිස්තුව',
-    catalogSubtitle: 'අපගේ තේක්ක දොරවල්, ජනෙල්, උළුවහු, පඩිපෙළ, පැන්ට්‍රි සහ සිවිලිම් පරීක්ෂා කරන්න',
-    searchPlaceholder: 'දොරවල්, ජනෙල්, පඩිපෙළ, පැන්ට්‍රි, උළුවහු, සිවිලිම් සොයන්න...',
+    catalogSubtitle: 'අපගේ තේක්ක දොරවල්, පඩිපෙළ සහ පැන්ට්‍රි කබඩ් පරීක්ෂා කරන්න',
+    searchPlaceholder: 'දොරවල්, පඩිපෙළ, පැන්ට්‍රි කබඩ්, උළුවහු සොයන්න...',
     sortBy: 'වර්ගීකරණය:',
     priceLowHigh: 'මිල: අඩු සිට වැඩි',
     priceHighLow: 'මිල: වැඩි සිට අඩු',
@@ -493,8 +493,8 @@ const translations = {
 
     // Catalog Page
     catalogTitle: 'தச்சு பட்டியல்',
-    catalogSubtitle: 'எங்கள் கதவுகள், ஜன்னல்கள், நிலைகள், படிகள் மற்றும் சமையலறை அலமாரிகள்',
-    searchPlaceholder: 'கதவு, ஜன்னல், படிகள், அலமாரி, நிலை தேடுங்கள்...',
+    catalogSubtitle: 'எங்கள் மரக் கதவுகள், படிக்கட்டுகள் மற்றும் சமையலறை அலமாரிகள்',
+    searchPlaceholder: 'கதவு, படிகள், அலமாரி, நிலை தேடுங்கள்...',
     sortBy: 'வரிசைப்படுத்து:',
     priceLowHigh: 'விலை: குறைந்ததிலிருந்து',
     priceHighLow: 'விலை: அதிகத்திலிருந்து',

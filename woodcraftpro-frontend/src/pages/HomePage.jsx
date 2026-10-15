@@ -165,7 +165,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       id: 'c1',
       title: 'Carved Solid Teak Main Door',
       price: 'Rs. 45,000',
-      image: '/teak_door.png',
+      image: '/images/doors/IMG_6930.PNG',
     },
     {
       id: 'c2',
@@ -177,13 +177,13 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
       id: 'c3',
       title: 'Teak Wooden Staircase & Handrail',
       price: 'Rs. 120,000',
-      image: '/banner_crafts/staircase_main.jpg',
+      image: '/images/stairs/IMG_7160.PNG',
     },
     {
       id: 'c4',
-      title: 'Seasoned Teak Door Frame (Uluwahu)',
+      title: 'Seasoned Teak Door Arch & Frame (Uluwahu)',
       price: 'Rs. 28,000',
-      image: '/banner_crafts/door_main.jpg',
+      image: '/images/doors/IMG_6931.PNG',
     }
   ];
 
