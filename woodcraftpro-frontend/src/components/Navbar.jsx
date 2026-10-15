@@ -93,7 +93,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
             className="flex items-center gap-2 bg-[#20120A] hover:bg-[#321C0F] text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer"
           >
             <PhoneCall className="w-4 h-4 text-[#C68B59]" />
-            <span>අමතන්න</span>
+            <span>{t('callUs') || 'Call Us'}</span>
           </button>
 
           {adminUser ? (

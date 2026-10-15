@@ -15,6 +15,7 @@ const translations = {
     customOrder: 'Custom Carpentry Order',
     feedback: 'Client Feedback',
     requestQuote: 'Request Quote',
+    callUs: 'Call Us',
     adminDesk: 'Admin Desk',
     adminPortal: 'Admin Portal',
     
@@ -219,6 +220,7 @@ const translations = {
     customOrder: 'අභිරුචි ඇණවුම්',
     feedback: 'පාරිභෝගික අදහස්',
     requestQuote: 'මිල ගණන් ලබාගන්න',
+    callUs: 'අමතන්න',
     adminDesk: 'ඇඩ්මින් පාලකය',
     adminPortal: 'ඇඩ්මින් පිවිසුම',
     
@@ -423,6 +425,7 @@ const translations = {
     customOrder: 'விருப்ப தச்சு ஆர்டர்',
     feedback: 'கருத்துகள்',
     requestQuote: 'விலை கேட்க',
+    callUs: 'அழைக்க',
     adminDesk: 'நிர்வாகி பகுதி',
     adminPortal: 'நிர்வாகி உள்நுழைவு',
     
