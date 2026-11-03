@@ -100,8 +100,8 @@ export default function GalleryPage() {
   const activePhoto = lightboxIndex !== null ? filteredPhotos[lightboxIndex] : null;
 
   return (
-    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6 w-full overflow-x-hidden">
+      <div className="site-container space-y-6">
 
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8DEC8] pb-4">
@@ -142,12 +142,12 @@ export default function GalleryPage() {
         </div>
 
         {/* Photo Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
           {filteredPhotos.map((photo, index) => (
             <div
               key={photo.id}
               onClick={() => setLightboxIndex(index)}
-              className="group relative h-56 rounded-2xl overflow-hidden border border-[#E8DEC8] bg-[#FAF4EB] cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-end"
+              className="group relative h-56 sm:h-64 md:h-72 lg:h-80 rounded-2xl overflow-hidden border border-[#E8DEC8] bg-[#FAF4EB] cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-end"
             >
               <img
                 src={photo.image}
@@ -177,7 +177,7 @@ export default function GalleryPage() {
           onClick={() => setLightboxIndex(null)}
         >
           <div 
-            className="relative max-w-4xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
+            className="relative max-w-5xl lg:max-w-6xl xl:max-w-7xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
             onClick={e => e.stopPropagation()}
           >
             {/* Header */}

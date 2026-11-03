@@ -19,19 +19,19 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
   const { t } = useLanguage();
 
   return (
-    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-16 pt-6 selection:bg-[#8B5E3C] selection:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-16 pt-6 selection:bg-[#8B5E3C] selection:text-white w-full overflow-x-hidden">
+      <div className="site-container space-y-12 sm:space-y-14">
         
         {/* ========================================================
             1. HERO HEADER BANNER
            ======================================================== */}
-        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[#1D1109] text-white p-8 sm:p-14 min-h-[380px] flex items-center">
+        <section className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[#1D1109] text-white p-6 sm:p-10 lg:p-14 min-h-[380px] lg:min-h-[460px] flex items-center">
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
             style={{ backgroundImage: `url('/images/stairs/IMG_7160.PNG')` }}
           ></div>
 
-          <div className="relative z-10 max-w-3xl space-y-5">
+          <div className="relative z-10 max-w-3xl lg:max-w-4xl space-y-5">
             <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 uppercase tracking-widest">
               <span>🪵</span>
               <span>{t('expYears')} {t('expSub')}</span>
@@ -132,7 +132,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
             3. OUR 7 CORE CARPENTRY OFFERINGS
            ======================================================== */}
         <section className="space-y-6">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <div className="text-center space-y-2 max-w-3xl lg:max-w-4xl mx-auto">
             <span className="text-xs font-bold text-[#8B5E3C] uppercase tracking-widest">Our Expertise</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#2B190E]">
               What We Build Best at Wadu Maduwa
@@ -197,7 +197,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
             4. WORKSHOP COMMITMENTS & TIMBER STANDARDS
            ======================================================== */}
         <section className="bg-[#23160D] text-amber-100 rounded-3xl p-6 sm:p-10 border border-[#3D2415] space-y-8 shadow-xl">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <div className="text-center space-y-2 max-w-3xl lg:max-w-4xl mx-auto">
             <span className="text-xs font-bold text-amber-300 uppercase tracking-widest">Quality Guarantee</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
               Our Workshop Quality Commitments

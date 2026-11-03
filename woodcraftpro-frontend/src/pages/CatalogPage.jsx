@@ -69,8 +69,8 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
     });
 
   return (
-    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6 w-full overflow-x-hidden">
+      <div className="site-container space-y-6">
 
         {/* Header Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E8DEC8] pb-4">
@@ -110,7 +110,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           
           {/* Sidebar */}
-          <div className="md:col-span-3 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
+          <div className="md:col-span-3 xl:col-span-2 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
             <h3 className="text-xs font-bold text-[#7A6252] uppercase tracking-wider px-3 py-2 mb-1">{t('categories')}</h3>
             {categories.map((cat) => {
               const isSelected = selectedCategory === cat || (cat === t('allProducts') && selectedCategory === 'All');
@@ -118,7 +118,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat === t('allProducts') ? 'All' : cat)}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between ${
+                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                     isSelected
                       ? 'bg-[#FAF4EB] text-[#8B5E3C] border border-[#E8DEC8]'
                       : 'text-[#2B190E] hover:bg-[#FAF4EB]/60'
@@ -132,16 +132,16 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
           </div>
 
           {/* Product Grid */}
-          <div className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="md:col-span-9 xl:col-span-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-5">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((p) => (
                 <div key={p.id} className="bg-white border border-[#E8DEC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                  <div className="h-44 bg-[#FAF4EB] overflow-hidden">
+                  <div className="h-48 sm:h-52 overflow-hidden bg-[#FAF4EB]">
                     <img src={p.image} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-4 space-y-2">
                     <span className="text-[10px] font-bold text-[#8B5E3C] bg-[#FAF4EB] px-2 py-0.5 rounded-md">{p.category}</span>
-                    <h3 className="font-bold text-sm text-[#2B190E]">{p.title}</h3>
+                    <h3 className="font-bold text-sm text-[#2B190E] line-clamp-1">{p.title}</h3>
                     <div className="flex items-center justify-between pt-2 border-t border-[#E8DEC8]">
                       <span className="font-extrabold text-sm text-[#8B5E3C]">Rs. {p.price.toLocaleString()}</span>
                       <button

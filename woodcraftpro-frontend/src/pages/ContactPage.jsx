@@ -23,7 +23,7 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
 
   return (
     <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div className="site-container space-y-6">
 
         {/* Header */}
         <div className="border-b border-[#E8DEC8] pb-4">

@@ -83,7 +83,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       {/* 1. WHY TRUST US */}
       <div className="bg-[#14161D]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
         
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <div className="text-center space-y-3 max-w-3xl lg:max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 uppercase tracking-widest">
             <ShieldCheck className="w-4 h-4 text-amber-400" />
             <span>{t('guaranteedTimberStandard')}</span>

@@ -37,8 +37,8 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
   ];
 
   return (
-    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6 w-full overflow-x-hidden">
+      <div className="site-container space-y-8">
         
         {/* Header */}
         <div className="border-b border-[#E8DEC8] pb-4">
@@ -47,7 +47,7 @@ export default function ServicesPage({ onOpenInquiry, setActiveTab }) {
         </div>
 
         {/* 4 Core Carpentry Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
           {serviceItems.map((svc) => {
             const IconComponent = svc.icon;
             return (

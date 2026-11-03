@@ -188,11 +188,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
   ];
 
   return (
-    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pt-4">
+    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-12 w-full overflow-x-hidden">
+      <div className="site-container space-y-8 sm:space-y-10 pt-4">
 
         {/* 1. HERO SLIDER BANNER */}
-        <section className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E8DEC8] bg-[#1C120C] min-h-[500px] sm:min-h-[540px] flex items-center">
+        <section className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-[#E8DEC8] bg-[#1C120C] min-h-[460px] sm:min-h-[520px] md:min-h-[560px] lg:min-h-[620px] xl:min-h-[680px] flex items-center">
           {/* Full background image without box clipping */}
           <div 
             key={currentSlideIndex}
@@ -201,7 +201,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           ></div>
 
           {/* Premium dark gradient overlay ensuring 100% image visibility while keeping text crisp */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35 sm:bg-gradient-to-r sm:from-black/85 sm:via-black/50 sm:to-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/35 md:bg-gradient-to-r md:from-black/90 md:via-black/60 md:to-black/20"></div>
 
           <button 
             onClick={prevSlide}
@@ -219,18 +219,18 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             <ChevronRight className="w-5 h-5" />
           </button>
 
-          <div className="relative z-10 max-w-xl px-6 sm:px-12 py-10 space-y-5 text-white">
+          <div className="relative z-10 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl px-5 sm:px-10 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-16 space-y-4 sm:space-y-6 text-white">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 border border-amber-500/40 px-3.5 py-1.5 rounded-full shadow-md backdrop-blur-md">
               <span>🍃</span>
               <span>{currentSlide.badge}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-white leading-tight drop-shadow-md">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading text-white leading-[1.15] drop-shadow-md">
               {currentSlide.titleLine1} <br />
               <span className="text-amber-400">{currentSlide.titleLine2}</span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed font-medium drop-shadow-sm">
+            <p className="text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-medium drop-shadow-sm max-w-3xl lg:max-w-4xl">
               {currentSlide.descLine1}<br />
               {currentSlide.descLine2}
             </p>
@@ -252,7 +252,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </button>
             </div>
 
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 border-t border-white/20 text-[11px] text-gray-200">
+            <div className="pt-4 sm:pt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 border-t border-white/20 text-[11px] sm:text-xs text-gray-200">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
@@ -389,12 +389,12 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         </section>
 
         {/* 2.5 ABOUT US SHOWCASE SECTION */}
-        <section className="bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
+        <section className="bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-4xl xl:max-w-5xl">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-[#2B190E]">
               {t('aboutHeader')}
             </h2>
-            <p className="text-xs sm:text-sm text-[#5C4535] leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm md:text-base text-[#5C4535] leading-relaxed font-medium">
               {t('aboutSub')}
             </p>
           </div>
@@ -411,11 +411,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         {/* 2.7 DEDICATED WOODEN DOORS SHOWCASE SECTION (33 REAL WORKSHOP PHOTOS) */}
         <section id="doors-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-4xl xl:max-w-5xl">
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
                 {t('svcDoors')}
               </h2>
-              <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#7A6252] font-medium leading-relaxed">
                 Handcrafted solid Teak, Mahogany, and Nadun timber main entrance doors, interior bedroom doors, and double arch doors with traditional Sri Lankan hand carvings.
               </p>
             </div>
@@ -438,14 +438,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
           {/* 33 Door Photos Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
             {(showAllDoorPhotos ? allWoodenDoorPhotos : allWoodenDoorPhotos.slice(0, 8)).map((photo, index) => (
               <div
                 key={photo.id}
                 onClick={() => setDoorLightboxIndex(index)}
                 className="group relative rounded-2xl overflow-hidden border border-[#E8DEC8] bg-[#FAF4EB] cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
               >
-                <div className="relative h-56 sm:h-64 overflow-hidden bg-[#FAF4EB]">
+                <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 overflow-hidden bg-[#FAF4EB]">
                   <img
                     src={photo.src}
                     alt={photo.title}
@@ -492,11 +492,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         {/* 2.8 DEDICATED PANTRY CUPBOARDS & KITCHEN CABINETS SHOWCASE SECTION (22 REAL WORKSHOP PHOTOS) */}
         <section id="pantry-cupboard-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-4xl xl:max-w-5xl">
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
                 {t('svcPantry')}
               </h2>
-              <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#7A6252] font-medium leading-relaxed">
                 Handcrafted modular kitchen pantries, teak cupboards, wall cabinets, and custom island units manufactured right in our workshop.
               </p>
             </div>
@@ -519,14 +519,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
           {/* 22 Photos Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
             {(showAllPantryPhotos ? allPantryCupboardPhotos : allPantryCupboardPhotos.slice(0, 8)).map((photo, index) => (
               <div
                 key={photo.id}
                 onClick={() => setPantryLightboxIndex(index)}
                 className="group relative rounded-2xl overflow-hidden border border-[#E8DEC8] bg-[#FAF4EB] cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
               >
-                <div className="relative h-44 sm:h-48 overflow-hidden bg-[#FAF4EB]">
+                <div className="relative h-48 sm:h-52 md:h-56 lg:h-60 overflow-hidden bg-[#FAF4EB]">
                   <img
                     src={photo.src}
                     alt={photo.title}
@@ -573,11 +573,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
         {/* 2.9 DEDICATED STAIRCASES & RAILINGS SHOWCASE SECTION (16 REAL WORKSHOP PHOTOS) */}
         <section id="staircases-section" className="scroll-mt-20 bg-white border border-[#E8DEC8] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8DEC8] pb-5">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-4xl xl:max-w-5xl">
               <h2 className="text-xl sm:text-2xl font-extrabold font-heading text-[#2B190E]">
                 {t('svcStaircases')}
               </h2>
-              <p className="text-xs sm:text-sm text-[#7A6252] max-w-2xl font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#7A6252] font-medium leading-relaxed">
                 Handcrafted solid Teak and Mahogany architectural staircases, floating wooden steps, turned balusters, and custom safety railings manufactured and fitted by our master carpenters.
               </p>
             </div>
@@ -594,14 +594,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           </div>
 
           {/* Photo Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {(showAllStaircasePhotos ? allStaircasePhotos : allStaircasePhotos.slice(0, 8)).map((photo, index) => (
               <div
                 key={photo.id}
                 onClick={() => setStaircaseLightboxIndex(index)}
                 className="group bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
-                <div className="relative h-52 sm:h-56 overflow-hidden bg-[#2B190E]/5">
+                <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden bg-[#2B190E]/5">
                   <img
                     src={photo.src}
                     alt={photo.title}
@@ -674,13 +674,13 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {featuredCarpentryItems.map((item) => (
               <div
                 key={item.id}
                 className="bg-white border border-[#E8DEC8] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col justify-between"
               >
-                <div className="relative h-44 overflow-hidden bg-[#FAF4EB]">
+                <div className="relative h-48 sm:h-56 md:h-60 lg:h-64 overflow-hidden bg-[#FAF4EB]">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -721,7 +721,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             <div className="bg-[#1D1109] border border-[#3D2415] text-white rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
                 <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center text-xl">🚪</div>
@@ -795,7 +795,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           onClick={() => setDoorLightboxIndex(null)}
         >
           <div 
-            className="relative max-w-4xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
+            className="relative max-w-5xl lg:max-w-6xl xl:max-w-7xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
             onClick={e => e.stopPropagation()}
           >
             {/* Header */}
@@ -881,7 +881,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           onClick={() => setPantryLightboxIndex(null)}
         >
           <div 
-            className="relative max-w-4xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
+            className="relative max-w-5xl lg:max-w-6xl xl:max-w-7xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
             onClick={e => e.stopPropagation()}
           >
             {/* Header */}
@@ -968,7 +968,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           onClick={() => setStaircaseLightboxIndex(null)}
         >
           <div 
-            className="relative max-w-4xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
+            className="relative max-w-5xl lg:max-w-6xl xl:max-w-7xl w-full bg-[#1D1109] border border-[#4A2E1B] rounded-2xl overflow-hidden shadow-2xl p-3 sm:p-4 text-white space-y-3"
             onClick={e => e.stopPropagation()}
           >
             {/* Header */}

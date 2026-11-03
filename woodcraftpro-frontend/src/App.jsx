@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen flex flex-col bg-[#FBF8F3] text-[#2B190E]">
+      <div className="min-h-screen flex flex-col bg-[#FBF8F3] text-[#2B190E] w-full overflow-x-hidden">
         
         {/* Header Navigation */}
         <Navbar
@@ -54,7 +54,7 @@ export default function App() {
         />
 
         {/* Main View Area */}
-        <main className="flex-1">
+        <main className="flex-1 w-full overflow-x-hidden">
           {activeTab === 'home' && (
             <HomePage
               setActiveTab={setActiveTab}

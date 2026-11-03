@@ -8,16 +8,16 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
 
   return (
     <footer className="bg-[#1D1109] text-amber-100/80 pt-12 pb-8 border-t border-[#3D2415]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container">
         
         {/* Footer Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10">
           
           {/* Column 1: Brand Info */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               {logoImg && (
-                <img src={logoImg} alt="වඩු මඩුව Logo" className="h-14 w-auto object-contain" />
+                <img src={logoImg} alt="වඩු මඩුව Logo" className="h-12 sm:h-14 w-auto object-contain" />
               )}
               <div>
                 <span className="font-heading font-black text-xl text-white block leading-tight">{t('brandName')}</span>
@@ -44,12 +44,12 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
           <div>
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-[#4A2E1B] pb-2">{t('quickLinks')}</h4>
             <ul className="space-y-2 text-xs">
-              <li><button onClick={() => setActiveTab('home')} className="hover:text-amber-400 transition-colors">{t('home')}</button></li>
-              <li><button onClick={() => setActiveTab('about')} className="hover:text-amber-400 transition-colors">{t('aboutUs')}</button></li>
-              <li><button onClick={() => setActiveTab('catalog')} className="hover:text-amber-400 transition-colors">{t('catalog')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('services')}</button></li>
-              <li><button onClick={() => setActiveTab('gallery')} className="hover:text-amber-400 transition-colors">{t('gallery')}</button></li>
-              <li><button onClick={() => setActiveTab('contact')} className="hover:text-amber-400 transition-colors">{t('contact')}</button></li>
+              <li><button onClick={() => setActiveTab('home')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('home')}</button></li>
+              <li><button onClick={() => setActiveTab('about')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('aboutUs')}</button></li>
+              <li><button onClick={() => setActiveTab('catalog')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('catalog')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('services')}</button></li>
+              <li><button onClick={() => setActiveTab('gallery')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('gallery')}</button></li>
+              <li><button onClick={() => setActiveTab('contact')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('contact')}</button></li>
             </ul>
           </div>
 
@@ -57,10 +57,10 @@ export default function Footer({ setActiveTab, onOpenInquiry }) {
           <div>
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-[#4A2E1B] pb-2">{t('ourServices')}</h4>
             <ul className="space-y-2 text-xs">
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcDoors')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcWindows')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcStaircases')}</button></li>
-              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors">{t('svcPantry')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('svcDoors')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('svcWindows')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('svcStaircases')}</button></li>
+              <li><button onClick={() => setActiveTab('services')} className="hover:text-amber-400 transition-colors cursor-pointer">{t('svcPantry')}</button></li>
             </ul>
           </div>
 

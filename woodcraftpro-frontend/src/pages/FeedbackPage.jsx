@@ -95,7 +95,7 @@ export default function FeedbackPage() {
 
   return (
     <div className="bg-[#FAF8F5] text-[#2B190E] min-h-screen pb-16 pt-6 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="site-container space-y-8">
         
         {/* Page Header */}
         <div className="border-b border-[#E8DEC8] pb-4">
@@ -235,7 +235,7 @@ export default function FeedbackPage() {
           </div>
 
           {/* Customer Reviews Grid (8 Cols) */}
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
             {reviews.map((rev) => (
               <div key={rev.id} className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
                 <div className="space-y-2">

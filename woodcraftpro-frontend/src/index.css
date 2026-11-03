@@ -28,6 +28,72 @@
     transform: translateY(-4px);
     box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.12);
   }
+
+  /* Fluid Responsive Container System: Maximizes width & reduces empty side margins */
+  .site-container {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  @media (min-width: 480px) {
+    .site-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .site-container {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-container {
+      width: 100%;
+      max-width: 98.5%;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .site-container {
+      width: 100%;
+      max-width: 98.5%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .site-container {
+      width: 100%;
+      max-width: 99%;
+      padding-left: 1.75rem;
+      padding-right: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .site-container {
+      width: 100%;
+      max-width: 2200px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Custom Scrollbar */

@@ -734,7 +734,7 @@ export default function ThreeCarpentryViewer({
   const visibleSide = getVisibleSideInfo(rotationY);
 
   return (
-    <div className={`relative w-full ${isStudio ? 'h-full' : 'h-[460px] sm:h-[520px]'} flex flex-col justify-between overflow-hidden select-none`}>
+    <div className={`relative w-full ${isStudio ? 'h-full' : 'h-[460px] sm:h-[520px] lg:h-[580px] xl:h-[640px]'} flex flex-col justify-between overflow-hidden select-none`}>
       {/* 1. 3D WebGL Canvas Container with Drag Event Handlers */}
       <div
         ref={mountRef}

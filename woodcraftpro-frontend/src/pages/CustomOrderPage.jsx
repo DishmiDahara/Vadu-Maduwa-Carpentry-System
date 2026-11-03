@@ -399,7 +399,7 @@ ${orderDescription.trim() || 'නැත'}`;
 
   return (
     <div className="bg-[#FAF8F5] text-[#2B190E] min-h-screen pb-24 sm:pb-16 pt-4 font-sans selection:bg-[#8B5E3C] selection:text-white">
-      <div className="max-w-4xl mx-auto px-4 space-y-5">
+      <div className="site-container space-y-5">
 
         {/* 1. TOP HEADER */}
         <div className="flex items-start justify-between">
