@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node -e \"const fs=require('fs'); if(!fs.existsSync('woodcraftpro-frontend')){ try{ fs.mkdirSync('woodcraftpro-frontend'); fs.cpSync('dist', 'woodcraftpro-frontend/dist', {recursive:true}); }catch(e){} }\"",
     "lint": "oxlint",
     "preview": "vite preview"
   },

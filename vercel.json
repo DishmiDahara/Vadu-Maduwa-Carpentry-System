@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd woodcraftpro-frontend && npm install && npm run build",
-  "outputDirectory": "woodcraftpro-frontend/dist",
   "framework": "vite",
+  "buildCommand": "node -e \"const fs=require('fs'),cp=require('child_process'); if(fs.existsSync('woodcraftpro-frontend')) { cp.execSync('cd woodcraftpro-frontend && npm install && npm run build', {stdio:'inherit'}); } else { cp.execSync('npm run build', {stdio:'inherit'}); }\"",
+  "outputDirectory": "woodcraftpro-frontend/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
