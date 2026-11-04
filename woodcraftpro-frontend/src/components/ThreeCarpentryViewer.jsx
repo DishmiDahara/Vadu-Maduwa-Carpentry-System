@@ -14,7 +14,8 @@ import {
   Eye,
   Check,
   Sparkles,
-  Info
+  Info,
+  Compass
 } from 'lucide-react';
 
 // Generates procedural authentic timber textures for all 6 faces of the 3D woodwork
@@ -773,7 +774,7 @@ export default function ThreeCarpentryViewer({
           onPointerDown={(e) => e.stopPropagation()}
         >
           <span className="text-amber-300 font-mono font-bold text-[11px] mr-1">
-            📐 {Math.round(rotationY)}°
+            <Compass className="w-3.5 h-3.5 inline-block mr-1 text-amber-400" /> {Math.round(rotationY)}°
           </span>
 
           <button

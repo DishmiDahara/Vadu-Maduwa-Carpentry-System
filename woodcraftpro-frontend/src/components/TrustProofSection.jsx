@@ -5,7 +5,8 @@ import {
   Flame, 
   BadgePercent,
   Truck,
-  Star
+  Star,
+  ArrowRight
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -155,7 +156,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
               onClick={onOpenCustomOrder}
               className="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-md self-start sm:self-auto cursor-pointer"
             >
-              {t('customOrderBtn')} ➔
+              <span>{t('customOrderBtn')}</span> <ArrowRight className="w-4 h-4 inline-block ml-1" />
             </button>
           )}
         </div>
@@ -227,7 +228,7 @@ export default function TrustProofSection({ onOpenCustomOrder }) {
       <div className="space-y-6">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-1 text-amber-400 text-lg">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            {[1, 2, 3, 4, 5].map((s) => (<Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />))}
             <span className="text-white font-extrabold text-sm ml-2">4.9 / 5.0 Rating</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">

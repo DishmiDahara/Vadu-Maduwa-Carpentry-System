@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X, ChevronDown } from 'lucide-react';
+import { PhoneCall, ShieldCheck, UserCheck, LogOut, Globe, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import logoImg from '../assets/logo.png';
 
@@ -163,7 +163,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenInquiry, adminUs
                 }`}
               >
                 <span>{item.label}</span>
-                <span className="text-xs text-gray-400">➔</span>
+                <ArrowRight className="w-4 h-4 text-gray-400" />
               </button>
             ))}
           </div>

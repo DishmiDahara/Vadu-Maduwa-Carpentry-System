@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, Users, Hammer, CheckCircle2, Send } from 'lucide-react';
+import { Star, Users, Hammer, CheckCircle2, Send, Leaf } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function FeedbackPage() {
@@ -101,7 +101,7 @@ export default function FeedbackPage() {
         <div className="border-b border-[#E8DEC8] pb-4">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full">
-              🍃 CLIENT TESTIMONIALS
+              <Leaf className="w-3.5 h-3.5 inline-block mr-1.5 -mt-0.5 text-[#8B5E3C]" />CLIENT TESTIMONIALS
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black font-heading text-[#2B190E] mt-2">
@@ -118,7 +118,7 @@ export default function FeedbackPage() {
             
             <div className="p-2 space-y-1">
               <div className="flex items-center justify-center gap-1 text-amber-400 text-lg">
-                ★★★★★
+                {[1, 2, 3, 4, 5].map((s) => (<Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />))}
               </div>
               <h3 className="text-3xl font-extrabold font-heading text-white">4.9 / 5</h3>
               <p className="text-xs text-amber-200/70">Overall Rating Score</p>
@@ -163,7 +163,7 @@ export default function FeedbackPage() {
 
             {submittedMessage ? (
               <div className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl p-4 text-center space-y-2">
-                <span className="text-3xl">🎉</span>
+                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto"><CheckCircle2 className="w-6 h-6" /></div>
                 <h4 className="font-bold text-sm text-[#2B190E]">Thank you for your feedback!</h4>
                 <p className="text-xs text-[#7A6252]">Your review has been published successfully.</p>
                 <button
@@ -205,9 +205,9 @@ export default function FeedbackPage() {
                     onChange={(e) => setNewFeedback({ ...newFeedback, rating: e.target.value })}
                     className="w-full px-3 py-2.5 bg-[#FAF4EB] border border-[#E8DEC8] rounded-xl text-xs text-[#2B190E] outline-none font-bold focus:border-[#8B5E3C]"
                   >
-                    <option value={5}>★★★★★ (5 / 5 Excellent)</option>
-                    <option value={4}>★★★★☆ (4 / 5 Very Good)</option>
-                    <option value={3}>★★★☆☆ (3 / 5 Good)</option>
+                    <option value={5}>5 / 5 - Excellent</option>
+                    <option value={4}>4 / 5 - Very Good</option>
+                    <option value={3}>3 / 5 - Good</option>
                   </select>
                 </div>
 

@@ -10,7 +10,12 @@ import {
   Users, 
   Clock, 
   ArrowRight,
-  PhoneCall
+  PhoneCall,
+  DoorOpen,
+  LayoutGrid,
+  Layers,
+  Columns3,
+  Trees
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import TrustProofSection from '../components/TrustProofSection';
@@ -33,7 +38,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
 
           <div className="relative z-10 max-w-3xl lg:max-w-4xl space-y-5">
             <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 uppercase tracking-widest">
-              <span>🪵</span>
+              <Trees className="w-3.5 h-3.5 text-amber-400" />
               <span>{t('expYears')} {t('expSub')}</span>
             </div>
 
@@ -72,7 +77,7 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
           
           <div className="lg:col-span-6 space-y-5">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#8B5E3C] uppercase tracking-widest bg-[#F3EDE2] border border-[#E8DEC8] px-3 py-1 rounded-full">
-              <span>🇱🇰</span>
+              <MapPin className="w-3.5 h-3.5 text-[#8B5E3C]" />
               <span>Kalutara Carpentry Heritage</span>
             </div>
 
@@ -146,7 +151,9 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
             
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🚪</div>
+                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center border border-[#E8DEC8]">
+                  <DoorOpen className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-sm text-[#2B190E]">{t('svcDoors')}</h3>
                 <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcDoorsDesc')}</p>
               </div>
@@ -157,7 +164,9 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
 
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🪟</div>
+                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center border border-[#E8DEC8]">
+                  <LayoutGrid className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-sm text-[#2B190E]">{t('svcWindows')}</h3>
                 <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcWindowsDesc')}</p>
               </div>
@@ -168,7 +177,9 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
 
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🪜</div>
+                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center border border-[#E8DEC8]">
+                  <Layers className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-sm text-[#2B190E]">{t('svcStaircases')}</h3>
                 <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcStaircasesDesc')}</p>
               </div>
@@ -179,7 +190,9 @@ export default function AboutPage({ setActiveTab, onOpenInquiry }) {
 
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition-all">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center text-xl border border-[#E8DEC8]">🗄️</div>
+                <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center border border-[#E8DEC8]">
+                  <Columns3 className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-sm text-[#2B190E]">{t('svcPantry')}</h3>
                 <p className="text-xs text-[#7A6252] leading-relaxed">{t('svcPantryDesc')}</p>
               </div>

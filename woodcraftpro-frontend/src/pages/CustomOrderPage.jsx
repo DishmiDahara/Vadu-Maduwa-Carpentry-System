@@ -25,7 +25,8 @@ import {
   FileText,
   Sparkles,
   Camera,
-  Boxes
+  Boxes,
+  Compass
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import ThreeCarpentryViewer from '../components/ThreeCarpentryViewer';
@@ -870,7 +871,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 className="hidden sm:flex items-center gap-1 bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs"
                 onPointerDown={(e) => e.stopPropagation()}
               >
-                <span className="text-amber-300 font-mono font-bold text-[11px] mr-1">📐 {Math.round(rotationAngle)}°</span>
+                <span className="text-amber-300 font-mono font-bold text-[11px] mr-1 flex items-center gap-1"><Compass className="w-3.5 h-3.5 text-amber-400" /> {Math.round(rotationAngle)}°</span>
                 <button 
                   type="button" 
                   onClick={(e) => handleSetAngle(0, e)} 

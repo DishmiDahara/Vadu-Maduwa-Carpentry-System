@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, ExternalLink, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function ContactPage({ selectedProduct, onOpenInquiry }) {
@@ -135,7 +135,7 @@ export default function ContactPage({ selectedProduct, onOpenInquiry }) {
 
             {submitted ? (
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center space-y-2">
-                <span className="text-2xl">✅</span>
+                <CheckCircle2 className="w-7 h-7 text-emerald-600 mx-auto" />
                 <p className="text-xs font-bold text-emerald-800">{t('messageSentSuccess')}</p>
               </div>
             ) : (

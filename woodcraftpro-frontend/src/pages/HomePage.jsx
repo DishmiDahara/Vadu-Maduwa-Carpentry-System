@@ -12,7 +12,13 @@ import {
   Paintbrush, 
   Package,
   Eye,
-  X
+  X,
+  DoorOpen,
+  LayoutGrid,
+  Layers,
+  Columns3,
+  Leaf,
+  Trees
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -217,7 +223,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
           <div className="relative z-10 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl px-5 sm:px-10 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-16 space-y-4 sm:space-y-6 text-white">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 border border-amber-500/40 px-3.5 py-1.5 rounded-full shadow-md backdrop-blur-md">
-              <span>🍃</span>
+              <Leaf className="w-3.5 h-3.5 text-amber-400" />
               <span>{currentSlide.badge}</span>
             </div>
 
@@ -310,7 +316,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               }}
               className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0 group border border-transparent hover:border-[#E8DEC8]"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🚪</div>
+              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center transition-colors border border-[#E8DEC8]">
+                <DoorOpen className="w-5 h-5" />
+              </div>
               <div>
                 <h4 className="text-xs font-bold text-[#2B190E]">{t('svcDoors')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Main & Room Doors</p>
@@ -319,9 +327,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div 
               onClick={() => setActiveTab('catalog')}
-              className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0"
+              className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0 group border border-transparent hover:border-[#E8DEC8]"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] text-[#8B5E3C] flex items-center justify-center font-bold text-lg">🪟</div>
+              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center transition-colors border border-[#E8DEC8]">
+                <LayoutGrid className="w-5 h-5" />
+              </div>
               <div>
                 <h4 className="text-xs font-bold text-[#2B190E]">{t('svcWindows')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Frames & Glass</p>
@@ -339,7 +349,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               }}
               className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0 group border border-transparent hover:border-[#E8DEC8]"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🪜</div>
+              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center transition-colors border border-[#E8DEC8]">
+                <Layers className="w-5 h-5" />
+              </div>
               <div>
                 <h4 className="text-xs font-bold text-[#2B190E]">{t('svcStaircases')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Steps & Railings</p>
@@ -357,7 +369,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               }}
               className="flex items-center gap-2.5 p-2 hover:bg-[#FAF4EB] rounded-xl cursor-pointer transition-colors shrink-0 group border border-transparent hover:border-[#E8DEC8]"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center font-bold text-lg transition-colors">🗄️</div>
+              <div className="w-10 h-10 rounded-xl bg-[#FAF4EB] group-hover:bg-[#8B5E3C] group-hover:text-white text-[#8B5E3C] flex items-center justify-center transition-colors border border-[#E8DEC8]">
+                <Columns3 className="w-5 h-5" />
+              </div>
               <div>
                 <h4 className="text-xs font-bold text-[#2B190E]">{t('svcPantry')}</h4>
                 <p className="text-[10px] text-[#7A6252]">Kitchen Cabinets</p>
@@ -378,8 +392,8 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
               </button>
             </div>
 
-            <div className="w-16 h-16 rounded-xl bg-[#2B190E] border border-[#4A2E1B] flex items-center justify-center text-2xl shadow shrink-0">
-              🪵
+            <div className="w-16 h-16 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center shadow shrink-0">
+              <Trees className="w-7 h-7" />
             </div>
           </div>
         </section>
@@ -659,7 +673,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
             <div className="flex items-center gap-2">
               <h2 className="text-lg sm:text-xl font-extrabold font-heading text-[#2B190E]">{t('catalog')}</h2>
-              <span className="text-sm">🍃</span>
+              <Leaf className="w-4 h-4 text-[#8B5E3C]" />
             </div>
             <button
               onClick={() => setActiveTab('catalog')}
@@ -709,7 +723,7 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
             <div className="flex items-center gap-2">
               <h2 className="text-lg sm:text-xl font-extrabold font-heading text-[#2B190E]">{t('servicesTitle')}</h2>
-              <span className="text-sm">🍃</span>
+              <Leaf className="w-4 h-4 text-[#8B5E3C]" />
             </div>
             <button
               onClick={() => setActiveTab('services')}
@@ -723,7 +737,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             <div className="bg-[#1D1109] border border-[#3D2415] text-white rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center text-xl">🚪</div>
+                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center">
+                  <DoorOpen className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-xs text-white">{t('svcDoors')}</h3>
                 <p className="text-[10px] text-amber-200/70">{t('svcDoorsDesc')}</p>
               </div>
@@ -740,7 +756,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div className="bg-[#1D1109] border border-[#3D2415] text-white rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center text-xl">🪟</div>
+                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center">
+                  <LayoutGrid className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-xs text-white">{t('svcWindows')}</h3>
                 <p className="text-[10px] text-amber-200/70">{t('svcWindowsDesc')}</p>
               </div>
@@ -751,7 +769,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div className="bg-[#1D1109] border border-[#3D2415] text-white rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center text-xl">🪜</div>
+                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center">
+                  <Layers className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-xs text-white">{t('svcStaircases')}</h3>
                 <p className="text-[10px] text-amber-200/70">{t('svcStaircasesDesc')}</p>
               </div>
@@ -768,7 +788,9 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
 
             <div className="bg-[#1D1109] border border-[#3D2415] text-white rounded-2xl p-5 shadow-sm space-y-3 flex flex-col justify-between">
               <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center text-xl">🗄️</div>
+                <div className="w-10 h-10 rounded-xl bg-[#2B190E] border border-[#4A2E1B] text-[#E2B784] flex items-center justify-center">
+                  <Columns3 className="w-5 h-5" />
+                </div>
                 <h3 className="font-bold text-xs text-white">{t('svcPantry')}</h3>
                 <p className="text-[10px] text-amber-200/70">{t('svcPantryDesc')}</p>
               </div>
