@@ -6,7 +6,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
   const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('price-low');
+  const [sortBy, setSortBy] = useState('name');
 
   const categories = [
     t('allProducts'),
@@ -63,8 +63,6 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
       return matchesCat && matchesSearch;
     })
     .sort((a, b) => {
-      if (sortBy === 'price-low') return a.price - b.price;
-      if (sortBy === 'price-high') return b.price - a.price;
       return a.title.localeCompare(b.title);
     });
 
@@ -98,8 +96,6 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
                 onChange={(e) => setSortBy(e.target.value)}
                 className="bg-white border border-[#E8DEC8] text-[#2B190E] text-xs font-bold rounded-xl px-3 py-2 outline-none focus:border-[#8B5E3C]"
               >
-                <option value="price-low">{t('priceLowHigh')}</option>
-                <option value="price-high">{t('priceHighLow')}</option>
                 <option value="name">{t('nameAZ')}</option>
               </select>
             </div>
@@ -142,11 +138,10 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
                   <div className="p-4 space-y-2">
                     <span className="text-[10px] font-bold text-[#8B5E3C] bg-[#FAF4EB] px-2 py-0.5 rounded-md">{p.category}</span>
                     <h3 className="font-bold text-sm text-[#2B190E] line-clamp-1">{p.title}</h3>
-                    <div className="flex items-center justify-between pt-2 border-t border-[#E8DEC8]">
-                      <span className="font-extrabold text-sm text-[#8B5E3C]">Rs. {p.price.toLocaleString()}</span>
+                    <div className="pt-2 border-t border-[#E8DEC8]">
                       <button
                         onClick={onOpenInquiry}
-                        className="bg-[#3D2415] hover:bg-[#8B5E3C] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                        className="w-full bg-[#3D2415] hover:bg-[#8B5E3C] text-white py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                       >
                         {t('inquireQuote')}
                       </button>

@@ -1,0 +1,7 @@
+{
+  "name": "vadu-maduwa-carpentry-root",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"const fs=require('fs'),cp=require('child_process'); if(fs.existsSync('woodcraftpro-frontend')){ cp.execSync('cd woodcraftpro-frontend && npm install && npm run build', {stdio:'inherit'}); try{ fs.cpSync('woodcraftpro-frontend/dist', 'dist', {recursive:true}); }catch(e){} }else{ cp.execSync('npm run build', {stdio:'inherit'}); }\""
+  }
+}

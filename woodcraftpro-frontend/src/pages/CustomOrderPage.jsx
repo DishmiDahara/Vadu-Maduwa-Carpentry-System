@@ -1307,7 +1307,7 @@ ${orderDescription.trim() || 'නැත'}`;
                     }`}
                   >
                     <span className="text-xs text-[#2B190E]">{f.name}</span>
-                    <span className="text-xs text-[#8B5E3C] font-extrabold">From LKR {f.basePrice.toLocaleString()}</span>
+                    <span className="text-[11px] text-[#8B5E3C] font-semibold bg-[#FAF4EB] px-2 py-0.5 rounded-full border border-[#E8DEC8]">Custom Craft</span>
                   </div>
                 ))}
               </div>

@@ -164,25 +164,21 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
     {
       id: 'c1',
       title: 'Carved Solid Teak Main Door',
-      price: 'Rs. 45,000',
       image: '/images/doors/IMG_6930.PNG',
     },
     {
       id: 'c2',
       title: 'Fitted Teak Pantry Cupboards',
-      price: 'Rs. 95,000',
       image: '/images/cupboards/IMG_7176.PNG',
     },
     {
       id: 'c3',
       title: 'Teak Wooden Staircase & Handrail',
-      price: 'Rs. 120,000',
       image: '/images/stairs/IMG_7160.PNG',
     },
     {
       id: 'c4',
       title: 'Seasoned Teak Door Arch & Frame (Uluwahu)',
-      price: 'Rs. 28,000',
       image: '/images/doors/IMG_6931.PNG',
     }
   ];
@@ -694,11 +690,14 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
                   </button>
                 </div>
 
-                <div className="p-4 space-y-1.5">
-                  <h3 className="font-bold text-xs text-[#2B190E]">{item.title}</h3>
-                  <div className="font-extrabold text-sm text-[#8B5E3C]">
-                    {item.price}
-                  </div>
+                <div className="p-4 space-y-2.5">
+                  <h3 className="font-bold text-xs text-[#2B190E] line-clamp-1">{item.title}</h3>
+                  <button
+                    onClick={() => setActiveTab('catalog')}
+                    className="w-full bg-[#FAF4EB] hover:bg-[#8B5E3C] hover:text-white text-[#8B5E3C] py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer border border-[#E8DEC8]"
+                  >
+                    <span>{t('inquireQuote') || 'Inquire for Quote'}</span>
+                  </button>
                 </div>
               </div>
             ))}
