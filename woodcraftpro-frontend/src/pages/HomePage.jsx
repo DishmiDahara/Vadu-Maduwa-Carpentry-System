@@ -190,11 +190,11 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
   ];
 
   return (
-    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-12 w-full overflow-x-hidden">
-      <div className="site-container space-y-8 sm:space-y-10 pt-4">
+    <div className="bg-[#FAF8F5] text-[#2B190E] font-sans pb-12 w-full">
+      <div className="site-container space-y-4 sm:space-y-6 pt-2.5 sm:pt-3">
 
         {/* 1. HERO SLIDER BANNER */}
-        <section className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-[#E8DEC8] bg-[#1C120C] min-h-[460px] sm:min-h-[520px] md:min-h-[560px] lg:min-h-[620px] xl:min-h-[680px] flex items-center">
+        <section className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-[#E8DEC8] bg-[#1C120C] min-h-[340px] sm:min-h-[370px] md:min-h-[390px] lg:min-h-[410px] xl:min-h-[430px] 2xl:min-h-[470px] flex items-center">
           {/* Full background image without box clipping */}
           <div 
             key={currentSlideIndex}
@@ -208,53 +208,53 @@ export default function HomePage({ setActiveTab, onSelectProductForQuote, onOpen
           <button 
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="absolute left-2 sm:left-4 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute left-2 sm:left-3.5 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
           <button 
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="absolute right-2 sm:right-4 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="absolute right-2 sm:right-3.5 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 border border-white/30 text-white backdrop-blur-md flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          <div className="relative z-10 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl px-5 sm:px-10 lg:px-14 xl:px-16 py-8 sm:py-12 lg:py-16 space-y-4 sm:space-y-6 text-white">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 border border-amber-500/40 px-3.5 py-1.5 rounded-full shadow-md backdrop-blur-md">
-              <Leaf className="w-3.5 h-3.5 text-amber-400" />
+          <div className="relative z-10 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl px-5 sm:px-9 lg:px-12 xl:px-14 py-5 sm:py-7 lg:py-8 space-y-2.5 sm:space-y-3.5 text-white">
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/80 border border-amber-500/40 px-3 py-1 rounded-full shadow-md backdrop-blur-md">
+              <Leaf className="w-3 h-3 text-amber-400" />
               <span>{currentSlide.badge}</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading text-white leading-[1.15] drop-shadow-md">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] font-extrabold font-heading text-white leading-[1.15] drop-shadow-md">
               {currentSlide.titleLine1} <br />
               <span className="text-amber-400">{currentSlide.titleLine2}</span>
             </h1>
 
-            <p className="text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-medium drop-shadow-sm max-w-3xl lg:max-w-4xl">
+            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed font-medium drop-shadow-sm max-w-2xl lg:max-w-3xl">
               {currentSlide.descLine1}<br />
               {currentSlide.descLine2}
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-1 flex flex-wrap items-center gap-2.5 sm:gap-3">
               <button
                 onClick={() => setActiveTab('catalog')}
-                className="bg-amber-700 hover:bg-amber-600 text-white px-7 py-3 rounded-xl font-bold text-xs transition-all shadow-lg flex items-center gap-2 active:scale-95 cursor-pointer border border-amber-500/40"
+                className="bg-amber-700 hover:bg-amber-600 text-white px-5 sm:px-6 py-2.5 rounded-xl font-bold text-xs transition-all shadow-lg flex items-center gap-2 active:scale-95 cursor-pointer border border-amber-500/40"
               >
                 <span>{t('getStarted')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setActiveTab('custom-order')}
-                className="bg-white/15 hover:bg-white/25 text-white border border-white/40 px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-md backdrop-blur-md active:scale-95 cursor-pointer"
+                className="bg-white/15 hover:bg-white/25 text-white border border-white/40 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-md backdrop-blur-md active:scale-95 cursor-pointer"
               >
                 <Package className="w-4 h-4 text-amber-300" />
                 <span>{t('customOrderBtn')}</span>
               </button>
             </div>
 
-            <div className="pt-4 sm:pt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 border-t border-white/20 text-[11px] sm:text-xs text-gray-200">
+            <div className="pt-3 sm:pt-4 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 border-t border-white/20 text-[11px] sm:text-xs text-gray-200">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 <div>
