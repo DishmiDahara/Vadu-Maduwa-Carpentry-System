@@ -67,7 +67,7 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
     });
 
   return (
-    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6 w-full overflow-x-hidden">
+    <div className="bg-[#FBF8F3] text-[#2B190E] min-h-screen pb-16 pt-6 w-full">
       <div className="site-container space-y-6">
 
         {/* Header Bar */}
@@ -105,8 +105,8 @@ export default function CatalogPage({ onSelectProductForQuote, onOpenInquiry }) 
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           
-          {/* Sidebar */}
-          <div className="md:col-span-3 xl:col-span-2 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
+          {/* Sidebar - Fixed/Sticky while scrolling catalog */}
+          <div className="md:col-span-3 xl:col-span-2 md:sticky md:top-24 lg:top-28 self-start z-20 bg-white border border-[#E8DEC8] rounded-2xl p-4 space-y-1 shadow-sm">
             <h3 className="text-xs font-bold text-[#7A6252] uppercase tracking-wider px-3 py-2 mb-1">{t('categories')}</h3>
             {categories.map((cat) => {
               const isSelected = selectedCategory === cat || (cat === t('allProducts') && selectedCategory === 'All');
