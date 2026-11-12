@@ -48,22 +48,25 @@ export default function CustomOrderPage({ setActiveTab }) {
   const [designSource, setDesignSource] = useState('catalogue');
   const [uploadedDesign, setUploadedDesign] = useState(null);
 
-  // Sample pre-configured customer designs for 1-click 3D testing
+  // Sample pre-configured customer designs for 1-click 3D testing across product categories
   const sampleDesigns = [
     {
-      name: 'Elephant Lotus Carved Entrance Door',
+      name: 'Carved Solid Teak Entrance Door',
+      category: 'door',
       url: '/images/doors/IMG_6930.PNG',
-      desc: 'Traditional Sri Lankan temple & royal arch style'
+      desc: '3D Door Model • Traditional Sri Lankan arch carving'
     },
     {
-      name: 'Modern Minimalist Slat Teak Door',
-      url: '/images/doors/IMG_6934.PNG',
-      desc: 'Contemporary architectural horizontal groove design'
+      name: 'Modular Teak Pantry Cupboard',
+      category: 'pantry',
+      url: '/images/cupboards/IMG_7175.PNG',
+      desc: '3D Pantry Model • Upper & lower kitchen cabinetry'
     },
     {
-      name: 'Classical Floral Raised Panel Door',
-      url: '/images/doors/IMG_6931.PNG',
-      desc: 'Master carved double-recessed moulding'
+      name: 'Handcrafted Teak Staircase & Rail',
+      category: 'staircase',
+      url: '/images/stairs/IMG_7160.PNG',
+      desc: '3D Staircase Model • Steps, balusters & newel posts'
     }
   ];
 
@@ -107,15 +110,18 @@ export default function CustomOrderPage({ setActiveTab }) {
     'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'
   ];
 
-  // Actual Carpentry Options with real workshop photos
+  // All 10 Major Carpentry Product Categories with Dedicated 3D Models
   const carpentryOptions = [
-    { id: 'door', name: 'Wooden Door (Main / Room Door)', basePrice: 45000, img: '/images/doors/IMG_6930.PNG' },
-    { id: 'uluwahu', name: 'Door Frame (Solid Uluwahu)', basePrice: 28000, img: '/images/doors/IMG_6934.PNG' },
-    { id: 'window', name: 'Wooden Window Frame & Sash', basePrice: 34000, img: '/images/doors/IMG_6933.PNG' },
-    { id: 'pantry', name: 'Pantry Cupboards / Kitchen Unit', basePrice: 95000, img: '/images/cupboards/IMG_7175.PNG' },
-    { id: 'staircase', name: 'Staircase & Handrail Work', basePrice: 120000, img: '/images/stairs/IMG_7160.PNG' },
-    { id: 'ceiling', name: 'Wooden Ceiling Panel', basePrice: 48000, img: '/images/doors/IMG_6942.PNG' },
-    { id: 'general', name: 'General Carpentry & Structural Woodwork', basePrice: 30000, img: '/images/stairs/IMG_7163.PNG' }
+    { id: 'door', name: 'Wooden Doors (Main & Room Doors)', basePrice: 45000, img: '/images/doors/IMG_6930.PNG' },
+    { id: 'pantry', name: 'Pantry Cupboards (Modular Units)', basePrice: 95000, img: '/images/cupboards/IMG_7175.PNG' },
+    { id: 'kitchen_cabinet', name: 'Kitchen Cabinets (Island & Base)', basePrice: 88000, img: '/images/cupboards/IMG_7176.PNG' },
+    { id: 'window', name: 'Windows (Wooden Frame & Sash)', basePrice: 34000, img: '/images/doors/IMG_6933.PNG' },
+    { id: 'staircase', name: 'Staircases (Steps & Handrails)', basePrice: 120000, img: '/images/stairs/IMG_7160.PNG' },
+    { id: 'wardrobe', name: 'Wardrobes (3-Door Almariya)', basePrice: 85000, img: '/images/cupboards/IMG_7177.PNG' },
+    { id: 'bedroom_cupboard', name: 'Bedroom Cupboards (2-Door Chest)', basePrice: 68000, img: '/images/cupboards/IMG_7178.PNG' },
+    { id: 'table', name: 'Tables (Dining & Executive Tables)', basePrice: 55000, img: '/images/cupboards/IMG_7175.PNG' },
+    { id: 'chair', name: 'Chairs (Carved Solid Wood Chairs)', basePrice: 18500, img: '/images/doors/IMG_6931.PNG' },
+    { id: 'custom_furniture', name: 'Custom Wooden Furniture', basePrice: 60000, img: '/images/stairs/IMG_7163.PNG' }
   ];
 
   const woodOptions = [
@@ -149,11 +155,17 @@ export default function CustomOrderPage({ setActiveTab }) {
       '/images/doors/IMG_6934.PNG',
       '/images/doors/IMG_6935.PNG'
     ],
-    uluwahu: [
-      '/images/doors/IMG_6934.PNG',
-      '/images/doors/IMG_6930.PNG',
-      '/images/doors/IMG_6936.PNG',
-      '/images/doors/IMG_6942.PNG'
+    pantry: [
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/cupboards/IMG_7176.PNG',
+      '/images/cupboards/IMG_7177.PNG',
+      '/images/cupboards/IMG_7178.PNG'
+    ],
+    kitchen_cabinet: [
+      '/images/cupboards/IMG_7176.PNG',
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/cupboards/IMG_7178.PNG',
+      '/images/cupboards/IMG_7177.PNG'
     ],
     window: [
       '/images/doors/IMG_6933.PNG',
@@ -161,28 +173,40 @@ export default function CustomOrderPage({ setActiveTab }) {
       '/images/doors/IMG_6931.PNG',
       '/images/doors/IMG_6935.PNG'
     ],
-    pantry: [
-      '/images/cupboards/IMG_7175.PNG',
-      '/images/cupboards/IMG_7176.PNG',
-      '/images/cupboards/IMG_7177.PNG',
-      '/images/cupboards/IMG_7178.PNG'
-    ],
     staircase: [
       '/images/stairs/IMG_7160.PNG',
       '/images/stairs/IMG_7161.PNG',
       '/images/stairs/IMG_7162.PNG',
       '/images/stairs/IMG_7163.PNG'
     ],
-    ceiling: [
-      '/images/doors/IMG_6942.PNG',
-      '/images/doors/IMG_6950.PNG',
+    wardrobe: [
+      '/images/cupboards/IMG_7177.PNG',
+      '/images/cupboards/IMG_7178.PNG',
       '/images/cupboards/IMG_7175.PNG',
       '/images/doors/IMG_6930.PNG'
     ],
-    general: [
-      '/images/stairs/IMG_7163.PNG',
-      '/images/doors/IMG_6930.PNG',
+    bedroom_cupboard: [
+      '/images/cupboards/IMG_7178.PNG',
+      '/images/cupboards/IMG_7177.PNG',
+      '/images/cupboards/IMG_7176.PNG',
+      '/images/doors/IMG_6931.PNG'
+    ],
+    table: [
       '/images/cupboards/IMG_7175.PNG',
+      '/images/stairs/IMG_7160.PNG',
+      '/images/doors/IMG_6934.PNG',
+      '/images/cupboards/IMG_7176.PNG'
+    ],
+    chair: [
+      '/images/doors/IMG_6931.PNG',
+      '/images/doors/IMG_6930.PNG',
+      '/images/stairs/IMG_7161.PNG',
+      '/images/cupboards/IMG_7177.PNG'
+    ],
+    custom_furniture: [
+      '/images/stairs/IMG_7163.PNG',
+      '/images/cupboards/IMG_7175.PNG',
+      '/images/doors/IMG_6930.PNG',
       '/images/stairs/IMG_7160.PNG'
     ]
   };
@@ -273,10 +297,26 @@ export default function CustomOrderPage({ setActiveTab }) {
     setRotationAngle(deg % 360);
   };
 
+  const inferCategoryFromFilename = (filename = '') => {
+    const f = filename.toLowerCase();
+    if (f.includes('pantry')) return 'pantry';
+    if (f.includes('kitchen') || f.includes('cabinet')) return 'kitchen_cabinet';
+    if (f.includes('window')) return 'window';
+    if (f.includes('stair')) return 'staircase';
+    if (f.includes('wardrobe') || f.includes('almariya')) return 'wardrobe';
+    if (f.includes('bedroom') || f.includes('cupboard')) return 'bedroom_cupboard';
+    if (f.includes('table') || f.includes('desk')) return 'table';
+    if (f.includes('chair') || f.includes('seat')) return 'chair';
+    if (f.includes('door')) return 'door';
+    return null;
+  };
+
   const handleCustomerDesignUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
+      const inferred = inferCategoryFromFilename(file.name);
+      if (inferred) setSelectedWork(inferred);
       const newDesign = {
         id: Date.now(),
         name: file.name,
@@ -292,6 +332,9 @@ export default function CustomOrderPage({ setActiveTab }) {
   };
 
   const handleSelectSampleDesign = (sample) => {
+    if (sample.category) {
+      setSelectedWork(sample.category);
+    }
     setUploadedDesign({
       id: Date.now(),
       name: sample.name,
@@ -306,6 +349,8 @@ export default function CustomOrderPage({ setActiveTab }) {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
+      const inferred = inferCategoryFromFilename(file.name);
+      if (inferred) setSelectedWork(inferred);
       const newUpload = {
         id: Date.now(),
         name: file.name,
@@ -484,30 +529,40 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
           </div>
 
+          {/* ALWAYS-VISIBLE 10 CARPENTRY PRODUCT CATEGORY SELECTOR FOR 3D MODEL GEOMETRY */}
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-[#7A6252] uppercase tracking-wider">
+                Select 3D Carpentry Product Model (10 Categories):
+              </span>
+              <span className="text-[11px] font-black text-[#8B5E3C]">
+                Active 3D Model: {currentWork.name.split(' (')[0]}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+              {carpentryOptions.map(f => (
+                <button
+                  type="button"
+                  key={f.id}
+                  onClick={() => {
+                    setSelectedWork(f.id);
+                    setActiveThumb(0);
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
+                    selectedWork === f.id
+                      ? 'bg-[#8B5E3C] text-white shadow-sm ring-2 ring-[#8B5E3C]/30'
+                      : 'bg-[#FAF4EB] text-[#7A6252] hover:text-[#2B190E] border border-[#E8DEC8]'
+                  }`}
+                >
+                  {f.name.split(' (')[0]}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* TAB CONTENT: CATALOGUE SELECTOR */}
           {designSource === 'catalogue' && (
             <div className="space-y-3">
-              {/* Category selector pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
-                {carpentryOptions.map(f => (
-                  <button
-                    type="button"
-                    key={f.id}
-                    onClick={() => {
-                      setSelectedWork(f.id);
-                      setActiveThumb(0);
-                    }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
-                      selectedWork === f.id
-                        ? 'bg-[#8B5E3C] text-white shadow-sm'
-                        : 'bg-[#FAF4EB] text-[#7A6252] hover:text-[#2B190E] border border-[#E8DEC8]'
-                    }`}
-                  >
-                    {f.name.split(' (')[0]}
-                  </button>
-                ))}
-              </div>
-
               {/* Thumbnail Gallery for selected category */}
               <div className="flex items-center justify-between gap-2 bg-[#FAF4EB] p-2.5 rounded-2xl border border-[#E8DEC8]">
                 <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
@@ -533,7 +588,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 </div>
 
                 <div className="text-right pl-2 shrink-0">
-                  <span className="text-[10px] text-[#7A6252] block">Current Model:</span>
+                  <span className="text-[10px] text-[#7A6252] block">Current 3D Geometry:</span>
                   <span className="text-xs font-black text-[#2B190E]">{currentWork.name.split(' (')[0]}</span>
                 </div>
               </div>
@@ -554,17 +609,17 @@ ${orderDescription.trim() || 'නැත'}`;
                       </div>
                     </div>
                     <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="text-xs font-black text-[#2B190E]">{uploadedDesign.name}</span>
                         <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
-                          Active in 3D View
+                          Mapped on 3D {currentWork.name.split(' (')[0]}
                         </span>
                       </div>
                       <p className="text-[11px] text-[#7A6252]">
-                        {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Rendered directly onto 3D model below
+                        {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Applied to Front, Back, Sides, Top & Bottom 3D surfaces
                       </p>
                       <p className="text-[10px] text-amber-800 font-bold">
-                        Rotate the 360° viewer below to inspect all sides (front, back, and edges)!
+                        Use the category buttons above to switch 3D geometry (Door, Pantry, Window, Staircase, Wardrobe, Table, Chair)!
                       </p>
                     </div>
                   </div>
@@ -597,7 +652,7 @@ ${orderDescription.trim() || 'නැත'}`;
                         Click to Upload or Drag & Drop Your Carpentry Photo / Sketch
                       </p>
                       <p className="text-[11px] text-[#7A6252] mt-0.5">
-                        Supports JPG, PNG, WEBP, HEIC • Photos of doors, windows, internet designs, or hand-drawn sketches
+                        Supports JPG, PNG, WEBP, HEIC • Doors, Pantry Cupboards, Kitchen Cabinets, Windows, Staircases, Wardrobes, Tables & Chairs
                       </p>
                     </div>
                     <span className="text-[10px] bg-[#8B5E3C] text-white px-3 py-1 rounded-full font-bold shadow-sm">
@@ -1408,6 +1463,26 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              {/* Studio Product Category Switcher */}
+              <select
+                value={selectedWork}
+                onChange={(e) => {
+                  const newCat = e.target.value;
+                  setSelectedWork(newCat);
+                  if (designSource !== 'uploaded') {
+                    setSelectedCatalogueIndex(0);
+                  }
+                }}
+                className="bg-stone-900/90 border border-amber-400/40 text-amber-200 text-[11px] sm:text-xs font-bold rounded-full px-3 py-1.5 outline-none focus:border-amber-400 cursor-pointer"
+                title="Switch 3D Carpentry Category"
+              >
+                {carpentryOptions.map((item) => (
+                  <option key={item.id} value={item.id} className="bg-stone-900 text-amber-100">
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+
               {/* Inspection Mode Switcher */}
               <div className="flex items-center gap-1 bg-black/60 border border-white/20 p-0.5 rounded-full">
                 <button
