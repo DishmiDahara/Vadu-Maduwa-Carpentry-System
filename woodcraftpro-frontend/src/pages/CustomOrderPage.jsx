@@ -54,19 +54,31 @@ export default function CustomOrderPage({ setActiveTab }) {
       name: 'Carved Solid Teak Entrance Door',
       category: 'door',
       url: '/images/doors/IMG_6930.PNG',
-      desc: '3D Door Model • Traditional Sri Lankan arch carving'
+      desc: '3D Door Model • Multi-part stiles, rails & arch relief'
     },
     {
       name: 'Modular Teak Pantry Cupboard',
       category: 'pantry',
       url: '/images/cupboards/IMG_7175.PNG',
-      desc: '3D Pantry Model • Upper & lower kitchen cabinetry'
+      desc: '3D Pantry Model • Upper & lower cabinets, drawers & sink'
+    },
+    {
+      name: 'Double Casement Wooden Window',
+      category: 'window',
+      url: '/images/doors/IMG_6933.PNG',
+      desc: '3D Window Model • Frame, glass panes, mullions & sashes'
     },
     {
       name: 'Handcrafted Teak Staircase & Rail',
       category: 'staircase',
       url: '/images/stairs/IMG_7160.PNG',
-      desc: '3D Staircase Model • Steps, balusters & newel posts'
+      desc: '3D Staircase Model • Steps, risers, balusters & handrails'
+    },
+    {
+      name: '3-Door Solid Teak Wardrobe',
+      category: 'wardrobe',
+      url: '/images/cupboards/IMG_7177.PNG',
+      desc: '3D Wardrobe Model • 3 doors, drawers & interior hanging rod'
     }
   ];
 
@@ -693,352 +705,25 @@ ${orderDescription.trim() || 'නැත'}`;
           )}
         </div>
 
-        {/* VIEW MODE TOGGLE BAR: 3D Model (All Angles) vs Workshop Photos */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 bg-white border border-[#E8DEC8] p-2 rounded-2xl shadow-sm">
-          <div className="flex items-center gap-2 pl-2">
-            <Boxes className="w-4 h-4 text-[#8B5E3C]" />
-            <span className="text-xs font-black text-[#2B190E] font-heading">Inspection Mode:</span>
-            <span className="text-[11px] text-[#7A6252] hidden md:inline">
-              {viewMode === '3d' ? 'Volumetric 3D model with front, back, lock edge, hinges, and tilt orbit' : 'Real high-resolution workshop archive photos'}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5 w-full sm:w-auto">
-            <button
-              type="button"
-              onClick={() => setViewMode('3d')}
-              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                viewMode === '3d'
-                  ? 'bg-[#23160D] text-amber-300 shadow-md ring-2 ring-[#8B5E3C]/30 font-black'
-                  : 'bg-[#FAF4EB] text-[#7A6252] hover:text-[#2B190E] hover:bg-[#F3EAD9]'
-              }`}
-            >
-              <Boxes className="w-4 h-4 text-amber-400" />
-              <span>3D Model (All Angles)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setViewMode('photos')}
-              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                viewMode === 'photos'
-                  ? 'bg-[#23160D] text-amber-300 shadow-md ring-2 ring-[#8B5E3C]/30 font-black'
-                  : 'bg-[#FAF4EB] text-[#7A6252] hover:text-[#2B190E] hover:bg-[#F3EAD9]'
-              }`}
-            >
-              <Camera className="w-4 h-4 text-amber-400" />
-              <span>Workshop Photos</span>
-            </button>
-          </div>
+        {/* 3. REAL-TIME 360° 3D CARPENTRY PRODUCT VIEWER */}
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/80 via-[#1A1009] to-[#0A0503]">
+          <ThreeCarpentryViewer
+            woodType={woodType}
+            finish={finish}
+            selectedWork={selectedWork}
+            onSelectWork={(newCat) => {
+              setSelectedWork(newCat);
+              setActiveThumb(0);
+            }}
+            activeImage={activeDesignImage}
+            designTitle={activeDesignTitle}
+            length={length}
+            width={width}
+            height={height}
+            isStudio={false}
+            onOpenStudio={() => setIsStudioOpen(true)}
+          />
         </div>
-
-        {/* 3. INTERACTIVE VIEWER (3D MODEL OR WORKSHOP PHOTOS) */}
-        {viewMode === '3d' ? (
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/80 via-[#1A1009] to-[#0A0503]">
-            <ThreeCarpentryViewer
-              woodType={woodType}
-              finish={finish}
-              selectedWork={selectedWork}
-              activeImage={activeDesignImage}
-              designTitle={activeDesignTitle}
-              length={length}
-              width={width}
-              height={height}
-              isStudio={false}
-              onOpenStudio={() => setIsStudioOpen(true)}
-            />
-          </div>
-        ) : (
-          <div 
-            className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/70 via-[#1A1009] to-[#0A0503] min-h-[360px] sm:min-h-[440px] flex flex-col justify-between p-4 group select-none"
-          >
-            {/* Dedicated 360 Drag Surface (Under toolbars) */}
-            <div 
-              className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing touch-none"
-              onPointerDown={handlePointerDown}
-              onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerCancel={handlePointerUp}
-            />
-
-            {/* Subtle workshop ambient spotlight and lighting glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none" />
-
-            {/* 3D SCENE: Turntable & Rotating Carpentry Item */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" style={{ perspective: '1100px' }}>
-              {/* Turntable Disc Platform */}
-              <div 
-                className="absolute bottom-16 sm:bottom-14 w-64 sm:w-88 h-18 sm:h-22 rounded-full border border-amber-600/40 bg-gradient-to-b from-[#2F1C10] to-[#120904] shadow-[0_20px_50px_rgba(0,0,0,0.95)] flex items-center justify-center transition-transform"
-                style={{
-                  transform: `rotateX(68deg) rotateZ(${rotationAngle}deg)`,
-                  transformStyle: 'preserve-3d'
-                }}
-              >
-                <div className="w-52 sm:w-72 h-13 sm:h-16 rounded-full border border-amber-500/30 bg-[#23150C] flex items-center justify-center">
-                  <div className="w-36 sm:w-52 h-8 sm:h-10 rounded-full border border-amber-400/20 bg-[#150A05] flex items-center justify-center">
-                    <span className="text-[9px] font-mono tracking-widest text-amber-400/60 uppercase">360° TURNTABLE</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dynamic Cast Drop Shadow */}
-              <div 
-                className="absolute bottom-14 sm:bottom-12 w-44 sm:w-56 h-8 rounded-full bg-black/85 blur-md transition-all duration-75"
-                style={{
-                  transform: `scaleX(${Math.max(0.35, Math.abs(Math.cos(rotationAngle * Math.PI / 180)))}) scaleY(0.7)`
-                }}
-              />
-
-              {/* 3D Rotating Carpentry Workpiece */}
-              <div
-                className="relative w-44 sm:w-56 h-64 sm:h-80 transition-transform duration-75"
-                style={{
-                  transform: `rotateY(${rotationAngle}deg)`,
-                  transformStyle: 'preserve-3d'
-                }}
-              >
-                {/* FRONT FACE (0 deg) */}
-                <div 
-                  className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-700/60 shadow-[0_25px_50px_rgba(0,0,0,0.85)] bg-[#2A180E]"
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    transform: 'translateZ(6px)'
-                  }}
-                >
-                  <img
-                    src={previewImages[activeThumb] || currentWork.img}
-                    alt={currentWork.name}
-                    className="w-full h-full object-cover select-none"
-                    draggable="false"
-                  />
-
-                  {/* Timber Polish / Grain Tint based on selected woodType */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none mix-blend-color transition-colors duration-500"
-                    style={{
-                      backgroundColor: 
-                        woodType === 'teak' ? 'rgba(217, 119, 6, 0.15)' :
-                        woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.22)' :
-                        woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.18)' :
-                        'rgba(245, 158, 11, 0.12)'
-                    }}
-                  />
-
-                  {/* Dynamic Specular Lighting Glare based on rotationAngle */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none transition-all duration-75"
-                    style={{
-                      background: `linear-gradient(${110 + ((rotationAngle % 180) - 90) * 0.9}deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 28%, transparent 60%)`,
-                      opacity: finish === 'gloss' ? 0.9 : finish === 'matte' ? 0.3 : 0.6
-                    }}
-                  />
-                </div>
-
-                {/* REAR / BACK FACE (180 deg) */}
-                <div 
-                  className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-800/60 shadow-[0_25px_50px_rgba(0,0,0,0.85)] bg-gradient-to-b from-[#3D2415] via-[#2D1B0F] to-[#1C1008] p-3 flex flex-col justify-between"
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    transform: 'rotateY(180deg) translateZ(6px)'
-                  }}
-                >
-                  {/* Rear Timber Frame Rails & Stiles Architecture */}
-                  <div className="w-full h-full rounded-xl border border-amber-600/40 p-2 flex flex-col justify-between bg-[#24150C]/60">
-                    <div className="flex items-center justify-between border-b border-amber-700/40 pb-1.5">
-                      <span className="text-[10px] font-bold text-amber-400 font-mono">100% SEASONED WOOD</span>
-                      <span className="text-[10px] text-amber-200/70 font-mono">REAR PROFILE</span>
-                    </div>
-
-                    <div className="my-auto space-y-2 py-3 px-1 text-center">
-                      <div className="w-8 h-8 mx-auto rounded-full border border-amber-400/50 bg-amber-950/60 flex items-center justify-center text-amber-300 font-black text-xs">
-                        වම
-                      </div>
-                      <p className="text-xs font-bold text-amber-200 tracking-wide font-heading">වඩු මඩුව • KALUTARA</p>
-                      <p className="text-[10px] text-amber-300/80 font-mono uppercase">
-                        {currentWood.name.split(' ')[0]} • {length}x{width}x{height}cm
-                      </p>
-                      <div className="h-0.5 w-16 mx-auto bg-amber-500/30 rounded-full"></div>
-                      <p className="text-[9px] text-amber-400/60">Architectural Handcrafted Timber Backing</p>
-                    </div>
-
-                    <div className="border-t border-amber-700/40 pt-1.5 flex items-center justify-between text-[9px] text-amber-400/70 font-mono">
-                      <span>INTERIOR SIDE</span>
-                      <span>GRADE-A TIMBER</span>
-                    </div>
-                  </div>
-
-                  {/* Timber Tint Overlay for Rear */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none mix-blend-color"
-                    style={{
-                      backgroundColor: 
-                        woodType === 'teak' ? 'rgba(217, 119, 6, 0.20)' :
-                        woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.28)' :
-                        woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.22)' :
-                        'rgba(245, 158, 11, 0.16)'
-                    }}
-                  />
-                </div>
-
-                {/* 3D Timber Thickness Edges */}
-                <div 
-                  className="absolute top-0 bottom-0 left-0 w-3 -translate-x-full origin-right bg-[#1D1109] border-y border-amber-900/60"
-                  style={{
-                    transform: 'rotateY(-90deg) translateZ(0px)',
-                    background: 'linear-gradient(to right, #1a0e07, #2d180c)'
-                  }}
-                />
-                <div 
-                  className="absolute top-0 bottom-0 right-0 w-3 translate-x-full origin-left bg-[#1D1109] border-y border-amber-900/60"
-                  style={{
-                    transform: 'rotateY(90deg) translateZ(0px)',
-                    background: 'linear-gradient(to left, #1a0e07, #2d180c)'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* TOP CONTROLS BAR: 360 Button + Presets + Maximize */}
-            <div 
-              className="relative z-30 flex items-center justify-between gap-2 pointer-events-auto no-drag"
-              onPointerDown={(e) => e.stopPropagation()}
-            >
-              {/* Interactive 360° Preview Toggle Button */}
-              <button
-                type="button"
-                onClick={toggleAutoRotate}
-                onPointerDown={(e) => e.stopPropagation()}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg backdrop-blur-md transition-all cursor-pointer ${
-                  isAutoRotating 
-                    ? 'bg-amber-400 text-stone-950 border-2 border-white ring-2 ring-amber-400/50 shadow-amber-400/40' 
-                    : 'bg-black/70 text-amber-300 border border-white/20 hover:bg-black/90 hover:border-amber-400/60'
-                }`}
-                title="Click to toggle 360° Auto-Spin"
-              >
-                <RotateCw className={`w-3.5 h-3.5 ${isAutoRotating ? 'animate-spin' : ''}`} />
-                <span>{isAutoRotating ? '360° Spinning' : '360° Preview'}</span>
-                <span className={`w-2 h-2 rounded-full ${isAutoRotating ? 'bg-emerald-500 animate-ping' : 'bg-amber-400/70'}`} />
-              </button>
-
-              {/* Quick Angle Preset Pills */}
-              <div 
-                className="hidden sm:flex items-center gap-1 bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full text-xs"
-                onPointerDown={(e) => e.stopPropagation()}
-              >
-                <span className="text-amber-300 font-mono font-bold text-[11px] mr-1 flex items-center gap-1"><Compass className="w-3.5 h-3.5 text-amber-400" /> {Math.round(rotationAngle)}°</span>
-                <button 
-                  type="button" 
-                  onClick={(e) => handleSetAngle(0, e)} 
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
-                >
-                  0° Front
-                </button>
-                <button 
-                  type="button" 
-                  onClick={(e) => handleSetAngle(45, e)} 
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
-                >
-                  45°
-                </button>
-                <button 
-                  type="button" 
-                  onClick={(e) => handleSetAngle(90, e)} 
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
-                >
-                  90° Side
-                </button>
-                <button 
-                  type="button" 
-                  onClick={(e) => handleSetAngle(180, e)} 
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-stone-950 font-black' : 'text-gray-300 hover:text-white'}`}
-                >
-                  180° Back
-                </button>
-              </div>
-
-              {/* Step Rotation & Fullscreen Studio Button */}
-              <div 
-                className="flex items-center gap-1.5"
-                onPointerDown={(e) => e.stopPropagation()}
-              >
-                <button
-                  type="button"
-                  onClick={handleRotateLeft}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
-                  title="Rotate Counter-Clockwise (-15°)"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleRotateRight}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md text-amber-200 border border-white/20 hover:bg-black/90 hover:text-white flex items-center justify-center transition-colors text-xs font-bold cursor-pointer"
-                  title="Rotate Clockwise (+15°)"
-                >
-                  <RotateCw className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); setIsStudioOpen(true); }}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="bg-black/70 backdrop-blur-md text-white p-2 rounded-full border border-white/20 hover:bg-amber-400 hover:text-stone-950 transition-all cursor-pointer shadow"
-                  title="Open Fullscreen 360° Studio"
-                >
-                  <Maximize2 className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* DRAG HELPER PROMPT */}
-            <div className="relative z-20 self-center bg-black/70 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 rounded-full text-[11px] font-medium flex items-center gap-2 shadow pointer-events-none select-none">
-              <MoveHorizontal className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-              <span>Drag horizontally to rotate 360° • Click badge to auto-spin</span>
-            </div>
-
-            {/* BOTTOM THUMBNAILS & NEXT BUTTON */}
-            <div 
-              className="relative z-30 flex items-center justify-between gap-2 pt-2 pointer-events-auto no-drag"
-              onPointerDown={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-                {previewImages.map((img, idx) => (
-                  <div
-                    key={idx}
-                    onClick={(e) => { e.stopPropagation(); setActiveThumb(idx); }}
-                    onPointerDown={(e) => e.stopPropagation()}
-                    className={`w-14 sm:w-16 h-11 sm:h-12 rounded-xl overflow-hidden border-2 cursor-pointer transition-all shrink-0 ${
-                      activeThumb === idx ? 'border-amber-400 ring-2 ring-amber-400/40 scale-105' : 'border-white/30 opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <img src={img} alt="Thumbnail preview" className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-1.5 shrink-0" onPointerDown={(e) => e.stopPropagation()}>
-                <span className="sm:hidden text-[10px] font-mono text-amber-300 bg-black/60 px-2 py-1 rounded-full border border-white/20">
-                  {Math.round(rotationAngle)}°
-                </span>
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); setActiveThumb((prev) => (prev + 1) % previewImages.length); }}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-black/90 flex items-center justify-center shrink-0 cursor-pointer"
-                  title="Next Angle Preview"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* 4. SELECTION SUMMARY CARD */}
         <div className="bg-[#23160D] text-amber-100/90 border border-[#3D2415] rounded-3xl p-5 shadow-md space-y-4">
@@ -1470,7 +1155,7 @@ ${orderDescription.trim() || 'නැත'}`;
                   const newCat = e.target.value;
                   setSelectedWork(newCat);
                   if (designSource !== 'uploaded') {
-                    setSelectedCatalogueIndex(0);
+                    setActiveThumb(0);
                   }
                 }}
                 className="bg-stone-900/90 border border-amber-400/40 text-amber-200 text-[11px] sm:text-xs font-bold rounded-full px-3 py-1.5 outline-none focus:border-amber-400 cursor-pointer"
@@ -1483,57 +1168,6 @@ ${orderDescription.trim() || 'නැත'}`;
                 ))}
               </select>
 
-              {/* Inspection Mode Switcher */}
-              <div className="flex items-center gap-1 bg-black/60 border border-white/20 p-0.5 rounded-full">
-                <button
-                  type="button"
-                  onClick={() => setViewMode('3d')}
-                  className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    viewMode === '3d'
-                      ? 'bg-amber-400 text-stone-950 font-black shadow'
-                      : 'text-amber-200/70 hover:text-white'
-                  }`}
-                >
-                  <Boxes className="w-3.5 h-3.5" />
-                  <span>3D Model</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode('photos')}
-                  className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    viewMode === 'photos'
-                      ? 'bg-amber-400 text-stone-950 font-black shadow'
-                      : 'text-amber-200/70 hover:text-white'
-                  }`}
-                >
-                  <Camera className="w-3.5 h-3.5" />
-                  <span>Photos</span>
-                </button>
-              </div>
-
-              {/* Zoom Controls (Photos mode) */}
-              {viewMode === 'photos' && (
-                <div className="hidden sm:flex items-center gap-1 bg-black/60 border border-white/20 rounded-full px-2 py-1">
-                  <button
-                    type="button"
-                    onClick={() => setZoomLevel(prev => Math.max(0.8, Number((prev - 0.2).toFixed(1))))}
-                    className="p-1 hover:text-amber-400 transition-colors cursor-pointer"
-                    title="Zoom Out"
-                  >
-                    <ZoomOut className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="text-[10px] font-mono font-bold text-amber-300 w-8 text-center">{Math.round(zoomLevel * 100)}%</span>
-                  <button
-                    type="button"
-                    onClick={() => setZoomLevel(prev => Math.min(1.8, Number((prev + 0.2).toFixed(1))))}
-                    className="p-1 hover:text-amber-400 transition-colors cursor-pointer"
-                    title="Zoom In"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              )}
-
               <button
                 type="button"
                 onClick={() => setIsStudioOpen(false)}
@@ -1545,224 +1179,24 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
           </div>
 
-          {/* Studio Canvas */}
-          {viewMode === '3d' ? (
-            <div className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503]">
-              <ThreeCarpentryViewer
-                woodType={woodType}
-                finish={finish}
-                selectedWork={selectedWork}
-                activeImage={activeDesignImage}
-                designTitle={activeDesignTitle}
-                length={length}
-                width={width}
-                height={height}
-                isStudio={true}
-              />
-            </div>
-          ) : (
-            <div 
-              className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503] flex items-center justify-center select-none"
-            >
-              {/* Dedicated Drag Layer inside studio */}
-              <div 
-                className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing touch-none"
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerUp}
-              />
-
-              {/* Studio Overhead Spotlight */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-              {/* Architectural Dimension Calipers */}
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-2 bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-3 rounded-2xl pointer-events-none z-20">
-                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">HEIGHT</span>
-                <div className="w-[1px] h-20 bg-amber-400/50"></div>
-                <span className="text-xs font-mono font-black text-white">{length} cm</span>
-                <div className="w-[1px] h-20 bg-amber-400/50"></div>
-              </div>
-
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/15 px-4 py-2 rounded-2xl pointer-events-none z-20">
-                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">WIDTH</span>
-                <div className="h-[1px] w-12 bg-amber-400/50"></div>
-                <span className="text-xs font-mono font-black text-white">{width} cm</span>
-                <div className="h-[1px] w-12 bg-amber-400/50"></div>
-                <span className="text-[10px] font-mono text-amber-300/70 border-l border-white/20 pl-2">THICKNESS: {height} cm</span>
-              </div>
-
-              {/* 3D Model Assembly */}
-              <div 
-                className="relative flex items-center justify-center transition-transform duration-75 pointer-events-none"
-                style={{ 
-                  perspective: '1200px',
-                  transform: `scale(${zoomLevel})`
-                }}
-              >
-                {/* Turntable Disc Base */}
-                <div 
-                  className="absolute -bottom-16 w-80 sm:w-[420px] h-24 sm:h-28 rounded-full border border-amber-600/50 bg-gradient-to-b from-[#3D2415] to-[#120B06] shadow-[0_30px_60px_rgba(0,0,0,0.95)] flex items-center justify-center"
-                  style={{
-                    transform: `rotateX(68deg) rotateZ(${rotationAngle}deg)`,
-                    transformStyle: 'preserve-3d'
-                  }}
-                >
-                  <div className="w-64 sm:w-80 h-16 sm:h-20 rounded-full border border-amber-500/30 bg-[#25150C] flex items-center justify-center">
-                    <div className="w-48 sm:w-60 h-10 sm:h-12 rounded-full border border-amber-400/20 bg-[#160A05] flex items-center justify-center">
-                      <span className="text-[10px] font-mono tracking-widest text-amber-400/80 uppercase">360° TURNTABLE STAGE</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Dynamic Cast Shadow */}
-                <div 
-                  className="absolute -bottom-12 w-64 sm:w-80 h-10 rounded-full bg-black/90 blur-lg transition-all duration-75"
-                  style={{
-                    transform: `scaleX(${Math.max(0.35, Math.abs(Math.cos(rotationAngle * Math.PI / 180)))}) scaleY(0.7)`
-                  }}
-                />
-
-                {/* Rotating Workpiece */}
-                <div
-                  className="relative w-56 sm:w-72 h-80 sm:h-[420px] transition-transform duration-75"
-                  style={{
-                    transform: `rotateY(${rotationAngle}deg)`,
-                    transformStyle: 'preserve-3d'
-                  }}
-                >
-                  {/* Front Panel */}
-                  <div 
-                    className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-600/60 shadow-[0_30px_70px_rgba(0,0,0,0.95)] bg-[#2A180E]"
-                    style={{
-                      backfaceVisibility: 'hidden',
-                      transform: 'translateZ(8px)'
-                    }}
-                  >
-                    <img
-                      src={previewImages[activeThumb] || currentWork.img}
-                      alt={currentWork.name}
-                      className="w-full h-full object-cover select-none"
-                      draggable="false"
-                    />
-                    {/* Species Tint */}
-                    <div 
-                      className="absolute inset-0 pointer-events-none mix-blend-color"
-                      style={{
-                        backgroundColor: 
-                          woodType === 'teak' ? 'rgba(217, 119, 6, 0.16)' :
-                          woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.24)' :
-                          woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.20)' :
-                          'rgba(245, 158, 11, 0.14)'
-                      }}
-                    />
-                    {/* Dynamic Specular Sheen */}
-                    <div 
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background: `linear-gradient(${110 + ((rotationAngle % 180) - 90) * 0.9}deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 25%, transparent 60%)`,
-                        opacity: finish === 'gloss' ? 0.95 : finish === 'matte' ? 0.35 : 0.65
-                      }}
-                    />
-                  </div>
-
-                  {/* Rear Panel */}
-                  <div 
-                    className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-amber-800/60 shadow-[0_30px_70px_rgba(0,0,0,0.95)] bg-gradient-to-b from-[#3D2415] via-[#2D1B0F] to-[#1C1008] p-4 flex flex-col justify-between"
-                    style={{
-                      backfaceVisibility: 'hidden',
-                      transform: 'rotateY(180deg) translateZ(8px)'
-                    }}
-                  >
-                    <div className="w-full h-full rounded-xl border border-amber-600/40 p-3 flex flex-col justify-between bg-[#24150C]/70">
-                      <div className="flex items-center justify-between border-b border-amber-700/40 pb-2">
-                        <span className="text-[11px] font-bold text-amber-400 font-mono">100% SEASONED WOOD</span>
-                        <span className="text-[11px] text-amber-200/80 font-mono">REAR PROFILE</span>
-                      </div>
-                      <div className="my-auto space-y-2 py-4 px-2 text-center">
-                        <div className="w-10 h-10 mx-auto rounded-full border border-amber-400/60 bg-amber-950/70 flex items-center justify-center text-amber-300 font-black text-sm">
-                          වම
-                        </div>
-                        <p className="text-sm font-bold text-amber-200 font-heading">වඩු මඩුව • MASTER WORKSHOP</p>
-                        <p className="text-xs text-amber-300 font-mono uppercase">
-                          {currentWood.name} • {length} x {width} x {height} cm
-                        </p>
-                        <p className="text-[10px] text-amber-400/70">Solid Seasoned Hardwood Backing with Architectural Cross Braces</p>
-                      </div>
-                      <div className="border-t border-amber-700/40 pt-2 flex items-center justify-between text-[10px] text-amber-400/80 font-mono">
-                        <span>KALUTARA HERITAGE</span>
-                        <span>LIFETIME GUARANTEE</span>
-                      </div>
-                    </div>
-                    <div 
-                      className="absolute inset-0 pointer-events-none mix-blend-color"
-                      style={{
-                        backgroundColor: 
-                          woodType === 'teak' ? 'rgba(217, 119, 6, 0.22)' :
-                          woodType === 'mahogany' ? 'rgba(185, 28, 28, 0.30)' :
-                          woodType === 'jackwood' ? 'rgba(234, 179, 8, 0.25)' :
-                          'rgba(245, 158, 11, 0.18)'
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Studio Toolbar at Bottom of Canvas */}
-              <div 
-                onPointerDown={(e) => e.stopPropagation()} 
-                onClick={(e) => e.stopPropagation()} 
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-black/85 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs shadow-2xl max-w-[95%] overflow-x-auto no-scrollbar pointer-events-auto no-drag"
-              >
-                <button
-                  type="button"
-                  onClick={toggleAutoRotate}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 ${
-                    isAutoRotating ? 'bg-amber-400 text-stone-950 font-black' : 'bg-white/10 text-amber-300 hover:bg-white/20'
-                  }`}
-                >
-                  {isAutoRotating ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-                  <span>{isAutoRotating ? 'Pause Spin' : 'Auto-Spin'}</span>
-                </button>
-
-                <div className="w-[1px] h-4 bg-white/20 shrink-0"></div>
-
-                <button
-                  type="button"
-                  onClick={handleRotateLeft}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
-                  title="Rotate Left 15°"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                </button>
-
-                <span className="text-[11px] font-mono font-bold text-amber-300 px-1 shrink-0">
-                  {Math.round(rotationAngle)}°
-                </span>
-
-                <button
-                  type="button"
-                  onClick={handleRotateRight}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="p-1 hover:text-amber-400 text-gray-300 transition-colors shrink-0 cursor-pointer"
-                  title="Rotate Right 15°"
-                >
-                  <RotateCw className="w-3.5 h-3.5" />
-                </button>
-
-                <div className="w-[1px] h-4 bg-white/20 hidden sm:block shrink-0"></div>
-
-                <div className="hidden sm:flex items-center gap-1 shrink-0">
-                  <button type="button" onClick={(e) => handleSetAngle(0, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 0 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>0°</button>
-                  <button type="button" onClick={(e) => handleSetAngle(45, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 45 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>45°</button>
-                  <button type="button" onClick={(e) => handleSetAngle(90, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 90 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>90°</button>
-                  <button type="button" onClick={(e) => handleSetAngle(180, e)} onPointerDown={(e) => e.stopPropagation()} className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${rotationAngle === 180 ? 'bg-amber-400 text-black font-black' : 'hover:text-white text-gray-400'}`}>180°</button>
-                </div>
-              </div>
-            </div>
-          )}
+          {/* Studio 3D WebGL Carpentry Model Canvas */}
+          <div className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503]">
+            <ThreeCarpentryViewer
+              woodType={woodType}
+              finish={finish}
+              selectedWork={selectedWork}
+              onSelectWork={(newCat) => {
+                setSelectedWork(newCat);
+                setActiveThumb(0);
+              }}
+              activeImage={activeDesignImage}
+              designTitle={activeDesignTitle}
+              length={length}
+              width={width}
+              height={height}
+              isStudio={true}
+            />
+          </div>
 
           {/* Studio Footer: Timber Switcher + Price + Order CTA */}
           <div 
