@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  LayoutDashboard, 
-  ShoppingBag, 
-  MessageSquare, 
-  Package, 
-  Image as ImageIcon, 
-  FileText, 
-  Settings, 
-  LogOut, 
-  Plus, 
-  TrendingUp, 
-  CheckCircle2, 
-  Clock, 
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  MessageSquare,
+  Package,
+  Image as ImageIcon,
+  FileText,
+  Settings,
+  LogOut,
+  Plus,
+  TrendingUp,
+  CheckCircle2,
+  Clock,
   AlertCircle,
   ExternalLink,
   Eye,
@@ -344,7 +344,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
   // Filtered lists
   const filteredOrders = customOrders.filter(order => {
     const matchesFilter = orderFilter === 'ALL' || order.status === orderFilter;
-    const matchesSearch = !orderSearch || 
+    const matchesSearch = !orderSearch ||
       (order.customerName && order.customerName.toLowerCase().includes(orderSearch.toLowerCase())) ||
       (order.orderNumber && order.orderNumber.toLowerCase().includes(orderSearch.toLowerCase())) ||
       (order.furnitureType && order.furnitureType.toLowerCase().includes(orderSearch.toLowerCase()));
@@ -363,7 +363,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
 
   return (
     <div className="bg-[#FAF4EB] min-h-screen text-[#2B190E] flex flex-col md:flex-row relative font-sans">
-      
+
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-[999] bg-[#2B190E] text-amber-200 px-5 py-3 rounded-2xl shadow-2xl border border-amber-500/40 text-xs font-bold flex items-center gap-2 animate-bounce">
@@ -381,7 +381,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
         ${isMobileNavOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         <div className="space-y-5">
-          
+
           {/* Header Brand */}
           <div className="px-2 pt-2 flex items-center justify-between border-b border-[#3D2415] pb-4">
             <div className="flex items-center gap-3">
@@ -394,7 +394,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => setIsMobileNavOpen(false)}
               className="md:hidden text-amber-300 hover:text-white p-1"
             >
@@ -426,20 +426,18 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                     setCurrentTab(item.id);
                     setIsMobileNavOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all ${
-                    isSel
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all ${isSel
                       ? 'bg-[#3D2415] text-white font-bold border border-amber-500/40 shadow-inner'
                       : 'text-amber-200/70 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <IconComp className={`w-4 h-4 ${isSel ? 'text-amber-400' : 'text-amber-300/60'}`} />
                     <span>{item.label}</span>
                   </div>
                   {item.badge !== undefined && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                      isSel ? 'bg-amber-500 text-black' : 'bg-white/10 text-amber-300'
-                    }`}>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isSel ? 'bg-amber-500 text-black' : 'bg-white/10 text-amber-300'
+                      }`}>
                       {item.badge}
                     </span>
                   )}
@@ -473,7 +471,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
 
       {/* Mobile nav backdrop */}
       {isMobileNavOpen && (
-        <div 
+        <div
           onClick={() => setIsMobileNavOpen(false)}
           className="fixed inset-0 bg-black/60 z-30 md:hidden"
         />
@@ -483,7 +481,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
           RIGHT MAIN CONTENT AREA
          ======================================================== */}
       <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-6 overflow-y-auto">
-        
+
         {/* Top Header Row */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E8DEC8] pb-4">
           <div className="flex items-center gap-3">
@@ -604,7 +602,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
 
             {/* Quick Actions & Recent Custom Orders */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              
+
               {/* Recent Orders (8 cols) */}
               <div className="lg:col-span-8 bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-4">
                 <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
@@ -612,7 +610,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                     <h3 className="font-bold text-sm text-[#2B190E]">Recent Custom Orders (3D & Uploaded)</h3>
                     <p className="text-[11px] text-[#7A6252]">Latest carpentry work orders submitted by clients</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setCurrentTab('custom-orders')}
                     className="text-xs font-bold text-[#8B5E3C] hover:underline cursor-pointer"
                   >
@@ -646,12 +644,11 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                           </td>
                           <td className="p-3 text-[#7A6252] text-[11px] truncate max-w-[120px]">{o.woodType || 'Teak'}</td>
                           <td className="p-3">
-                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                              o.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' :
-                              o.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                              o.status === 'Ready for Delivery' ? 'bg-purple-100 text-purple-800' :
-                              'bg-amber-100 text-amber-800'
-                            }`}>
+                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${o.status === 'Completed' ? 'bg-emerald-100 text-emerald-800' :
+                                o.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
+                                  o.status === 'Ready for Delivery' ? 'bg-purple-100 text-purple-800' :
+                                    'bg-amber-100 text-amber-800'
+                              }`}>
                               {o.status}
                             </span>
                           </td>
@@ -679,14 +676,14 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
 
               {/* Right Column: Quick Actions + Recent Inquiries (4 cols) */}
               <div className="lg:col-span-4 space-y-5">
-                
+
                 {/* Quick Actions Panel */}
                 <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3">
                   <h3 className="font-bold text-sm text-[#2B190E] border-b border-[#E8DEC8] pb-2 flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-amber-600" />
                     <span>Quick Actions</span>
                   </h3>
-                  
+
                   <div className="space-y-2">
                     <button
                       onClick={handleOpenAddProduct}
@@ -695,7 +692,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                       <Plus className="w-4 h-4 text-amber-400" />
                       <span>Add New Product to Catalog</span>
                     </button>
-                    
+
                     <button
                       onClick={() => setIsGalleryModalOpen(true)}
                       className="w-full bg-white hover:bg-amber-50 text-[#2B190E] border border-[#E8DEC8] py-2.5 px-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
@@ -726,7 +723,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                 <div className="bg-white border border-[#E8DEC8] rounded-2xl p-5 shadow-sm space-y-3">
                   <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-2">
                     <h3 className="font-bold text-sm text-[#2B190E]">New Inquiries</h3>
-                    <button 
+                    <button
                       onClick={() => setCurrentTab('inquiries')}
                       className="text-[11px] font-bold text-[#8B5E3C] hover:underline"
                     >
@@ -739,9 +736,8 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                       <div key={inq.id} className="p-3 bg-[#FAF4EB]/60 rounded-xl border border-[#E8DEC8] space-y-1">
                         <div className="flex items-center justify-between text-xs">
                           <span className="font-bold text-[#2B190E]">{inq.name || inq.customerName || 'Inquirer'}</span>
-                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                            inq.status === 'NEW' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'
-                          }`}>
+                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${inq.status === 'NEW' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'
+                            }`}>
                             {inq.status}
                           </span>
                         </div>
@@ -796,11 +792,10 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                   <button
                     key={st}
                     onClick={() => setOrderFilter(st)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      orderFilter === st
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${orderFilter === st
                         ? 'bg-[#2B190E] text-white shadow-sm'
                         : 'bg-[#FAF4EB] text-[#7A6252] hover:bg-amber-100/60 border border-[#E8DEC8]'
-                    }`}
+                      }`}
                   >
                     {st === 'ALL' ? 'All Orders' : st}
                   </button>
@@ -947,11 +942,10 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                   <button
                     key={st}
                     onClick={() => setInquiryFilter(st)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                      inquiryFilter === st
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${inquiryFilter === st
                         ? 'bg-[#2B190E] text-white'
                         : 'bg-[#FAF4EB] text-[#7A6252] border border-[#E8DEC8] hover:bg-amber-100/60'
-                    }`}
+                      }`}
                   >
                     {st}
                   </button>
@@ -971,11 +965,10 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                           <Phone className="w-3 h-3" /> {inq.phone || 'No phone'}
                         </span>
                       </div>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        inq.status === 'NEW' ? 'bg-red-100 text-red-700 border border-red-200' :
-                        inq.status === 'CONTACTED' ? 'bg-amber-100 text-amber-800 border border-amber-200' :
-                        'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${inq.status === 'NEW' ? 'bg-red-100 text-red-700 border border-red-200' :
+                          inq.status === 'CONTACTED' ? 'bg-amber-100 text-amber-800 border border-amber-200' :
+                            'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                        }`}>
                         {inq.status}
                       </span>
                     </div>
@@ -1087,9 +1080,8 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => { e.target.src = '/images/doors/IMG_6930.PNG'; }}
                       />
-                      <span className={`absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow ${
-                        p.available ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'
-                      }`}>
+                      <span className={`absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow ${p.available ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'
+                        }`}>
                         {p.available ? 'In Stock / Ready' : 'Custom Order Only'}
                       </span>
                     </div>
@@ -1169,7 +1161,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
                   <div className="p-4 space-y-2">
                     <h4 className="font-bold text-sm text-[#2B190E]">{item.title}</h4>
                     <p className="text-xs text-[#7A6252] leading-relaxed">{item.description}</p>
-                    
+
                     <div className="flex items-center justify-between pt-2 border-t border-[#E8DEC8]">
                       <span className="text-[10px] text-gray-500">{item.completedDate || '2026 Work'}</span>
                       <button
@@ -1194,6 +1186,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
             <div className="bg-white border border-[#E8DEC8] rounded-2xl p-4 shadow-sm flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-sm text-[#2B190E]">Quotations & Cost Estimates</h3>
+
                 <p className="text-[11px] text-[#7A6252]">Draft timber job estimations with material, labour and transport breakdown</p>
               </div>
 
@@ -1396,7 +1389,7 @@ export default function AdminDashboard({ adminUser, setActiveTab, onLogout }) {
       {selectedOrderForView && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-[#E8DEC8] space-y-5 animate-scale-up max-h-[90vh] overflow-y-auto">
-            
+
             <div className="flex items-center justify-between border-b border-[#E8DEC8] pb-3">
               <div>
                 <span className="font-mono text-xs font-bold text-[#8B5E3C]">{selectedOrderForView.orderNumber || `#${selectedOrderForView.id}`}</span>
