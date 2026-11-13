@@ -442,7 +442,6 @@ export default function CustomOrderPage({ setActiveTab }) {
 • *ලී වර්ගය:* ${currentWood.name}
 • *නිමාව (Finish):* ${currentFinish.name}
 • *ප්‍රමාණයන්:* ${length} (H/L) x ${width} (W) x ${height} (D) cm
-• *ඇස්තමේන්තුගත මිල:* LKR ${estimatedPrice.toLocaleString()}
 
 *විශේෂ සටහන / Description:*
 ${orderDescription.trim() || 'නැත'}`;
@@ -737,25 +736,7 @@ ${orderDescription.trim() || 'නැත'}`;
               <FileText className="w-4 h-4 text-[#7A6252] absolute left-3 top-3" />
             </div>
           </div>
-        </div>
-
-        {/* 6. ESTIMATED PRICE CARD */}
-        <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-xs text-[#7A6252] uppercase tracking-wider">{t('estimatedPriceTitle')}</span>
-              <Info className="w-3.5 h-3.5 text-[#7A6252] cursor-pointer" onClick={() => setActiveModal('howItWorks')} />
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div className="text-3xl font-black text-[#2B190E] font-heading">
-                Rs. {estimatedPrice.toLocaleString()}
-              </div>
-              <p className="text-[11px] text-[#7A6252] mt-1">{t('disclaimerNote')}</p>
-            </div>
-
+          <div className="pt-2 flex justify-end">
             <button
               onClick={handleSubmitOrder}
               className="w-full sm:w-auto bg-[#23160D] hover:bg-[#3D2415] text-white px-8 py-3.5 rounded-2xl font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer"
@@ -811,7 +792,6 @@ ${orderDescription.trim() || 'නැත'}`;
               <p><strong>{t('districtField')}:</strong> {userDistrict}</p>
               <p><strong>{t('selectWood')}:</strong> {currentWood.name}</p>
               <p><strong>{t('setDimensions')}:</strong> {length} x {width} x {height} cm</p>
-              <p><strong>{t('estimatedPriceTitle')}:</strong> LKR {estimatedPrice.toLocaleString()}</p>
             </div>
 
             <button
