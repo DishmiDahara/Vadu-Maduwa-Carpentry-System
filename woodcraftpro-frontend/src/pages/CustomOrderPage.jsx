@@ -340,6 +340,7 @@ export default function CustomOrderPage({ setActiveTab }) {
       setDesignSource('uploaded');
       setViewMode('3d');
       setUploads(prev => [newDesign, ...prev]);
+      if (e.target) e.target.value = '';
     }
   };
 
@@ -715,6 +716,7 @@ ${orderDescription.trim() || 'නැත'}`;
               setSelectedWork(newCat);
               setActiveThumb(0);
             }}
+            onUploadPhoto={handleCustomerDesignUpload}
             activeImage={activeDesignImage}
             designTitle={activeDesignTitle}
             length={length}
@@ -1189,6 +1191,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 setSelectedWork(newCat);
                 setActiveThumb(0);
               }}
+              onUploadPhoto={handleCustomerDesignUpload}
               activeImage={activeDesignImage}
               designTitle={activeDesignTitle}
               length={length}

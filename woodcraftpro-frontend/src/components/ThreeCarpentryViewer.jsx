@@ -12,12 +12,12 @@ import {
   Layers,
   Sparkles,
   Boxes,
-  CheckCircle2,
+  Upload,
   Sun
 } from 'lucide-react';
 
 // ============================================================================
-// SPECIES COLOR PALETTES (Matched to rich architectural walnut/teak tones)
+// SPECIES COLOR PALETTES
 // ============================================================================
 const SPECIES_PALETTES = {
   teak: {
@@ -94,14 +94,16 @@ export function normalizeCategoryKey(selectedWork = 'door') {
 }
 
 // ============================================================================
-// IMAGE ANALYZER: Crops uniform outer photo margins & samples wood tones
-// so the uploaded design fits cleanly inside the 3D outer frame and its
-// frame/back wood tones harmonize with the uploaded photo.
+// WOOD-CHROMA & FOREGROUND SEGMENTATION ANALYZER
+// Automatically strips out grey/white walls, concrete floors, shadows, and
+// watermarks around the carpentry product in any uploaded or catalogue photo,
+// isolating the exact wooden product and extracting its 3D relief & wood tones.
 // ============================================================================
 export function analyzeUploadedReferenceImage(img) {
   const fallback = {
     hasImage: false,
     cropBox: { x: 0, y: 0, w: 1, h: 1 },
+    fgAspect: 0.5,
     frameBaseHex: null,
     frameDarkHex: null,
     frameLightHex: null,
@@ -113,8 +115,8 @@ export function analyzeUploadedReferenceImage(img) {
   }
 
   try {
-    const sw = 96;
-    const sh = 96;
+    const sw = 128;
+    const sh = 128;
     const c = document.createElement('canvas');
     c.width = sw;
     c.height = sh;
@@ -122,29 +124,14 @@ export function analyzeUploadedReferenceImage(img) {
     ctx.drawImage(img, 0, 0, sw, sh);
     const data = ctx.getImageData(0, 0, sw, sh).data;
 
-    // 1. Detect if the uploaded photo has a uniform white/light studio margin around the object
-    const corners = [
-      0,
-      (sw - 1) * 4,
-      (sh - 1) * sw * 4,
-      ((sh - 1) * sw + (sw - 1)) * 4
-    ];
-    let bgR = 0, bgG = 0, bgB = 0;
-    corners.forEach((idx) => {
-      bgR += data[idx];
-      bgG += data[idx + 1];
-      bgB += data[idx + 2];
-    });
-    bgR /= 4;
-    bgG /= 4;
-    bgB /= 4;
-    const bgLum = 0.299 * bgR + 0.587 * bgG + 0.114 * bgB;
-
-    let minX = sw, maxX = 0, minY = sh, maxY = 0;
+    const colWoodCount = new Float32Array(sw);
+    const rowWoodCount = new Float32Array(sh);
     const woodSamples = [];
+    let totalWoodPixels = 0;
 
-    for (let y = 1; y < sh - 1; y++) {
-      for (let x = 1; x < sw - 1; x++) {
+    // 1. Scan for warm wood chroma (separates wooden doors/furniture from grey/white walls & floors)
+    for (let y = 0; y < sh; y++) {
+      for (let x = 0; x < sw; x++) {
         const idx = (y * sw + x) * 4;
         const r = data[idx];
         const g = data[idx + 1];
@@ -152,36 +139,124 @@ export function analyzeUploadedReferenceImage(img) {
         const a = data[idx + 3];
         if (a < 64) continue;
 
-        const distBg = Math.hypot(r - bgR, g - bgG, b - bgB);
         const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        const warmth = r - b;
+        const rgDiff = r - g;
 
-        // If corner background is very bright (white margin) and pixel is dark/mid, it's foreground
-        const isFg = bgLum > 225 ? lum < 232 || distBg > 22 : distBg > 18;
-        if (isFg) {
-          if (x < minX) minX = x;
-          if (x > maxX) maxX = x;
-          if (y < minY) minY = y;
-          if (y > maxY) maxY = y;
-        }
+        // Warm wood pixels have strong red-over-blue warmth and positive red-over-green
+        if (warmth >= 28 && rgDiff >= 6 && lum > 16 && lum < 232) {
+          colWoodCount[x]++;
+          rowWoodCount[y]++;
+          totalWoodPixels++;
 
-        // Sample rich wood/brown pixels from the center region for matching frame & back colors
-        if (x > sw * 0.15 && x < sw * 0.85 && y > sh * 0.15 && y < sh * 0.85) {
-          if (lum > 18 && lum < 195 && r >= b * 0.9) {
+          if (x > sw * 0.1 && x < sw * 0.9 && y > sh * 0.1 && y < sh * 0.9) {
             woodSamples.push({ r, g, b, lum });
           }
         }
       }
     }
 
-    let cropBox = { x: 0, y: 0, w: 1, h: 1 };
-    if (maxX - minX > sw * 0.35 && maxY - minY > sh * 0.35) {
-      cropBox = {
-        x: Math.max(0, minX / sw),
-        y: Math.max(0, minY / sh),
-        w: Math.min(1, (maxX - minX + 1) / sw),
-        h: Math.min(1, (maxY - minY + 1) / sh)
-      };
+    let minX = 0, maxX = sw - 1, minY = 0, maxY = sh - 1;
+
+    if (totalWoodPixels > sw * sh * 0.06) {
+      // Find peak column & row wood density
+      let maxCol = 0;
+      let maxRow = 0;
+      for (let x = 0; x < sw; x++) if (colWoodCount[x] > maxCol) maxCol = colWoodCount[x];
+      for (let y = 0; y < sh; y++) if (rowWoodCount[y] > maxRow) maxRow = rowWoodCount[y];
+
+      const colThresh = maxCol * 0.28;
+      const rowThresh = maxRow * 0.28;
+
+      // Find longest contiguous horizontal span of wood columns (isolates door from wall)
+      let bestColStart = 0, bestColEnd = sw - 1, bestColLen = 0;
+      let curStart = -1;
+      for (let x = 0; x < sw; x++) {
+        if (colWoodCount[x] >= colThresh) {
+          if (curStart === -1) curStart = x;
+          const len = x - curStart + 1;
+          if (len > bestColLen) {
+            bestColLen = len;
+            bestColStart = curStart;
+            bestColEnd = x;
+          }
+        } else {
+          curStart = -1;
+        }
+      }
+
+      // Find longest contiguous vertical span of wood rows (isolates door from top wall/bottom floor)
+      let bestRowStart = 0, bestRowEnd = sh - 1, bestRowLen = 0;
+      curStart = -1;
+      for (let y = 0; y < sh; y++) {
+        if (rowWoodCount[y] >= rowThresh) {
+          if (curStart === -1) curStart = y;
+          const len = y - curStart + 1;
+          if (len > bestRowLen) {
+            bestRowLen = len;
+            bestRowStart = curStart;
+            bestRowEnd = y;
+          }
+        } else {
+          curStart = -1;
+        }
+      }
+
+      if (bestColLen > sw * 0.16 && bestRowLen > sh * 0.2) {
+        // Inset by 1.5% so zero wall/floor edge pixels bleed onto the 3D model
+        const padX = Math.max(1, Math.round(bestColLen * 0.018));
+        const padY = Math.max(1, Math.round(bestRowLen * 0.018));
+        minX = bestColStart + padX;
+        maxX = bestColEnd - padX;
+        minY = bestRowStart + padY;
+        maxY = bestRowEnd - padY;
+      }
+    } else {
+      // Fallback for painted/grey/black/white non-wood doors on a uniform studio wall
+      let bgR = 0, bgG = 0, bgB = 0, cnt = 0;
+      for (let y = 0; y < sh; y++) {
+        for (const x of [0, 1, sw - 2, sw - 1]) {
+          const idx = (y * sw + x) * 4;
+          bgR += data[idx];
+          bgG += data[idx + 1];
+          bgB += data[idx + 2];
+          cnt++;
+        }
+      }
+      bgR /= cnt;
+      bgG /= cnt;
+      bgB /= cnt;
+
+      let fMinX = sw, fMaxX = 0, fMinY = sh, fMaxY = 0;
+      for (let y = 2; y < sh - 2; y++) {
+        for (let x = 2; x < sw - 2; x++) {
+          const idx = (y * sw + x) * 4;
+          const dist = Math.hypot(data[idx] - bgR, data[idx + 1] - bgG, data[idx + 2] - bgB);
+          if (dist > 28) {
+            if (x < fMinX) fMinX = x;
+            if (x > fMaxX) fMaxX = x;
+            if (y < fMinY) fMinY = y;
+            if (y > fMaxY) fMaxY = y;
+          }
+        }
+      }
+      if (fMaxX - fMinX > sw * 0.18 && fMaxY - fMinY > sh * 0.2) {
+        minX = fMinX + 2;
+        maxX = fMaxX - 2;
+        minY = fMinY + 2;
+        maxY = fMaxY - 2;
+      }
     }
+
+    const cropBox = {
+      x: Math.max(0, minX / sw),
+      y: Math.max(0, minY / sh),
+      w: Math.max(0.15, Math.min(1, (maxX - minX + 1) / sw)),
+      h: Math.max(0.15, Math.min(1, (maxY - minY + 1) / sh))
+    };
+
+    const fgAspect =
+      (img.naturalWidth * cropBox.w) / Math.max(1, img.naturalHeight * cropBox.h);
 
     woodSamples.sort((a, b) => a.lum - b.lum);
     const toHex = (px) =>
@@ -196,19 +271,20 @@ export function analyzeUploadedReferenceImage(img) {
     let backPanelHex = null;
 
     if (woodSamples.length > 25) {
-      const darkPx = woodSamples[Math.floor(woodSamples.length * 0.22)];
-      const midPx = woodSamples[Math.floor(woodSamples.length * 0.52)];
+      const darkPx = woodSamples[Math.floor(woodSamples.length * 0.2)];
+      const midPx = woodSamples[Math.floor(woodSamples.length * 0.5)];
       const lightPx = woodSamples[Math.floor(woodSamples.length * 0.78)];
 
-      frameDarkHex = toHex({ r: darkPx.r * 0.8, g: darkPx.g * 0.75, b: darkPx.b * 0.7 });
-      backPanelHex = toHex({ r: midPx.r * 0.72, g: midPx.g * 0.66, b: midPx.b * 0.6 });
-      frameBaseHex = toHex({ r: midPx.r * 0.92, g: midPx.g * 0.86, b: midPx.b * 0.8 });
-      frameLightHex = toHex({ r: lightPx.r * 1.02, g: lightPx.g * 0.95, b: lightPx.b * 0.88 });
+      frameDarkHex = toHex({ r: darkPx.r * 0.78, g: darkPx.g * 0.72, b: darkPx.b * 0.66 });
+      backPanelHex = toHex({ r: midPx.r * 0.7, g: midPx.g * 0.64, b: midPx.b * 0.58 });
+      frameBaseHex = toHex({ r: midPx.r * 0.9, g: midPx.g * 0.84, b: midPx.b * 0.78 });
+      frameLightHex = toHex({ r: lightPx.r * 1.0, g: lightPx.g * 0.94, b: lightPx.b * 0.86 });
     }
 
     return {
       hasImage: true,
       cropBox,
+      fgAspect,
       frameBaseHex,
       frameDarkHex,
       frameLightHex,
@@ -220,14 +296,7 @@ export function analyzeUploadedReferenceImage(img) {
 }
 
 // ============================================================================
-// SKETCHFAB-GRADE 3D TEXTURE & MATERIAL SUITE
-// Generates:
-// 1. `frontDesign`: Crisp, full-resolution customer/catalogue design for the
-//    recessed front carpentry surface (plus subtle 3D bump map).
-// 2. `vFrameWood` & `hFrameWood`: Fine directional linear wood grain for the
-//    thick 3D outer frame (Left/Right jambs, Top header, sides, legs, steps).
-// 3. `backPanel`: Smooth, rich dark-wood finish for the recessed 180° back surface
-//    (exact match to Sketchfab Screenshots 2 & 3).
+// SKETCHFAB-GRADE 3D TEXTURE, BUMP & 3D DISPLACEMENT RELIEF GENERATOR
 // ============================================================================
 function createSketchfabCarpentryMaterials(
   woodType,
@@ -240,7 +309,6 @@ function createSketchfabCarpentryMaterials(
   const basePal = SPECIES_PALETTES[woodType] || SPECIES_PALETTES.teak;
   const pal = { ...basePal };
 
-  // Harmonize outer 3D frame and recessed back panel with the uploaded image's wood tone
   if (matchPhotoWood && analysis?.hasImage && analysis.frameBaseHex) {
     pal.frameBase = analysis.frameBaseHex;
     pal.frameDark = analysis.frameDarkHex || basePal.frameDark;
@@ -260,7 +328,7 @@ function createSketchfabCarpentryMaterials(
     pal.backPanel = '#5E3614';
   }
 
-  // Helper: Draw realistic linear architectural wood grain (like Screenshot 1 & 3's frame)
+  // Linear wood grain for outer 3D frame (Left/Right jambs, Top header, sides, steps)
   const drawLinearWoodGrain = (ctx, w, h, vertical = true, baseCol = pal.frameBase) => {
     const grad = vertical
       ? ctx.createLinearGradient(0, 0, w, 0)
@@ -272,25 +340,21 @@ function createSketchfabCarpentryMaterials(
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
-    // Fine linear wood striations
     ctx.save();
-    const numStreaks = 140;
+    const numStreaks = 150;
     for (let i = 0; i < numStreaks; i++) {
       const ratio = i / numStreaks;
       ctx.fillStyle = i % 3 === 0 ? pal.frameDark : pal.frameLight;
       ctx.globalAlpha = 0.06 + ((i * 13) % 10) * 0.012;
       const pos = ratio * (vertical ? w : h);
       const thick = 1 + ((i * 7) % 4);
-      if (vertical) {
-        ctx.fillRect(pos, 0, thick, h);
-      } else {
-        ctx.fillRect(0, pos, w, thick);
-      }
+      if (vertical) ctx.fillRect(pos, 0, thick, h);
+      else ctx.fillRect(0, pos, w, thick);
     }
     ctx.restore();
   };
 
-  // Helper: Draw smooth recessed back panel (like Screenshot 2 & 3's dark-brown back face)
+  // Smooth dark-brown wood surface for recessed 180° back (matching Sketchfab Screenshots 2 & 3)
   const drawRecessedBackSurface = (ctx, w, h) => {
     const grad = ctx.createLinearGradient(0, 0, w, h);
     grad.addColorStop(0, pal.backPanel);
@@ -299,7 +363,6 @@ function createSketchfabCarpentryMaterials(
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle fine vertical wood texture
     ctx.save();
     ctx.fillStyle = pal.frameDark;
     ctx.globalAlpha = 0.08;
@@ -308,18 +371,17 @@ function createSketchfabCarpentryMaterials(
       ctx.fillRect(x, 0, 2, h);
     }
 
-    // Subtle inner perimeter shadow where the back panel meets the outer 3D frame rabbet
     const edgeGrad = ctx.createLinearGradient(0, 0, w, 0);
-    edgeGrad.addColorStop(0, 'rgba(0,0,0,0.28)');
+    edgeGrad.addColorStop(0, 'rgba(0,0,0,0.32)');
     edgeGrad.addColorStop(0.06, 'rgba(0,0,0,0)');
     edgeGrad.addColorStop(0.94, 'rgba(0,0,0,0)');
-    edgeGrad.addColorStop(1, 'rgba(0,0,0,0.28)');
+    edgeGrad.addColorStop(1, 'rgba(0,0,0,0.32)');
     ctx.fillStyle = edgeGrad;
     ctx.fillRect(0, 0, w, h);
     ctx.restore();
   };
 
-  // Helper: Draw the crisp front design surface (and subtle 3D bump map)
+  // Cropped front design surface + 3D relief heightmap for vertex displacement
   const drawFrontDesignSurface = (ctx, bumpCtx, w, h, sliceRect = null) => {
     drawLinearWoodGrain(ctx, w, h, h >= w, pal.frameBase);
     bumpCtx.fillStyle = '#808080';
@@ -337,7 +399,6 @@ function createSketchfabCarpentryMaterials(
       ctx.save();
       ctx.drawImage(loadedImage, sx, sy, sw, sh, 0, 0, w, h);
 
-      // If user explicitly picked Teak Stain or Dark Walnut finish, apply subtle stain glaze
       if (finish === 'walnut' || finish === 'teak_stain') {
         ctx.globalCompositeOperation = 'multiply';
         ctx.fillStyle = pal.frameLight;
@@ -346,29 +407,31 @@ function createSketchfabCarpentryMaterials(
       }
       ctx.restore();
 
-      // Subtle perimeter rabbet shadow so the recessed panel sits naturally inside the 3D frame
+      // Inner rabbet shadow where the recessed panel meets the 3D outer frame
       ctx.save();
-      ctx.strokeStyle = 'rgba(0,0,0,0.32)';
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
       ctx.lineWidth = Math.max(6, Math.round(w * 0.01));
       ctx.strokeRect(0, 0, w, h);
       ctx.restore();
 
-      // Generate 3D bump relief from the image's grooves/slats/carvings
+      // 3D Height / Relief Map for real 3D mesh displacement + bump normals
       bumpCtx.save();
-      bumpCtx.filter = 'grayscale(100%) contrast(145%)';
+      bumpCtx.filter = 'grayscale(100%) contrast(155%) blur(1px)';
       bumpCtx.drawImage(loadedImage, sx, sy, sw, sh, 0, 0, w, h);
+      // Taper edges of displacement map to neutral so outer edges meet frame cleanly
+      bumpCtx.strokeStyle = '#808080';
+      bumpCtx.lineWidth = Math.max(16, Math.round(w * 0.035));
+      bumpCtx.strokeRect(0, 0, w, h);
       bumpCtx.restore();
     } else {
-      // Fallback modern architectural horizontal slatted door design (matching Screenshot 1!)
+      // Fallback Sketchfab modern door design (matching Screenshot 1)
       drawLinearWoodGrain(ctx, w, h, false, pal.frameBase);
       ctx.save();
-      // 3 crisp metallic/white horizontal inlay strips on left 72%
       const stripW = Math.round(w * 0.72);
       ctx.fillStyle = '#EAE6DF';
       [0.25, 0.5, 0.75].forEach((ry) => {
         ctx.fillRect(0, Math.round(h * ry) - 5, stripW, 10);
       });
-      // Vertical fluted slats on right 28%
       const slatStartX = stripW;
       const slatAreaW = w - stripW;
       ctx.fillStyle = pal.frameDark;
@@ -389,25 +452,21 @@ function createSketchfabCarpentryMaterials(
     return tex;
   };
 
-  // 1. Vertical Wood-Grain Frame Texture (Left/Right Jambs, Sides, Legs)
   const vWoodCanvas = document.createElement('canvas');
   vWoodCanvas.width = 512;
   vWoodCanvas.height = 1024;
   drawLinearWoodGrain(vWoodCanvas.getContext('2d'), 512, 1024, true);
 
-  // 2. Horizontal Wood-Grain Frame Texture (Top Header, Sill, Treads, Countertops)
   const hWoodCanvas = document.createElement('canvas');
   hWoodCanvas.width = 1024;
   hWoodCanvas.height = 512;
   drawLinearWoodGrain(hWoodCanvas.getContext('2d'), 1024, 512, false);
 
-  // 3. Smooth Dark-Wood Recessed Back Surface Texture (Screenshot 2 & 3 Back View)
   const backCanvas = document.createElement('canvas');
   backCanvas.width = 512;
   backCanvas.height = 1024;
   drawRecessedBackSurface(backCanvas.getContext('2d'), 512, 1024);
 
-  // 4. Full Front Design Texture + Bump Map
   const frontCanvas = document.createElement('canvas');
   frontCanvas.width = 1024;
   frontCanvas.height = 1536;
@@ -421,7 +480,6 @@ function createSketchfabCarpentryMaterials(
     1536
   );
 
-  // 5. Upper & Lower Split Front Textures (For 2-tier Pantry Cupboards so upper & lower sections map accurately)
   const upperFrontCanvas = document.createElement('canvas');
   upperFrontCanvas.width = 1024;
   upperFrontCanvas.height = 640;
@@ -480,21 +538,32 @@ function createSketchfabCarpentryMaterials(
     frontSurface: new THREE.MeshStandardMaterial({
       map: frontTex,
       bumpMap: frontBumpTex,
-      bumpScale: 0.018,
+      bumpScale: 0.026,
+      roughness: roughnessVal,
+      metalness: metalnessVal
+    }),
+    // High-density 3D vertex-displaced relief material for carved/panelled front surfaces
+    frontReliefMeshMat: new THREE.MeshStandardMaterial({
+      map: frontTex,
+      bumpMap: frontBumpTex,
+      bumpScale: 0.028,
+      displacementMap: frontBumpTex,
+      displacementScale: 0.045,
+      displacementBias: -0.022,
       roughness: roughnessVal,
       metalness: metalnessVal
     }),
     upperFrontSurface: new THREE.MeshStandardMaterial({
       map: upperFrontTex,
       bumpMap: frontBumpTex,
-      bumpScale: 0.016,
+      bumpScale: 0.02,
       roughness: roughnessVal,
       metalness: metalnessVal
     }),
     lowerFrontSurface: new THREE.MeshStandardMaterial({
       map: lowerFrontTex,
       bumpMap: frontBumpTex,
-      bumpScale: 0.016,
+      bumpScale: 0.02,
       roughness: roughnessVal,
       metalness: metalnessVal
     }),
@@ -502,11 +571,6 @@ function createSketchfabCarpentryMaterials(
       color: pal.frameDark,
       roughness: 0.45,
       metalness: 0.05
-    }),
-    counter: new THREE.MeshStandardMaterial({
-      color: 0x221e1b,
-      roughness: 0.22,
-      metalness: 0.15
     }),
     hardwareBlack: new THREE.MeshStandardMaterial({
       color: 0x181512,
@@ -537,11 +601,7 @@ function createSketchfabCarpentryMaterials(
 }
 
 // ============================================================================
-// REUSABLE SKETCHFAB-STYLE 3D FRAMED CASING BUILDER
-// Constructs the exact 3D outer wood-grain frame (Left Jamb, Right Jamb with
-// bottom feet, Top Header with horizontal wood grain) + recessed inner slab
-// (crisp Front Design on +Z, smooth dark-wood Back Surface on -Z) seen in
-// Sketchfab Screenshots 1, 2, and 3!
+// REUSABLE SKETCHFAB-STYLE 3D FRAMED CASING + 3D RELIEF SURFACE BUILDER
 // ============================================================================
 function createBox(w, h, d, mat) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
@@ -563,34 +623,34 @@ function createFramedRecessedUnit({
   hasBottomRail = false,
   interactivePivotList = null,
   addVerticalPullHandle = false,
+  add3DReliefMesh = true,
   numDoorSeams = 0
 }) {
   const unitGroup = new THREE.Group();
   const actualLeafD = leafD || frameD * 0.5;
 
-  // 1. Left Outer Jamb (Vertical wood grain, extends slightly at bottom like Screenshot 1 & 3)
+  // 1. Left Outer Jamb (Vertical wood grain, extends slightly at bottom like Sketchfab Screenshot 1 & 3)
   const leftJamb = createBox(jambW, totalH + bottomLegExt, frameD, mats.vFrame);
   leftJamb.position.set(-totalW / 2 + jambW / 2, -bottomLegExt / 2, 0);
   unitGroup.add(leftJamb);
 
-  // 2. Right Outer Jamb (Vertical wood grain, extends slightly at bottom like Screenshot 1 & 3)
+  // 2. Right Outer Jamb (Vertical wood grain, extends slightly at bottom like Sketchfab Screenshot 1 & 3)
   const rightJamb = createBox(jambW, totalH + bottomLegExt, frameD, mats.vFrame);
   rightJamb.position.set(totalW / 2 - jambW / 2, -bottomLegExt / 2, 0);
   unitGroup.add(rightJamb);
 
-  // 3. Top Header Bar (Horizontal wood grain across top face like Screenshot 3)
+  // 3. Top Header Bar (Horizontal wood grain across top face like Sketchfab Screenshot 3)
   const topHeader = createBox(totalW, headerH, frameD, [
-    mats.vFrame, // Right end
-    mats.vFrame, // Left end
-    mats.hFrame, // Top face (horizontal grain)
-    mats.hFrame, // Bottom face
-    mats.hFrame, // Front face
-    mats.hFrame  // Back face
+    mats.vFrame,
+    mats.vFrame,
+    mats.hFrame,
+    mats.hFrame,
+    mats.hFrame,
+    mats.hFrame
   ]);
   topHeader.position.set(0, totalH / 2 - headerH / 2, 0);
   unitGroup.add(topHeader);
 
-  // Optional Bottom Frame Sill/Plinth (for cupboards/windows)
   const bottomH = hasBottomRail ? headerH * 0.9 : 0;
   if (hasBottomRail) {
     const botRail = createBox(totalW - jambW * 2, bottomH, frameD * 0.94, mats.hFrame);
@@ -598,7 +658,7 @@ function createFramedRecessedUnit({
     unitGroup.add(botRail);
   }
 
-  // 4. Inner Recessed Leaf / Body (Sits recessed inside the outer frame on both Front 0° and Back 180°!)
+  // 4. Inner Recessed Leaf / Body
   const innerW = totalW - jambW * 2;
   const innerH = totalH - headerH - bottomH;
   const innerY = (bottomH - headerH) / 2;
@@ -611,64 +671,68 @@ function createFramedRecessedUnit({
     interactivePivotList.push({ group: pivotGroup, openRotY: -Math.PI * 0.36 });
   }
 
-  // 6-sided material array:
-  // [Right(0), Left(1), Top(2), Bottom(3), Front(+Z=4), Back(-Z=5)]
   const leafMaterials = [
     mats.vFrame,
     mats.vFrame,
     mats.hFrame,
     mats.hFrame,
-    frontMat,         // Front (0°): Crisp uploaded/catalogue design
-    mats.backSurface  // Back (180°): Smooth dark-brown wood surface (like Screenshot 2 & 3!)
+    frontMat,        // Front (0°)
+    mats.backSurface // Back (180°): Smooth dark-brown wood surface (Sketchfab Screenshots 2 & 3)
   ];
 
   const leafMesh = createBox(innerW, innerH, actualLeafD, leafMaterials);
   leafMesh.position.set(innerW / 2, 0, 0);
   pivotGroup.add(leafMesh);
 
-  // Optional vertical 3D door divider seams & handles for multi-door cupboards/wardrobes
+  // High-Resolution 3D Displaced Relief Mesh on the front surface (96x144 = 13,824 vertices)
+  // Gives real 3D physical relief depth to all carvings, panels, and slats in the uploaded photo!
+  if (add3DReliefMesh && mats.frontReliefMeshMat) {
+    const reliefGeo = new THREE.PlaneGeometry(innerW - 0.02, innerH - 0.02, 84, 128);
+    const reliefMesh = new THREE.Mesh(reliefGeo, mats.frontReliefMeshMat);
+    reliefMesh.position.set(innerW / 2, 0, actualLeafD / 2 + 0.004);
+    reliefMesh.castShadow = true;
+    reliefMesh.receiveShadow = true;
+    pivotGroup.add(reliefMesh);
+  }
+
+  // Vertical 3D door divider seams & handles for multi-door cupboards/wardrobes
   if (numDoorSeams > 0) {
     for (let i = 1; i <= numDoorSeams; i++) {
       const seamX = (innerW / (numDoorSeams + 1)) * i;
-      const seam = createBox(0.025, innerH, actualLeafD + 0.015, mats.darkTrim);
+      const seam = createBox(0.025, innerH, actualLeafD + 0.02, mats.darkTrim);
       seam.position.set(seamX, 0, 0);
       pivotGroup.add(seam);
 
-      // Sleek vertical pull handle next to seam
       const pull = createBox(0.035, Math.min(0.65, innerH * 0.28), 0.045, mats.hardwareBlack);
-      pull.position.set(seamX - 0.08, 0, actualLeafD / 2 + 0.025);
+      pull.position.set(seamX - 0.08, 0, actualLeafD / 2 + 0.03);
       pivotGroup.add(pull);
     }
   }
 
-  // 5. Sleek 3D Vertical Pull Handle + Lock Escutcheon (Matching Screenshot 1's right-side black bar handle!)
+  // 5. Sleek 3D Vertical Pull Handle + Lock Escutcheon (Matching Sketchfab Screenshot 1)
   if (addVerticalPullHandle) {
-    const handleX = innerW - Math.min(0.24, innerW * 0.12);
+    const handleX = innerW - Math.min(0.22, innerW * 0.11);
     const handleY = -innerH * 0.04;
     const barH = Math.min(1.42, innerH * 0.34);
 
-    // Front 3D Vertical Bar Handle
     const frontBar = createBox(0.052, barH, 0.045, mats.hardwareBlack);
-    frontBar.position.set(handleX, handleY, actualLeafD / 2 + 0.045);
+    frontBar.position.set(handleX, handleY, actualLeafD / 2 + 0.055);
     pivotGroup.add(frontBar);
 
-    // Top & Bottom Handle Standoffs
     [-barH * 0.36, barH * 0.36].forEach((sy) => {
-      const standoff = createBox(0.04, 0.04, 0.04, mats.hardwareBlack);
-      standoff.position.set(handleX, handleY + sy, actualLeafD / 2 + 0.02);
+      const standoff = createBox(0.04, 0.04, 0.05, mats.hardwareBlack);
+      standoff.position.set(handleX, handleY + sy, actualLeafD / 2 + 0.025);
       pivotGroup.add(standoff);
     });
 
-    // Lock Escutcheon Dot beside Handle (like Screenshot 1)
     const lockCyl = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.026, 0.026, 0.02, 16),
+      new THREE.CylinderGeometry(0.026, 0.026, 0.03, 16),
       mats.hardwareBlack
     );
     lockCyl.rotation.x = Math.PI / 2;
-    lockCyl.position.set(handleX + 0.075, handleY - 0.05, actualLeafD / 2 + 0.01);
+    lockCyl.position.set(handleX + 0.075, handleY - 0.05, actualLeafD / 2 + 0.015);
     pivotGroup.add(lockCyl);
 
-    // Back 180° Minimal Lever Handle
     const backBar = createBox(0.048, barH * 0.55, 0.04, mats.hardwareBlack);
     backBar.position.set(handleX, handleY, -actualLeafD / 2 - 0.03);
     pivotGroup.add(backBar);
@@ -683,7 +747,7 @@ function createFramedRecessedUnit({
 function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
   const root = new THREE.Group();
 
-  // 1. WOODEN DOORS ('door') — Exact Sketchfab Modern/Carved Door Architecture (Screenshots 1, 2, 3)
+  // 1. WOODEN DOORS ('door') — Sketchfab Modern/Carved Door Architecture (Screenshots 1, 2, 3)
   if (categoryKey === 'door') {
     const doorModel = createFramedRecessedUnit({
       totalW: 2.32,
@@ -697,17 +761,17 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       mats,
       hasBottomRail: false,
       interactivePivotList: interactivePivots,
-      addVerticalPullHandle: true
+      addVerticalPullHandle: true,
+      add3DReliefMesh: true
     });
     root.add(doorModel);
     return root;
   }
 
-  // 2. PANTRY CUPBOARDS ('pantry') — Upper & Lower Recessed Framed Pantry Units + Countertop
+  // 2. PANTRY CUPBOARDS ('pantry')
   if (categoryKey === 'pantry') {
     const totalW = 3.5;
 
-    // Lower Base Pantry Unit
     const lowerUnit = createFramedRecessedUnit({
       totalW,
       totalH: 1.72,
@@ -719,18 +783,16 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       frontMat: mats.lowerFrontSurface,
       mats,
       hasBottomRail: true,
-      interactivePivotList: null,
+      add3DReliefMesh: false,
       numDoorSeams: 2
     });
     lowerUnit.position.set(0, -1.25, 0);
     root.add(lowerUnit);
 
-    // Overhanging Countertop Slab
     const counter = createBox(totalW + 0.12, 0.1, 1.44, mats.hFrame);
     counter.position.set(0, -0.35, 0.02);
     root.add(counter);
 
-    // Recessed Dark-Wood Backsplash & Rear Support Wall
     const backWall = createFramedRecessedUnit({
       totalW,
       totalH: 0.9,
@@ -741,12 +803,12 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       leafD: 0.12,
       frontMat: mats.hFrame,
       mats,
-      hasBottomRail: false
+      hasBottomRail: false,
+      add3DReliefMesh: false
     });
     backWall.position.set(0, 0.12, -0.52);
     root.add(backWall);
 
-    // Upper Wall Pantry Cupboard Unit
     const upperUnit = createFramedRecessedUnit({
       totalW,
       totalH: 1.52,
@@ -758,6 +820,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       frontMat: mats.upperFrontSurface,
       mats,
       hasBottomRail: true,
+      add3DReliefMesh: false,
       numDoorSeams: 2
     });
     upperUnit.position.set(0, 1.32, -0.22);
@@ -766,7 +829,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     return root;
   }
 
-  // 3. KITCHEN CABINETS ('kitchen_cabinet') — Deep Framed Base Cabinet + Overhanging Top
+  // 3. KITCHEN CABINETS ('kitchen_cabinet')
   if (categoryKey === 'kitchen_cabinet') {
     const cabW = 3.45;
     const cabUnit = createFramedRecessedUnit({
@@ -780,12 +843,12 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       frontMat: mats.frontSurface,
       mats,
       hasBottomRail: true,
+      add3DReliefMesh: true,
       numDoorSeams: 2
     });
     cabUnit.position.set(0, -0.15, 0);
     root.add(cabUnit);
 
-    // Thick Overhanging Countertop with Horizontal Wood Grain
     const topSlab = createBox(cabW + 0.16, 0.12, 1.58, mats.hFrame);
     topSlab.position.set(0, 1.02, 0);
     root.add(topSlab);
@@ -793,7 +856,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     return root;
   }
 
-  // 4. WINDOWS ('window') — Deep Architectural Window Frame, Sill & Recessed Sash
+  // 4. WINDOWS ('window')
   if (categoryKey === 'window') {
     const winW = 3.1;
     const winH = 3.15;
@@ -809,11 +872,11 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       mats,
       hasBottomRail: true,
       interactivePivotList: interactivePivots,
+      add3DReliefMesh: true,
       numDoorSeams: 1
     });
     root.add(winUnit);
 
-    // Projecting Exterior/Interior Window Sill
     const sill = createBox(winW + 0.28, 0.12, 0.52, mats.hFrame);
     sill.position.set(0, -winH / 2 - 0.04, 0.04);
     root.add(sill);
@@ -821,7 +884,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     return root;
   }
 
-  // 5. STAIRCASES ('staircase') — Clean 3D Steps, Stringers, Newel Posts & Handrails
+  // 5. STAIRCASES ('staircase')
   if (categoryKey === 'staircase') {
     const stairGroup = new THREE.Group();
     stairGroup.position.set(0, -1.75, 0.72);
@@ -832,7 +895,6 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     const treadD = 0.52;
     const riserH = 0.5;
 
-    // Left & Right Angled Wood-Grain Stringer Side Frames
     [-stepW / 2 - 0.06, stepW / 2 + 0.06].forEach((sx) => {
       const len = Math.hypot(numSteps * treadD, numSteps * riserH) + 0.4;
       const stringer = createBox(0.12, 0.34, len, mats.vFrame);
@@ -848,7 +910,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       const tread = createBox(stepW, 0.085, treadD + 0.05, [
         mats.vFrame,
         mats.vFrame,
-        mats.frontSurface,
+        mats.hFrame,
         mats.backSurface,
         mats.hFrame,
         mats.backSurface
@@ -861,21 +923,23 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
         mats.vFrame,
         mats.hFrame,
         mats.hFrame,
-        mats.frontSurface,
+        mats.vFrame,
         mats.backSurface
       ]);
       riser.position.set(0, y - riserH / 2, z + treadD / 2 - 0.03);
       stairGroup.add(riser);
 
-      // Vertical Balusters
+      // Lathe-style turned balusters on Left & Right
       [-stepW / 2 + 0.08, stepW / 2 - 0.08].forEach((bx) => {
-        const baluster = createBox(0.055, 1.25, 0.055, mats.vFrame);
+        const baluster = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.035, 0.045, 1.25, 16),
+          mats.vFrame
+        );
         baluster.position.set(bx, y + 0.62, z);
         stairGroup.add(baluster);
       });
     }
 
-    // Bottom & Top Newel Posts
     const topY = numSteps * riserH;
     const topZ = -(numSteps - 1) * treadD - 0.18;
     [
@@ -887,9 +951,12 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       const post = createBox(0.18, 1.65, 0.18, mats.vFrame);
       post.position.set(nx, ny, nz);
       stairGroup.add(post);
+
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(0.11, 18, 18), mats.vFrame);
+      ball.position.set(nx, ny + 0.92, nz);
+      stairGroup.add(ball);
     });
 
-    // Sloped Handrails
     [-stepW / 2 + 0.08, stepW / 2 - 0.08].forEach((hx) => {
       const railLen = Math.hypot(numSteps * treadD, numSteps * riserH) + 0.35;
       const rail = createBox(0.12, 0.1, railLen, mats.hFrame);
@@ -901,7 +968,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     return root;
   }
 
-  // 6. WARDROBES ('wardrobe') — Deep 3-Door Architectural Wardrobe with Recessed Back
+  // 6. WARDROBES ('wardrobe')
   if (categoryKey === 'wardrobe') {
     const wardrobeUnit = createFramedRecessedUnit({
       totalW: 2.95,
@@ -914,13 +981,14 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       frontMat: mats.frontSurface,
       mats,
       hasBottomRail: true,
+      add3DReliefMesh: true,
       numDoorSeams: 2
     });
     root.add(wardrobeUnit);
     return root;
   }
 
-  // 7. BEDROOM CUPBOARDS ('bedroom_cupboard') — Deep 2-Door Bedroom Cupboard
+  // 7. BEDROOM CUPBOARDS ('bedroom_cupboard')
   if (categoryKey === 'bedroom_cupboard') {
     const cupboardUnit = createFramedRecessedUnit({
       totalW: 2.45,
@@ -933,13 +1001,14 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       frontMat: mats.frontSurface,
       mats,
       hasBottomRail: true,
+      add3DReliefMesh: true,
       numDoorSeams: 1
     });
     root.add(cupboardUnit);
     return root;
   }
 
-  // 8. TABLES ('table') — Framed Tabletop with Recessed Design Surface & 4 Legs
+  // 8. TABLES ('table')
   if (categoryKey === 'table') {
     const tW = 3.55;
     const tD = 2.15;
@@ -955,7 +1024,8 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       leafD: 0.12,
       frontMat: mats.frontSurface,
       mats,
-      hasBottomRail: true
+      hasBottomRail: true,
+      add3DReliefMesh: true
     });
     topUnit.rotation.x = -Math.PI / 2;
     topUnit.position.set(0, tH / 2 - 0.1, 0);
@@ -976,13 +1046,12 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     return root;
   }
 
-  // 9. CHAIRS ('chair') — Framed Backrest with Recessed Design, Contoured Seat & 4 Legs
+  // 9. CHAIRS ('chair')
   if (categoryKey === 'chair') {
     const sW = 1.75;
     const sD = 1.65;
     const seatY = -0.5;
 
-    // Backrest with Outer Frame & Recessed Front/Back Surface
     const backrest = createFramedRecessedUnit({
       totalW: sW,
       totalH: 2.25,
@@ -993,16 +1062,16 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
       leafD: 0.1,
       frontMat: mats.frontSurface,
       mats,
-      hasBottomRail: true
+      hasBottomRail: true,
+      add3DReliefMesh: true
     });
     backrest.position.set(0, 0.65, -sD / 2 + 0.1);
     root.add(backrest);
 
-    // Seat Slab
     const seat = createBox(sW, 0.14, sD, [
       mats.vFrame,
       mats.vFrame,
-      mats.frontSurface,
+      mats.hFrame,
       mats.backSurface,
       mats.hFrame,
       mats.backSurface
@@ -1010,7 +1079,6 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     seat.position.set(0, seatY, 0.04);
     root.add(seat);
 
-    // Front Legs
     [-sW / 2 + 0.08, sW / 2 - 0.08].forEach((fx) => {
       const fLeg = createBox(0.12, 1.6, 0.12, mats.vFrame);
       fLeg.position.set(fx, -1.3, sD / 2 - 0.06);
@@ -1033,6 +1101,7 @@ function buildSketchfabCategoryModel(categoryKey, mats, interactivePivots) {
     mats,
     hasBottomRail: true,
     addVerticalPullHandle: true,
+    add3DReliefMesh: true,
     numDoorSeams: 1
   });
   root.add(customUnit);
@@ -1047,6 +1116,7 @@ export default function ThreeCarpentryViewer({
   finish = 'natural',
   selectedWork = 'door',
   onSelectWork = null,
+  onUploadPhoto = null,
   activeImage = null,
   designTitle = '',
   length = 210,
@@ -1068,7 +1138,7 @@ export default function ThreeCarpentryViewer({
   const [matchPhotoWood, setMatchPhotoWood] = useState(true);
   const [darkStudioBg, setDarkStudioBg] = useState(false);
 
-  // Default 3D Tilted View (Matching Sketchfab Screenshot 1!)
+  // Default 3D Tilted View (Matching Sketchfab Screenshot 1)
   const [rotationY, setRotationY] = useState(18);
   const [rotationX, setRotationX] = useState(14);
   const [zoom, setZoom] = useState(1);
@@ -1111,7 +1181,7 @@ export default function ThreeCarpentryViewer({
     };
   }, [activeImage]);
 
-  // Initialize Clean Sketchfab-Style Three.js Viewport (No Turntable Platter!)
+  // Initialize Clean Sketchfab-Style Three.js Viewport
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
@@ -1142,7 +1212,6 @@ export default function ThreeCarpentryViewer({
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // Balanced Studio Hemispheric + 4-Directional Lighting (Exact Sketchfab soft studio shading)
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0xd6d3d1, 1.75);
     scene.add(hemiLight);
 
@@ -1159,7 +1228,6 @@ export default function ThreeCarpentryViewer({
     bottomRimLight.position.set(0, -7, 4);
     scene.add(bottomRimLight);
 
-    // Clean 3D Pivot Group in the center of space (NO turntable disc!)
     const pivotGroup = new THREE.Group();
     pivotRootRef.current = pivotGroup;
     scene.add(pivotGroup);
@@ -1267,9 +1335,13 @@ export default function ThreeCarpentryViewer({
     });
   }, [isDoorOpen]);
 
-  // Pointer Orbit Drag & Mouse Wheel Zoom Handlers
   const handlePointerDown = (e) => {
-    if (e.target.closest('button') || e.target.closest('select') || e.target.closest('.no-drag')) {
+    if (
+      e.target.closest('button') ||
+      e.target.closest('select') ||
+      e.target.closest('label') ||
+      e.target.closest('.no-drag')
+    ) {
       return;
     }
     isDraggingRef.current = true;
@@ -1343,7 +1415,7 @@ export default function ThreeCarpentryViewer({
       return {
         label: 'Front View (0°)',
         badge: 'bg-amber-500 text-stone-950',
-        hint: 'Customer design recessed inside 3D wood-grain frame + 3D handle'
+        hint: '3D relief surface recessed inside 3D wood-grain frame + 3D handle'
       };
     }
     if (norm >= 45 && norm < 135) {
@@ -1369,8 +1441,6 @@ export default function ThreeCarpentryViewer({
 
   const visibleSide = getVisibleSideInfo(rotationY, rotationX);
   const hasInteractiveDoors = ['door', 'window', 'custom_furniture'].includes(categoryKey);
-  const activeCategoryObj =
-    CARPENTRY_CATEGORIES.find((c) => c.id === categoryKey) || CARPENTRY_CATEGORIES[0];
 
   const viewPresets = [
     { id: 'iso', label: '3D Tilt', y: 18, x: 14 },
@@ -1408,7 +1478,25 @@ export default function ThreeCarpentryViewer({
         className="relative z-30 flex flex-wrap items-center justify-between gap-2 p-3 pointer-events-auto no-drag"
         onPointerDown={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Direct Sketchfab-Style UPLOAD PHOTO -> GENERATE 3D Button */}
+          {onUploadPhoto && (
+            <label
+              onPointerDown={(e) => e.stopPropagation()}
+              className="px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-md border border-white/60 transition-all cursor-pointer"
+              title="Upload any carpentry photo to generate its 3D model"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span>Upload Photo → 3D</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onUploadPhoto}
+                className="hidden"
+              />
+            </label>
+          )}
+
           <button
             type="button"
             onClick={() => setIsAutoSpin((prev) => !prev)}
@@ -1421,7 +1509,7 @@ export default function ThreeCarpentryViewer({
             title="Click to toggle 360° Auto-Spin"
           >
             <RotateCw className={`w-3.5 h-3.5 ${isAutoSpin ? 'animate-spin' : ''}`} />
-            <span>{isAutoSpin ? '360° Spinning' : '360° Orbit'}</span>
+            <span>{isAutoSpin ? 'Spinning' : '360° Orbit'}</span>
           </button>
 
           {onSelectWork && (
@@ -1571,7 +1659,6 @@ export default function ThreeCarpentryViewer({
         className="relative z-30 flex flex-wrap items-center justify-between gap-2 p-3 mt-auto pointer-events-auto no-drag"
         onPointerDown={(e) => e.stopPropagation()}
       >
-        {/* Mobile/Tablet/Laptop 7-Angle Switcher */}
         <div className="flex xl:hidden items-center gap-1 overflow-x-auto no-scrollbar max-w-full pb-1">
           {viewPresets.map((vp) => {
             const isActive =
@@ -1607,7 +1694,6 @@ export default function ThreeCarpentryViewer({
           </span>
         </div>
 
-        {/* Zoom Controls */}
         <div className="flex items-center gap-1 bg-stone-900/85 border border-white/20 rounded-full px-2 py-1 ml-auto shadow-md">
           <button
             type="button"
