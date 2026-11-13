@@ -29,7 +29,6 @@ import {
   Compass
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import ThreeCarpentryViewer from '../components/ThreeCarpentryViewer';
 import { api } from '../services/api';
 
 export default function CustomOrderPage({ setActiveTab }) {
@@ -440,7 +439,6 @@ export default function CustomOrderPage({ setActiveTab }) {
 
 *සැලසුම් විස්තරය (Design Details):*
 • *තෝරාගත් නිර්මාණය:* ${designLabel}
-• *3D 360° පරීක්ෂාව:* පාරිභෝගිකයා විසින් සියලු පැතිවලින් (Front, Back, Lock Edge, Hinges) 3D මාදිලිය පරීක්ෂා කර ඇත
 • *ලී වර්ගය:* ${currentWood.name}
 • *නිමාව (Finish):* ${currentFinish.name}
 • *ප්‍රමාණයන්:* ${length} (H/L) x ${width} (W) x ${height} (D) cm
@@ -505,7 +503,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 </span>
               </h2>
               <p className="text-xs text-[#7A6252] mt-0.5">
-                Pick a master design from our workshop catalogue or upload your own custom photo to inspect in 3D 360°
+                Pick a master design from our workshop catalogue or upload your own custom photo
               </p>
             </div>
 
@@ -542,14 +540,14 @@ ${orderDescription.trim() || 'නැත'}`;
             </div>
           </div>
 
-          {/* ALWAYS-VISIBLE 10 CARPENTRY PRODUCT CATEGORY SELECTOR FOR 3D MODEL GEOMETRY */}
+          {/* CARPENTRY PRODUCT CATEGORY SELECTOR */}
           <div className="space-y-1.5 pt-1">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#7A6252] uppercase tracking-wider">
-                Select 3D Carpentry Product Model (10 Categories):
+                Select Carpentry Product Category:
               </span>
               <span className="text-[11px] font-black text-[#8B5E3C]">
-                Active 3D Model: {currentWork.name.split(' (')[0]}
+                Selected: {currentWork.name.split(' (')[0]}
               </span>
             </div>
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
@@ -601,7 +599,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 </div>
 
                 <div className="text-right pl-2 shrink-0">
-                  <span className="text-[10px] text-[#7A6252] block">Current 3D Geometry:</span>
+                  <span className="text-[10px] text-[#7A6252] block">Selected Category:</span>
                   <span className="text-xs font-black text-[#2B190E]">{currentWork.name.split(' (')[0]}</span>
                 </div>
               </div>
@@ -625,14 +623,11 @@ ${orderDescription.trim() || 'නැත'}`;
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-xs font-black text-[#2B190E]">{uploadedDesign.name}</span>
                         <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
-                          Mapped on 3D {currentWork.name.split(' (')[0]}
+                          Selected for {currentWork.name.split(' (')[0]}
                         </span>
                       </div>
                       <p className="text-[11px] text-[#7A6252]">
-                        {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Applied to Front, Back, Sides, Top & Bottom 3D surfaces
-                      </p>
-                      <p className="text-[10px] text-amber-800 font-bold">
-                        Use the category buttons above to switch 3D geometry (Door, Pantry, Window, Staircase, Wardrobe, Table, Chair)!
+                        {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Attached to your custom order request
                       </p>
                     </div>
                   </div>
@@ -673,58 +668,10 @@ ${orderDescription.trim() || 'නැත'}`;
                     </span>
                     <input type="file" accept="image/*,.pdf" onChange={handleCustomerDesignUpload} className="hidden" />
                   </label>
-
-                  {/* 1-Click Sample Customer Designs for Instant 3D Testing */}
-                  <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold text-[#7A6252] uppercase tracking-wider block">
-                      Or Try Sample Customer Ideas to Test 3D View Instantly:
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      {sampleDesigns.map((sample, idx) => (
-                        <button
-                          type="button"
-                          key={idx}
-                          onClick={() => handleSelectSampleDesign(sample)}
-                          className="flex items-center gap-2 p-2 rounded-xl border border-[#E8DEC8] bg-[#FAF4EB] hover:border-[#8B5E3C] text-left transition-all cursor-pointer group"
-                        >
-                          <img src={sample.url} alt={sample.name} className="w-10 h-10 object-cover rounded-lg border border-amber-800/20 shrink-0" />
-                          <div className="overflow-hidden">
-                            <span className="text-[11px] font-bold text-[#2B190E] block truncate group-hover:text-[#8B5E3C]">
-                              {sample.name}
-                            </span>
-                            <span className="text-[10px] text-[#7A6252] block truncate">
-                              {sample.desc}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               )}
             </div>
           )}
-        </div>
-
-        {/* 3. REAL-TIME 360° 3D CARPENTRY PRODUCT VIEWER */}
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#3D2415] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3D2415]/80 via-[#1A1009] to-[#0A0503]">
-          <ThreeCarpentryViewer
-            woodType={woodType}
-            finish={finish}
-            selectedWork={selectedWork}
-            onSelectWork={(newCat) => {
-              setSelectedWork(newCat);
-              setActiveThumb(0);
-            }}
-            onUploadPhoto={handleCustomerDesignUpload}
-            activeImage={activeDesignImage}
-            designTitle={activeDesignTitle}
-            length={length}
-            width={width}
-            height={height}
-            isStudio={false}
-            onOpenStudio={() => setIsStudioOpen(true)}
-          />
         </div>
 
         {/* 4. SELECTION SUMMARY CARD */}
@@ -999,7 +946,7 @@ ${orderDescription.trim() || 'නැත'}`;
                 <div>
                   <span className="font-bold text-[#2B190E] block">{activeDesignTitle}</span>
                   <span className="text-[10px] text-[#7A6252] block">
-                    {designSource === 'uploaded' ? 'Customer Uploaded Photo (3D Inspected)' : 'Catalogue Design'}
+                    {designSource === 'uploaded' ? 'Customer Uploaded Photo' : 'Catalogue Design'}
                   </span>
                 </div>
               </div>
@@ -1123,129 +1070,6 @@ ${orderDescription.trim() || 'නැත'}`;
                 <p>3. Submit details to send an instant WhatsApp order to our master carpenter in Kalutara.</p>
               </div>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* 8. FULLSCREEN 360° VIRTUAL INSPECTION STUDIO MODAL */}
-      {isStudioOpen && (
-        <div className="fixed inset-0 z-50 bg-[#0C0603]/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 text-amber-100 select-none animate-fade-in">
-          {/* Studio Header */}
-          <div className="flex items-center justify-between border-b border-[#3D2415] pb-3 shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
-                <RotateCw className={`w-5 h-5 ${isAutoRotating ? 'animate-spin' : ''}`} />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-sm sm:text-lg font-black font-heading text-white">360° Virtual Inspection Studio</h2>
-                  <span className="hidden sm:inline-block text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/30 font-bold uppercase tracking-wider">
-                    Interactive Turntable
-                  </span>
-                </div>
-                <p className="text-xs text-amber-300/70 font-medium">
-                  {currentWork.name} • {currentWood.name} ({currentFinish.name})
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 sm:gap-3">
-              {/* Studio Product Category Switcher */}
-              <select
-                value={selectedWork}
-                onChange={(e) => {
-                  const newCat = e.target.value;
-                  setSelectedWork(newCat);
-                  if (designSource !== 'uploaded') {
-                    setActiveThumb(0);
-                  }
-                }}
-                className="bg-stone-900/90 border border-amber-400/40 text-amber-200 text-[11px] sm:text-xs font-bold rounded-full px-3 py-1.5 outline-none focus:border-amber-400 cursor-pointer"
-                title="Switch 3D Carpentry Category"
-              >
-                {carpentryOptions.map((item) => (
-                  <option key={item.id} value={item.id} className="bg-stone-900 text-amber-100">
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-
-              <button
-                type="button"
-                onClick={() => setIsStudioOpen(false)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                title="Close Studio"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Studio 3D WebGL Carpentry Model Canvas */}
-          <div className="relative flex-1 my-3 rounded-3xl overflow-hidden border border-[#3D2415] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2B190E] via-[#140C07] to-[#0A0503]">
-            <ThreeCarpentryViewer
-              woodType={woodType}
-              finish={finish}
-              selectedWork={selectedWork}
-              onSelectWork={(newCat) => {
-                setSelectedWork(newCat);
-                setActiveThumb(0);
-              }}
-              onUploadPhoto={handleCustomerDesignUpload}
-              activeImage={activeDesignImage}
-              designTitle={activeDesignTitle}
-              length={length}
-              width={width}
-              height={height}
-              isStudio={true}
-            />
-          </div>
-
-          {/* Studio Footer: Timber Switcher + Price + Order CTA */}
-          <div 
-            className="border-t border-[#3D2415] pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 relative z-30 no-drag"
-            onPointerDown={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1 sm:pb-0">
-              <span className="text-xs font-bold text-amber-400/80 uppercase tracking-wider shrink-0 mr-1">Timber:</span>
-              {woodOptions.map(w => (
-                <button
-                  type="button"
-                  key={w.id}
-                  onClick={(e) => { e.stopPropagation(); setWoodType(w.id); }}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                    woodType === w.id 
-                      ? 'bg-amber-500 text-stone-950 shadow-md font-black' 
-                      : 'bg-black/50 text-amber-200/80 border border-white/10 hover:border-amber-400/40'
-                  }`}
-                >
-                  {w.name.split(' ')[0]}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between w-full sm:w-auto gap-4">
-              <div className="text-right">
-                <span className="text-[10px] uppercase tracking-wider text-amber-400/70 block">Estimated Price</span>
-                <span className="text-base font-black text-amber-300 font-mono">LKR {estimatedPrice.toLocaleString()}</span>
-              </div>
-
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsStudioOpen(false);
-                  const el = document.getElementById('user-details-section');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                onPointerDown={(e) => e.stopPropagation()}
-                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black px-5 py-2.5 rounded-2xl text-xs flex items-center gap-2 shadow-lg hover:shadow-amber-500/20 transition-all cursor-pointer"
-              >
-                <span>Proceed to Order</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
         </div>
       )}
