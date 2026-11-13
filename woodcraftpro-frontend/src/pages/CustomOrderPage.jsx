@@ -43,8 +43,8 @@ export default function CustomOrderPage({ setActiveTab }) {
   const [height, setHeight] = useState(4);
   const [activeThumb, setActiveThumb] = useState(0);
 
-  // Design Source: 'catalogue' (Workshop Catalogue Designs) or 'uploaded' (Customer Uploaded Design Photo)
-  const [designSource, setDesignSource] = useState('catalogue');
+  // Design Source: Customer Uploaded Design Photo
+  const [designSource, setDesignSource] = useState('uploaded');
   const [uploadedDesign, setUploadedDesign] = useState(null);
 
   // Sample pre-configured customer designs for 1-click 3D testing across product categories
@@ -126,7 +126,7 @@ export default function CustomOrderPage({ setActiveTab }) {
     { id: 'door', name: 'Wooden Doors (Main & Room Doors)', basePrice: 45000, img: '/images/doors/IMG_6930.PNG' },
     { id: 'pantry', name: 'Pantry Cupboards (Modular Units)', basePrice: 95000, img: '/images/cupboards/IMG_7175.PNG' },
     { id: 'kitchen_cabinet', name: 'Kitchen Cabinets (Island & Base)', basePrice: 88000, img: '/images/cupboards/IMG_7176.PNG' },
-    { id: 'window', name: 'Windows (Wooden Frame & Sash)', basePrice: 34000, img: '/images/doors/IMG_6933.PNG' },
+    { id: 'window', name: 'Windows (Wooden Frame & Sash)', basePrice: 34000, img: '/images/doors/IMG_6934.PNG' },
     { id: 'staircase', name: 'Staircases (Steps & Handrails)', basePrice: 120000, img: '/images/stairs/IMG_7160.PNG' },
     { id: 'wardrobe', name: 'Wardrobes (3-Door Almariya)', basePrice: 85000, img: '/images/cupboards/IMG_7177.PNG' },
     { id: 'bedroom_cupboard', name: 'Bedroom Cupboards (2-Door Chest)', basePrice: 68000, img: '/images/cupboards/IMG_7178.PNG' },
@@ -492,185 +492,75 @@ ${orderDescription.trim() || 'නැත'}`;
           </div>
         </div>
 
-        {/* DESIGN SOURCE SELECTOR: Catalogue vs Upload Custom Design Photo */}
+        {/* UPLOAD DESIGN PHOTO SECTION */}
         <div id="design-source-section" className="bg-white border border-[#E8DEC8] rounded-3xl p-4 shadow-sm space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8DEC8]/60 pb-3">
-            <div>
-              <h2 className="text-sm font-black text-[#2B190E] font-heading flex items-center gap-2">
-                <span>Select Carpentry Design</span>
-                <span className="text-[10px] bg-amber-100 text-[#8B5E3C] px-2 py-0.5 rounded-full font-bold">
-                  Step 1
-                </span>
-              </h2>
-              <p className="text-xs text-[#7A6252] mt-0.5">
-                Pick a master design from our workshop catalogue or upload your own custom photo
-              </p>
-            </div>
-
-            {/* Source Switcher Tabs */}
-            <div className="flex items-center gap-1.5 bg-[#FAF4EB] p-1 rounded-2xl border border-[#E8DEC8]">
-              <button
-                type="button"
-                onClick={() => setDesignSource('catalogue')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
-                  designSource === 'catalogue'
-                    ? 'bg-[#23160D] text-amber-300 font-black shadow-sm'
-                    : 'text-[#7A6252] hover:text-[#2B190E]'
-                }`}
-              >
-                <Boxes className="w-3.5 h-3.5" />
-                <span>Catalogue Designs</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDesignSource('uploaded')}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
-                  designSource === 'uploaded'
-                    ? 'bg-[#23160D] text-amber-300 font-black shadow-sm'
-                    : 'text-[#7A6252] hover:text-[#2B190E]'
-                }`}
-              >
-                <Upload className="w-3.5 h-3.5" />
-                <span>Upload Design Photo</span>
-                {uploadedDesign && (
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                )}
-              </button>
-            </div>
+          <div className="border-b border-[#E8DEC8]/60 pb-3">
+            <h2 className="text-sm font-black text-[#2B190E] font-heading flex items-center gap-2">
+              <Upload className="w-4 h-4 text-[#8B5E3C]" />
+              <span>Upload Carpentry Design Photo</span>
+            </h2>
+            <p className="text-xs text-[#7A6252] mt-0.5">
+              Share your door carving design, window drawing, pantry sketch, or custom furniture photo
+            </p>
           </div>
 
-          {/* CARPENTRY PRODUCT CATEGORY SELECTOR */}
-          <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-[#7A6252] uppercase tracking-wider">
-                Select Carpentry Product Category:
-              </span>
-              <span className="text-[11px] font-black text-[#8B5E3C]">
-                Selected: {currentWork.name.split(' (')[0]}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
-              {carpentryOptions.map(f => (
-                <button
-                  type="button"
-                  key={f.id}
-                  onClick={() => {
-                    setSelectedWork(f.id);
-                    setActiveThumb(0);
-                  }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
-                    selectedWork === f.id
-                      ? 'bg-[#8B5E3C] text-white shadow-sm ring-2 ring-[#8B5E3C]/30'
-                      : 'bg-[#FAF4EB] text-[#7A6252] hover:text-[#2B190E] border border-[#E8DEC8]'
-                  }`}
-                >
-                  {f.name.split(' (')[0]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* TAB CONTENT: CATALOGUE SELECTOR */}
-          {designSource === 'catalogue' && (
-            <div className="space-y-3">
-              {/* Thumbnail Gallery for selected category */}
-              <div className="flex items-center justify-between gap-2 bg-[#FAF4EB] p-2.5 rounded-2xl border border-[#E8DEC8]">
-                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-                  {previewImages.map((img, idx) => (
-                    <button
-                      type="button"
-                      key={idx}
-                      onClick={() => setActiveThumb(idx)}
-                      className={`relative w-14 sm:w-16 h-12 sm:h-14 rounded-xl overflow-hidden border-2 cursor-pointer transition-all shrink-0 ${
-                        activeThumb === idx
-                          ? 'border-[#8B5E3C] ring-2 ring-[#8B5E3C]/30 scale-105'
-                          : 'border-white/80 opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={img} alt="Catalogue thumbnail" className="w-full h-full object-cover" />
-                      {activeThumb === idx && (
-                        <div className="absolute inset-0 bg-amber-500/20 flex items-center justify-center">
-                          <CheckCircle2 className="w-4 h-4 text-white drop-shadow" />
-                        </div>
-                      )}
-                    </button>
-                  ))}
+          {uploadedDesign ? (
+            <div className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#8B5E3C] shadow-sm shrink-0">
+                  <img src={uploadedDesign.url} alt={uploadedDesign.name} className="w-full h-full object-cover" />
+                  <div className="absolute top-0 right-0 bg-emerald-500 text-white p-0.5 rounded-bl">
+                    <CheckCircle2 className="w-3 h-3" />
+                  </div>
                 </div>
-
-                <div className="text-right pl-2 shrink-0">
-                  <span className="text-[10px] text-[#7A6252] block">Selected Category:</span>
-                  <span className="text-xs font-black text-[#2B190E]">{currentWork.name.split(' (')[0]}</span>
+                <div className="space-y-0.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-black text-[#2B190E]">{uploadedDesign.name}</span>
+                    <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
+                      Uploaded Photo
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#7A6252]">
+                    {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Attached to your custom order request
+                  </p>
                 </div>
               </div>
+
+              <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <label className="bg-[#23160D] hover:bg-[#3D2415] text-amber-300 px-3.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5">
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Replace Photo</span>
+                  <input type="file" accept="image/*,.pdf" onChange={handleCustomerDesignUpload} className="hidden" />
+                </label>
+
+                <button
+                  type="button"
+                  onClick={() => setUploadedDesign(null)}
+                  className="bg-white border border-[#E8DEC8] hover:bg-red-50 text-red-600 px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Remove</span>
+                </button>
+              </div>
             </div>
-          )}
-
-          {/* TAB CONTENT: UPLOAD YOUR OWN DESIGN */}
-          {designSource === 'uploaded' && (
-            <div className="space-y-3">
-              {uploadedDesign ? (
-                // Customer has uploaded an image
-                <div className="bg-[#FAF4EB] border border-[#E8DEC8] rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <div className="flex items-center gap-3 w-full sm:w-auto">
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#8B5E3C] shadow-sm shrink-0">
-                      <img src={uploadedDesign.url} alt={uploadedDesign.name} className="w-full h-full object-cover" />
-                      <div className="absolute top-0 right-0 bg-emerald-500 text-white p-0.5 rounded-bl">
-                        <CheckCircle2 className="w-3 h-3" />
-                      </div>
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-xs font-black text-[#2B190E]">{uploadedDesign.name}</span>
-                        <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
-                          Selected for {currentWork.name.split(' (')[0]}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-[#7A6252]">
-                        {uploadedDesign.size ? `${uploadedDesign.size} • ` : ''}Attached to your custom order request
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-                    <label className="bg-[#23160D] hover:bg-[#3D2415] text-amber-300 px-3.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5">
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>Replace Photo</span>
-                      <input type="file" accept="image/*,.pdf" onChange={handleCustomerDesignUpload} className="hidden" />
-                    </label>
-
-                    <button
-                      type="button"
-                      onClick={() => setDesignSource('catalogue')}
-                      className="bg-white border border-[#E8DEC8] hover:bg-gray-50 text-[#7A6252] px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer"
-                    >
-                      Catalogue
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                // Dropzone when no image has been uploaded yet
-                <div className="space-y-3">
-                  <label className="border-2 border-dashed border-[#8B5E3C]/40 hover:border-[#8B5E3C] bg-[#FAF4EB]/60 hover:bg-[#FAF4EB] rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer transition-all">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 text-[#8B5E3C] flex items-center justify-center shadow-sm">
-                      <Upload className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-black text-[#2B190E]">
-                        Click to Upload or Drag & Drop Your Carpentry Photo / Sketch
-                      </p>
-                      <p className="text-[11px] text-[#7A6252] mt-0.5">
-                        Supports JPG, PNG, WEBP, HEIC • Doors, Pantry Cupboards, Kitchen Cabinets, Windows, Staircases, Wardrobes, Tables & Chairs
-                      </p>
-                    </div>
-                    <span className="text-[10px] bg-[#8B5E3C] text-white px-3 py-1 rounded-full font-bold shadow-sm">
-                      Browse Image from Device
-                    </span>
-                    <input type="file" accept="image/*,.pdf" onChange={handleCustomerDesignUpload} className="hidden" />
-                  </label>
-                </div>
-              )}
-            </div>
+          ) : (
+            <label className="border-2 border-dashed border-[#8B5E3C]/40 hover:border-[#8B5E3C] bg-[#FAF4EB]/60 hover:bg-[#FAF4EB] rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer transition-all">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-[#8B5E3C] flex items-center justify-center shadow-sm">
+                <Upload className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-[#2B190E]">
+                  Click to Upload or Drag & Drop Your Carpentry Photo / Sketch
+                </p>
+                <p className="text-[11px] text-[#7A6252] mt-0.5">
+                  Supports JPG, PNG, WEBP, HEIC • Doors, Pantry Cupboards, Kitchen Cabinets, Windows, Staircases, Wardrobes, Tables & Chairs
+                </p>
+              </div>
+              <span className="text-[10px] bg-[#8B5E3C] text-white px-3 py-1 rounded-full font-bold shadow-sm">
+                Browse Image from Device
+              </span>
+              <input type="file" accept="image/*,.pdf" onChange={handleCustomerDesignUpload} className="hidden" />
+            </label>
           )}
         </div>
 
@@ -685,17 +575,13 @@ ${orderDescription.trim() || 'නැත'}`;
               />
               <div>
                 <span className="text-[11px] font-bold text-amber-300/70 block uppercase tracking-wider">
-                  {designSource === 'uploaded' && uploadedDesign ? 'Custom Uploaded Design' : t('selectFurniture')}
+                  {t('selectFurniture')}
                 </span>
-                <span className="text-sm font-bold text-white">{activeDesignTitle}</span>
+                <span className="text-sm font-bold text-white">{currentWork.name}</span>
               </div>
             </div>
             <button
-              onClick={() => {
-                const el = document.getElementById('design-source-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-                else setActiveModal('work');
-              }}
+              onClick={() => setActiveModal('work')}
               className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-white px-3 py-1.5 rounded-lg bg-[#3D2415]/60 hover:bg-[#3D2415] transition-colors cursor-pointer"
             >
               <span>Change</span>
@@ -877,36 +763,6 @@ ${orderDescription.trim() || 'නැත'}`;
               <span>{t('submitOrderWhatsApp')}</span>
               <MessageSquare className="w-4 h-4 text-amber-300" />
             </button>
-          </div>
-        </div>
-
-        {/* 7. UPLOAD REFERENCE SECTION */}
-        <div className="bg-white border border-[#E8DEC8] rounded-3xl p-5 shadow-sm space-y-4">
-          <div>
-            <h3 className="font-bold text-sm text-[#2B190E]">{t('referencePhotos')}</h3>
-            <p className="text-xs text-[#7A6252] mt-0.5">Share your door carving design, window drawing or pantry sketch</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-            <div className="sm:col-span-7 flex items-center gap-2 overflow-x-auto">
-              {uploads.slice(0, 2).map((u) => (
-                <div key={u.id} className="relative w-24 h-20 rounded-2xl overflow-hidden border border-[#E8DEC8] group shrink-0">
-                  <img src={u.url} alt={u.name} className="w-full h-full object-cover" />
-                  <button
-                    onClick={() => removeUpload(u.id)}
-                    className="absolute top-1 right-1 bg-black/60 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <label className="sm:col-span-5 border-2 border-dashed border-[#E8DEC8] hover:border-[#8B5E3C] bg-[#FAF4EB] rounded-2xl p-4 flex flex-col items-center justify-center text-center space-y-1.5 cursor-pointer transition-colors">
-              <Upload className="w-5 h-5 text-[#8B5E3C]" />
-              <span className="text-xs font-bold text-[#2B190E]">{t('uploadPhoto')}</span>
-              <input type="file" accept="image/*,.pdf" onChange={handleFileUpload} className="hidden" />
-            </label>
           </div>
         </div>
 
